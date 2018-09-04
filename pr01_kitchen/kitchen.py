@@ -1,3 +1,4 @@
+"""THis is a file."""
 print("Welcome to the kitchen.")
 name = input("What is your name?\n")
 print(f"Hi there, {name}!")
@@ -7,4 +8,4 @@ if drink == "tea":
 elif drink == "coffee":
     print("Feeling tired?")
 else:
-    print("We only serve water.\n")
+    print("We only serve water.")
