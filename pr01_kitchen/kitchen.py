@@ -1,10 +1,10 @@
 print("Welcome to the kitchen.")
 name = input("What is your name?\n")
 print(f"Hi there, {name}!")
-drink = input("What would you like to drink?")
+drink = input("What would you like to drink?\n")
 if drink == "tea":
     print("Have a nice tea!")
 elif drink == "coffee":
     print("Feeling tired?")
 else:
-    print("We only serve water.")
+    print("We only serve water.\n")
