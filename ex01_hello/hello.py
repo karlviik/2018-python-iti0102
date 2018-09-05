@@ -10,7 +10,7 @@ if school == "":
 print(f"{name}, welcome to {school}")
 mass = float(input("Please enter your weight in kilograms:"))
 height = float(input("Please enter your height in meters:"))
-bmi = mass/height**2
+bmi = mass / height ** 2
 body_type = ""
 if bmi < 18.5:
     body_type = "alakaaluline"
