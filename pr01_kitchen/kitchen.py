@@ -1,4 +1,4 @@
-"""THis is a file that asks for drink."""
+"""This is a file that asks user for a drink and outputs an answer based on input."""
 print("Welcome to the kitchen.")
 name = input("What is your name?\n")
 print(f"Hi there, {name}!")
