@@ -1,0 +1,40 @@
+def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
+    y1 = pos1
+    j1 = jump_distance1
+    p1 = sleep1
+    y2 = pos2
+    j2 = jump_distance2
+    p2 = sleep2
+
+    if y1 > y2:
+        y1, y2 = y2, y1
+        j1, j2 = j2, j1
+        p1, p2 = p2, p1
+
+    if ((((y2-y1)>j1)or(j1<j2))and(j1/p1<j2/p2)) or ((y2-y1)%j1!=0 and j2%j1==0) or (j1==j2 and p1==p2 and y1!=y2):
+        print("-1")
+    else:
+        littletemp = j2 * p1 - j1 * p2
+        largetemp = (j2*y1*p1-j1*y2*p2+j1*j2*p1-j1*j2*p2)
+        i = 0
+        j = 0
+        stepper = 1
+        minmeet = float("inf")
+        tempmeet = 0
+        while i < p1:
+            stepper = 1
+            while j < p2:
+                if (largetemp + j1 * j2 * (j-i)) % littletemp == 0:
+                    tempmeet = ((largetemp + j1 * j2 * (j-i)) / littletemp)
+                    if tempmeet % 1 == 0 and tempmeet < minmeet and tempmeet >= 0 and tempmeet > y1 and tempmeet > y2 and (tempmeet - y1)%j1==0 and (tempmeet - y2)%j2==0:
+                        minmeet = tempmeet
+                if (largetemp + j1 * j2 * (i-j)) % littletemp == 0:
+                    tempmeet = ((largetemp + j1 * j2 * (i-j)) / littletemp)
+                    if tempmeet % 1 == 0 and tempmeet < minmeet and tempmeet >= 0 and tempmeet > y1 and tempmeet > y2 and (tempmeet - y1)%j1==0 and (tempmeet - y2)%j2==0:
+                        minmeet = tempmeet
+                j += stepper
+            i += 1
+        if minmeet == float("inf"):
+            print("-1")
+        else:
+            print(int(minmeet))
