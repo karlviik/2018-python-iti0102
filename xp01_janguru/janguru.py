@@ -18,7 +18,6 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
         largetemp = (j2*y1*p1-j1*y2*p2+j1*j2*p1-j1*j2*p2)
         i = 0
         j = 0
-        stepper = 1
         minmeet = float("inf")
         tempmeet = 0
         while i < p1:
