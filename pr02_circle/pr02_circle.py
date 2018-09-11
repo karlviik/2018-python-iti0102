@@ -9,7 +9,7 @@ def find_circle_info(d, x, y):
     if r_point < r:
         place = "inside"
     elif r_point == r:
-        place = "perimiter"
+        place = "perimeter"
     elif r_point > r:
         place = "outside"
     perimeter = 2 * math.pi * r
