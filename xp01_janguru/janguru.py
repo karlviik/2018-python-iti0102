@@ -1,6 +1,10 @@
 """Calculates the Jangurus' meeting point."""
+
+
 def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
-    """Finds the meeting point of the 2 Jangurus by using raw math and some loopy loops."""
+    """Find the meeting point of the 2 Jangurus by using raw math and some loopy loops."""
+
+
     y1 = float(pos1)
     j1 = float(jump_distance1)
     p1 = float(sleep1)
