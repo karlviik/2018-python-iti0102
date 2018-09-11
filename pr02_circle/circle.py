@@ -8,9 +8,9 @@ def find_circle_info(d, x, y):
     Place: inside, perimeter, outside.
 
     The function should print "Circle with perimeter of {perimeter} units and area of {area} units has point ({x}, {y}) on its {place}".
+
     :return: None
     """
-
     r = d / 2
     r_point = math.sqrt(x ** 2 + y ** 2)
     if r_point < r:
