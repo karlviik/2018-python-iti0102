@@ -1,10 +1,10 @@
 def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
-    y1 = pos1
-    j1 = jump_distance1
-    p1 = sleep1
-    y2 = pos2
-    j2 = jump_distance2
-    p2 = sleep2
+    y1 = float(pos1)
+    j1 = float(jump_distance1)
+    p1 = float(sleep1)
+    y2 = float(pos2)
+    j2 = float(jump_distance2)
+    p2 = float(sleep2)
 
     if y1 > y2:
         y1, y2 = y2, y1
@@ -37,4 +37,3 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
             return -1
         else:
             return int(minmeet)
-
