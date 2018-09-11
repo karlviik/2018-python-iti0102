@@ -15,6 +15,8 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
         return -1
     else:
         littletemp = j2 * p1 - j1 * p2
+        if littletemp == 0:
+            return -1
         largetemp = (j2*y1*p1-j1*y2*p2+j1*j2*p1-j1*j2*p2)
         i = 0
         j = 0
