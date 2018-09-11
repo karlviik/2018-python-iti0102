@@ -21,8 +21,8 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
         i = 0
         j = 0
         minmeet = float("inf")
-        while i <= p1:
-            while j <= p2:
+        while i < p1:
+            while j < p2:
                 if (largetemp + j1 * j2 * (j-i)) % littletemp == 0:
                     tempmeet = ((largetemp + j1 * j2 * (j-i)) / littletemp)
                     if tempmeet % 1 == 0 and tempmeet < minmeet and tempmeet >= 0 and tempmeet > y1 and tempmeet > y2 and (tempmeet - y1)%j1==0 and (tempmeet - y2)%j2==0:
