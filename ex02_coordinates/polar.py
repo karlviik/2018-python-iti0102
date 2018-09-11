@@ -58,4 +58,3 @@ if __name__ == '__main__':
     print(convert_polar_to_cartesian(0, 0))  # (0.0, 0.0)
     print(convert_polar_to_cartesian(2, 60))  # (1.0, 1.73)
     print(convert_polar_to_cartesian(3, -40))  # (2.3, -1.93)
-
