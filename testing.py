@@ -12,7 +12,7 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
         p1, p2 = p2, p1
 
     if ((((y2-y1)>j1)or(j1<j2))and(j1/p1<j2/p2)) or ((y2-y1)%j1!=0 and j2%j1==0) or (j1==j2 and p1==p2 and y1!=y2):
-        return -1
+        print("-1")
     else:
         littletemp = j2 * p1 - j1 * p2
         largetemp = (j2*y1*p1-j1*y2*p2+j1*j2*p1-j1*j2*p2)
@@ -35,7 +35,6 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
                 j += stepper
             i += 1
         if minmeet == float("inf"):
-            return -1
+            print("-1")
         else:
-            return int(minmeet)
-
+            print(int(minmeet))
