@@ -16,8 +16,8 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
         p1, p2 = p2, p1
     if y1 == y2 and j1 == j2 or y1 == j2 and y2 == j1:
         return int(y1 + j1)
-    #if ((((y2 - y1) > j1) or (j1 < j2)) and (j1 / p1 < j2 / p2)) or ((y2 - y1) % j1 != 0 and j2 % j1 == 0) or (j1 == j2 and p1 == p2 and y1 != y2):
-    #    return -1
+    if ((((y2 - y1) > j1) or (j1 < j2)) and (j1 / p1 < j2 / p2)) or ((y2 - y1) % j1 != 0 and j2 % j1 == 0) or (j1 == j2 and p1 == p2 and y1 != y2):
+        return -1
     aah = p1*p2*(y2+j2-y1-j1)
     eeh = p2*j1-p1*j2
     if eeh == 0:
@@ -37,15 +37,8 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
                 minmeet = tempmeet
             j += 1
         i += 1
-    if minmeet == float("inf"):
-        return -1
-    else:
+    if not minmeet == float("inf"):
         return int(minmeet)
-
-
-def aaaaaaaa(j1, j2, p1, p2, y1, y2):
-    if 1!=0:
-        i="iii"
     else:
         littletemp = j2 * p1 - j1 * p2
         if littletemp == 0:
@@ -53,7 +46,7 @@ def aaaaaaaa(j1, j2, p1, p2, y1, y2):
         largetemp = (j2 * y1 * p1 - j1 * y2 * p2 + j1 * j2 * p1 - j1 * j2 * p2)
         i = 0
         j = 0
-        minmeet = float("inf")
+        #minmeet = float("inf")
         while i < p1:
             while j < p2:
                 if (largetemp + j1 * j2 * (j - i)) % littletemp == 0:
