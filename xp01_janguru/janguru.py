@@ -16,18 +16,16 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
         return -1
     t1 = (p1 * p2 * (y2 - y1 - j1)) / (j1 * p2 - j2 * p1)
     t2 = (p1 * p2 * (y1 - y2 - j2)) / (j1 * p2 - j2 * p1)
-    if t1 < 0:
+    if t1 < 0 and abs(t2) > abs(t1) or t2 < 0 and abs(t2) > abs(t1):
         t1 = 0
-    if t2 < 0:
+        t2 = abs(t2)
+    if t1 < 0 and abs(t1) > abs(t2) or t2 < 0 and abs(t1) > abs(t2):
         t2 = 0
+        t1 = abs(t1)
     if t2 < t1:
         t1, t2 = t2, t1
-    print(t1)
-    print(t2)
     t11 = t1 - t1 % p1 + p1
     t22 = t1 - t1 % p2 + p2
-    print(t11)
-    print(t22)
     while t11 <= t2 and t22 <= t2:
         if t11 < t22:
             tempmeet = t11 / p1 * j1 + j1 + y1
