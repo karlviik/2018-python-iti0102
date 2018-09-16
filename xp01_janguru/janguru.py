@@ -21,7 +21,7 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
     while current_time1 <= time2 or current_time2 <= time2:  # until either of the times is still in window
         if current_time1 < current_time2:
             tempmeet = current_time1 / sleep1 * jump_distance1 + jump_distance1 + pos1  # gets potential meet position
-            if (current_time1 - current_time1 % sleep2)/sleep2 * jump_distance2 + jump_distance2 + pos2 == tempmeet:  # checks if it's the meet position
+            if (current_time1 - current_time1 % sleep2) / sleep2 * jump_distance2 + jump_distance2 + pos2 == tempmeet:  # checks if it's the meet position
                 return int(tempmeet)  # if it is, return it
             current_time1 += sleep1  # advances time by 1 sleep cycle
         else:  # same concept but for other time
