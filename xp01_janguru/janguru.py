@@ -10,25 +10,29 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
     j2 = float(jump_distance2)
     p2 = float(sleep2)
 
-    if y1 == y2 and j1 == j2 or y1 == j2 and y2 == j1:
+    if y1 == y2 and j1 == j2 or y1 == j2 and y2 == j1 or y1 + j1 == y2 + j2:
         return int(y1 + j1)
     if (j1 * p2 - j2 * p1) == 0:
         return -1
     t1 = (p1 * p2 * (y2 - y1 - j1)) / (j1 * p2 - j2 * p1)
-    t2 = (p1 * p2 * (y1 - y2 - j2)) / (j1 * p2 - j2 * p1)
-    if t1 < 0 and abs(t2) > abs(t1) or t2 < 0 and abs(t2) > abs(t1):
+    t2 = (p1 * p2 * (y2 + j2 - y1)) / (j1 * p2 - j2 * p1)
+   # print(t1, t2)
+    if t1 < 0:# and abs(t2) > abs(t1) or t2 < 0 and abs(t2) > abs(t1):
         t1 = 0
-        t2 = abs(t2)
-    if t1 < 0 and abs(t1) > abs(t2) or t2 < 0 and abs(t1) > abs(t2):
+       # t2 = abs(t2)
+    if t2 < 0:# and abs(t1) > abs(t2) or t2 < 0 and abs(t1) > abs(t2):
         t2 = 0
-        t1 = abs(t1)
+        #t1 = abs(t1)
     if t2 < t1:
         t1, t2 = t2, t1
-    t11 = t1 - t1 % p1 + p1
-    t22 = t1 - t1 % p2 + p2
-    while t11 <= t2 and t22 <= t2:
+    #print(t1, t2)
+    t11 = t1 - t1 % p1 #+ p1
+    t22 = t1 - t1 % p2 #+ p2
+    #print(t11, t22)
+    while t11 <= t2 or t22 <= t2:
         if t11 < t22:
             tempmeet = t11 / p1 * j1 + j1 + y1
+            #print(t11, tempmeet)
             if (t11 - t11 % p2)/p2 * j2 + j2 + y2 == tempmeet:
                 return int(tempmeet)
             t11 += p1
@@ -48,6 +52,7 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
         return int(y1 + j1)
     if ((((y2 - y1) > j1) or (j1 < j2)) and (j1 / p1 < j2 / p2)) or ((y2 - y1) % j1 != 0 and j2 % j1 == 0) or (j1 == j2 and p1 == p2 and y1 != y2):
         return -1
+
     aah = p1 * p2 * (y2 + j2 - y1 - j1)
     eeh = p2 * j1 - p1 * j2
     if eeh == 0:
@@ -93,6 +98,8 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
             return -1
         else:
             return int(minmeet)
+
+print(meet_me(18, 62, 93, 72, 12, 18))
 
 #print(meet_me(2, 1, 1, 2, 1, 1))
 
