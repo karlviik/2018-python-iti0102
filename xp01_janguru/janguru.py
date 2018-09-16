@@ -6,8 +6,8 @@ def meet_me(pos1, jump_distance1, sleep1, pos2, jump_distance2, sleep2):
     if pos1 == pos2 and jump_distance1 == jump_distance2 or pos1 == jump_distance2 and pos2 == jump_distance1 or pos1 + jump_distance1 == pos2 + jump_distance2:  # basic if-checks for cases where meeting happens at time == 0
         return int(pos1 + jump_distance1)
     divider = (jump_distance1 * sleep2 - jump_distance2 * sleep1)  # variable for cases where divider == 0
-    if divider == 0:  # changes variable to 1 to be able to get correct answer in these cases
-        divider = 1
+    #if divider == 0:  # changes variable to 1 to be able to get correct answer in these cases
+     #   divider = 1
     time1 = (sleep1 * sleep2 * (pos2 - pos1 - jump_distance1)) / divider  # meeting point for 2 linear functions
     time2 = (sleep1 * sleep2 * (pos2 + jump_distance2 - pos1)) / divider  # other point
     if time1 < 0:  # these are for cases where point is negative
