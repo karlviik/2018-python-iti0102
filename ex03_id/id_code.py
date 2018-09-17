@@ -67,11 +67,8 @@ def check_day_number(year_number: int, month_number: int, day_number: int):
     :return: boolean
     """
     if check_month_number(month_number) == 1 and check_year_number_two_digits(year_number) == 1:
-        if (month_number <= 7 and month_number % 2 == 1 or month_number > 7 and month_number % 2 == 0) and 0 < day_number <= 31:
-            return True
-        if (3 < month_number < 7 and month_number % 2 == 0 or month_number > 7 and month_number % 2 == 1) and 0 < day_number <= 30:
-            return True
-        if month_number == 2 and (check_leap_year(year_number) == 0 and day_number == 28 or check_leap_year(year_number) == 1 and 0 < day_number <= 29):
+        days_in_months = 31, 28 + check_leap_year(year_number), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+        if 0 < day_number <= days_in_months[month_number - 1]:
             return True
     return False
 
