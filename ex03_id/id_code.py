@@ -71,7 +71,7 @@ def check_day_number(year_number: int, month_number: int, day_number: int):
             return True
         if (3 < month_number < 7 and month_number % 2 == 0 or month_number > 7 and month_number % 2 == 1) and 0 < day_number <= 30:
             return True
-        if month_number == 2 and (year_number % 4 != 0 and day_number == 28 or year_number % 4 == 0 and 0 < day_number <= 29):
+        if month_number == 2 and (check_leap_year(year_number) == 1 and day_number == 28 or check_leap_year(year_number) == 0 and 0 < day_number <= 29):
             return True
     return False
 
