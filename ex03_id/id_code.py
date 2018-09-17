@@ -2,6 +2,7 @@
 
 import math
 
+
 def check_your_id(id_code: str):
     """
     Check if given ID code is valid and return the result.
@@ -9,7 +10,8 @@ def check_your_id(id_code: str):
     :param id_code: str
     :return: boolean
     """
-    if len(id_code) == 11:
+
+    if len(id_code) == 11 and id_code.isdigit():
         if check_gender_number(int(id_code[0])) == 1:
             if check_day_number(int(id_code[1:3]), int(id_code[3:5]), int(id_code[5:7])) == 1:
                 if check_born_order(int(id_code[7:10])) == 1:
@@ -25,6 +27,7 @@ def check_gender_number(gender_number: int):
     :param gender_number: int
     :return: boolean
     """
+
     if 1 <= gender_number <= 6:
         return True
     return False
@@ -37,6 +40,7 @@ def check_year_number_two_digits(year_number: int):
     :param year_number: int
     :return: boolean
     """
+
     if 0 <= year_number <= 99:
         return True
     return False
@@ -49,6 +53,7 @@ def check_month_number(month_number: int):
     :param month_number: int
     :return: boolean
     """
+
     if 1 <= month_number <= 12:
         return True
     return False
@@ -64,7 +69,8 @@ def check_day_number(year_number: int, month_number: int, day_number: int):
     :param day_number: int
     :return: boolean
     """
-    if check_month_number(month_number) == True and check_year_number_two_digits(year_number) == True:
+
+    if check_month_number(month_number) == 1 and check_year_number_two_digits(year_number) == 1:
         if (month_number <= 7 and month_number % 2 == 1 or month_number > 7 and month_number % 2 == 0) and 0 < day_number <= 31:
             return True
         if (3 < month_number < 7 and month_number % 2 == 0 or month_number > 7 and month_number % 2 == 1) and 0 < day_number <= 30:
@@ -81,6 +87,7 @@ def check_leap_year(year_number: int):
     :param year_number: int
     :return: boolean
     """
+
     if year_number % 4 != 0 or year_number % 400 != 0 and year_number % 100 == 0:
         return False
     return True
@@ -93,6 +100,7 @@ def check_born_order(born_order: int):
     :param born_order: int
     :return: boolean
     """
+
     if 0 <= born_order <= 999:
         return True
     return False
@@ -106,6 +114,7 @@ def check_control_number(id_code: str):
     :param id_code: string
     :return: boolean
     """
+
     control = int(id_code[10])
     loop_counter = 0
     multiplier = 1
@@ -135,6 +144,7 @@ def get_data_from_id(id_code: str):
     :param id_code: str
     :return: str
     """
+
     if check_your_id(id_code) == 0:
         return "Given invalid ID code!"
     return "This is a " + get_gender(int(id_code[0])) + " born on " + str(id_code[5:7]) + "." + str(id_code[3:5]) + "." + str(get_full_year(int(id_code[0]), int(id_code[1:3])))
@@ -147,6 +157,7 @@ def get_gender(gender_number: int):
     :param gender_number: int
     :return: str
     """
+
     if gender_number % 2 == 0:
         return "female"
     return "male"
@@ -162,6 +173,7 @@ def get_full_year(gender_number: int, year: int):
     :param year: int
     :return: int
     """
+
     century_add = math.ceil(gender_number / 2)
     return 1700 + 100 * century_add + year
 
