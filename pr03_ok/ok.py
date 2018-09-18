@@ -6,7 +6,7 @@ def wants_solving():
     """Prompt the user to make everything OK."""
     while True:
 
-        name = input("Would you like to make everything OK?")
+        name = input("Would you like to make everything OK? (Y/N)")
 
         if name == "Y":
             print("Let's go.")
@@ -17,7 +17,7 @@ def wants_solving():
             return False
 
         else:
-            print("Sorry, try again.")
+            print("Sorry, did not catch that.")
 
 
 def progress_bar(process_name, second):
