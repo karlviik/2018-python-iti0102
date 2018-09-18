@@ -28,7 +28,7 @@ def progress_bar(process_name, second):
         process_name = process_name[:20] + "..."
 
     for i in range(21):
-        print(f"\r[{'|' * i:.<20}] | Process: {process_name!r} {0.05 * i:4.0%}", end="")
+        print(f"\r[{'|' * i:.<20}] | Process: {process_name!r} {0.05 * i:3.0%}", end="")
         time.sleep(cycle_time)
 
     print()
