@@ -42,7 +42,7 @@ def print_ok():
 def main():
     """Main function."""
     if wants_solving():
-        progress_bar("Making eveything OK.", 5)
+        progress_bar("Making everything OK.", 5)
         print_ok()
 
 
