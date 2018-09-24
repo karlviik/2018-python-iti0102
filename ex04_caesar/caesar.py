@@ -9,23 +9,23 @@ def code(message: str, shift: int, alphabet: str) -> str:
     :param alphabet: Symbols in use.
     :return: string
     """
-    message_len = len(message)
-    alphabet_len = len(alphabet)
-    current_pos_message = 0
+    len_mes = len(message)
+    len_al = len(alphabet)
+    cpos_mes = 0
     new_message = ""
-    while current_pos_message < message_len:
-        current_pos_alphabet = 0
-        while current_pos_alphabet < alphabet_len:
-            if message[current_pos_message].lower() == alphabet[current_pos_alphabet].lower():
-                if message[current_pos_message] == message[current_pos_message].upper():
-                    new_message += alphabet[(current_pos_alphabet + shift) % alphabet_len].upper()
+    while cpos_mes < len_mes:
+        cpos_al = 0
+        while cpos_al < len_al:
+            if message[cpos_mes].lower() == alphabet[cpos_al].lower():
+                if message[cpos_mes] == message[cpos_mes].upper():
+                    new_message += alphabet[(cpos_al + shift) % len_al].upper()
                 else:
-                    new_message += alphabet[(current_pos_alphabet + shift) % alphabet_len].lower()
-                current_pos_alphabet = alphabet_len
-            elif current_pos_alphabet == alphabet_len - 1:
-                new_message += message[current_pos_message]
-            current_pos_alphabet += 1
-        current_pos_message += 1
+                    new_message += alphabet[(cpos_al + shift) % len_al].lower()
+                cpos_al = len_al
+            elif cpos_al == len_al - 1:
+                new_message += message[cpos_mes]
+            cpos_al += 1
+        cpos_mes += 1
     return new_message
 
 
@@ -53,10 +53,10 @@ def decode(message: str, shift: int, alphabet: str = "abcdefghijklmnopqrstuvwxyz
     return code(message, -shift, alphabet)
 
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     # simple tests
-    print(encode("hello", 1))  # ifmmp
-    print(decode("ifmmp", 1))  # hello
+    #print(encode(";:;:;;::;:;:", 1, ";:"))  # ifmmp
+    #print(decode("ifmmp", 1))  # hello
 
     # WRITE THE REMAINING EXAMPLES YOURSELF!
 
