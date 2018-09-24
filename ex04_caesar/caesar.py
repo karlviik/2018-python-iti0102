@@ -16,11 +16,11 @@ def code(message: str, shift: int, alphabet: str) -> str:
     while current_pos_message < message_len:
         current_pos_alphabet = 0
         while current_pos_alphabet < alphabet_len:
-            if message[current_pos_message] == alphabet[current_pos_alphabet]:
+            if message[current_pos_message].lower() == alphabet[current_pos_alphabet].lower():
                 if message[current_pos_message] == message[current_pos_message].upper():
                     new_message += alphabet[(current_pos_alphabet + shift) % alphabet_len].upper()
                 else:
-                    new_message += alphabet[(current_pos_alphabet + shift) % alphabet_len]
+                    new_message += alphabet[(current_pos_alphabet + shift) % alphabet_len].lower()
                 current_pos_alphabet = alphabet_len
             elif current_pos_alphabet == alphabet_len - 1:
                 new_message += message[current_pos_message]
