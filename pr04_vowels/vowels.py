@@ -5,7 +5,6 @@ def number_of_vowels(string: str):
     """
     Find the number of vowels(a, e, i, o, u) in word.
 
-
     :param string:
     :return: number of vowels in string
     """
@@ -40,7 +39,12 @@ def sort_list(string_list: list):
     :param string_list: List of strings that need to be sorted.
     :return: List of strings sorted by the number of vowels.
     """
-    return sorted(string_list, key=number_of_vowels, reverse=True)
+    new_list = []
+    for _ in range(len(string_list)):
+        max_vowels = word_with_most_vowels(string_list)
+        new_list.append(max_vowels)
+        string_list.remove(max_vowels)
+    return new_list
 
 
 if __name__ == '__main__':
