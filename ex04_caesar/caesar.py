@@ -1,5 +1,6 @@
 """Encode and decode Caesar cipher."""
 
+
 def code(message: str, shift: int, alphabet: str) -> str:
     """
     Do the actual de or encoding.
@@ -26,6 +27,8 @@ def code(message: str, shift: int, alphabet: str) -> str:
                 new_message += message[cpos_mes]
             cpos_al += 1
         cpos_mes += 1
+    if new_message == "":
+        new_message = message
     return new_message
 
 
@@ -54,20 +57,3 @@ def decode(message: str, shift: int, alphabet: str = "abcdefghijklmnopqrstuvwxyz
 
 
 #if __name__ == "__main__":
-    # simple tests
-    #print(encode(";:;:;;::;:;:", 1, ";:"))  # ifmmp
-    #print(decode("ifmmp", 1))  # hello
-
-    # WRITE THE REMAINING EXAMPLES YOURSELF!
-
-    # larger shift
-
-    # negative shift
-
-    # shift > alphabet.length
-
-    # case sensitivity
-
-    # misc symbols (.,:; etc.)
-
-    # ...
