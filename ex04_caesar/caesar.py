@@ -13,22 +13,30 @@ def code(message: str, shift: int, alphabet: str) -> str:
     len_mes = len(message)
     len_al = len(alphabet)
     cpos_mes = 0
+
     new_message = ""
+
     while cpos_mes < len_mes:
-        cpos_al = 0
+
+        cpos_al = 0     # resets alphabet counter
         while cpos_al < len_al:
-            if message[cpos_mes].lower() == alphabet[cpos_al].lower():
-                if message[cpos_mes] == message[cpos_mes].upper():
+
+            if message[cpos_mes].lower() == alphabet[cpos_al].lower():  # if message's character is part of alphabet
+                if message[cpos_mes] == message[cpos_mes].upper():      # if char is capitalized
                     new_message += alphabet[(cpos_al + shift) % len_al].upper()
-                else:
+                else:                                                   # if char is not capitalized
                     new_message += alphabet[(cpos_al + shift) % len_al].lower()
                 cpos_al = len_al
-            elif cpos_al == len_al - 1:
+
+            elif cpos_al == len_al - 1:         # adds the char to message if it's not in alphabet
                 new_message += message[cpos_mes]
+
             cpos_al += 1
         cpos_mes += 1
-    if new_message == "":
+
+    if new_message == "":   # deals with empty alphabet
         new_message = message
+
     return new_message
 
 
@@ -54,6 +62,3 @@ def decode(message: str, shift: int, alphabet: str = "abcdefghijklmnopqrstuvwxyz
     :return: Decoded string.
     """
     return code(message, -shift, alphabet)
-
-
-#if __name__ == "__main__":
