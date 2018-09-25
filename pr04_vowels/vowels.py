@@ -3,7 +3,7 @@
 
 def number_of_vowels(string: str):
     """
-    Find the number of vowels(a, e, i, o, u) in a word.
+    Find the number of vowels(a, e, i, o, u) in word.
 
     :param string:
     :return: number of vowels in string
