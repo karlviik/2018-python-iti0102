@@ -1,9 +1,10 @@
 import re
 
-regex_a = "(([+-]\s)?\d*)x2"
+regex_a = "(([+-]\s)?\d*)x2[^0-9]"
 regex_b = "(([+-]\s)?\d*)x([^2-9]|$)"
-regex_c = "(?<!x2)([+-]\s)?\d+(?=[=\s$])"
-regex_c = "(?<![x(x2)(x1)])(([+-]\s)?\d+((?!x)|$))"
+regex_c = "(?<![x(x2)(x1)])(([+-]\s)?\d+((?!(x|[0-9]))|$))"
+
+# Maybe include the excluding any numbers after regex b's 1.
 
 if __name__ == '__main__':
 
@@ -30,7 +31,7 @@ if __name__ == '__main__':
     #print_regex_results(regex_c, f2)  # 5, 4
 
 
-    f = "3x"
-    print_regex_results(regex_b, f)
+    f = "12x + 2"
+    print_regex_results(regex_c, f)
 
     print("end")
