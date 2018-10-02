@@ -86,10 +86,10 @@ def remove_in_middle(text, to_remove):
     :return: string with middle substrings removed.
     """
     a = text.find(to_remove)
-    b = - text[len(text)-1::-1].find(to_remove[len(text)-1::-1]) - len(to_remove)
+    b = text[len(text)-1::-1].find(to_remove[len(text)-1::-1]) + len(to_remove) - 1
     newtext = text.replace(to_remove, "")
-    newtext = text[0:a+len(to_remove)-1] + " " + newtext[a:len(newtext) - 1 - b] + " " + text[len(text) - 1 - b:]
-    return newtext, a, b
+    newtext = text[0:a+len(to_remove)] + newtext[a:len(newtext) - 1 - b + len(to_remove)] + text[len(text) - 1 - b:]
+    return newtext
 
 
 if __name__ == '__main__':
