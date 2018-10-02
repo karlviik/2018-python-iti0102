@@ -64,7 +64,7 @@ def num_as_index(nums):
     :param nums: list of non-negative integers.
     :return: element value in the specific index.
     """
-    m = min(nums[0], nums[len(nums)-1])
+    m = min(nums[0], nums[len(nums) - 1])
     if m >= len(nums):
         return m
     return nums[m]
@@ -86,10 +86,12 @@ def remove_in_middle(text, to_remove):
     :return: string with middle substrings removed.
     """
     a = text.find(to_remove)
-    b = text[len(text)-1::-1].find(to_remove[len(text)-1::-1]) + len(to_remove) - 1
+    b = text[len(text) - 1:: - 1].find(to_remove[len(text) - 1:: - 1]) + len(to_remove) - 1
+    if a == len(text) - 1 - b:
+        return text
     newtext = text.replace(to_remove, "")
-    newtext = text[0:a+len(to_remove)] + newtext[a:len(newtext) - 1 - b + len(to_remove)] + text[len(text) - 1 - b:]
-    return newtext
+    newtext = text[0:a + len(to_remove)] + newtext[a:len(newtext) - 1 - b + len(to_remove)] + text[len(text) - 1 - b:]
+    return newtext, a, b
 
 
 if __name__ == '__main__':
@@ -97,4 +99,4 @@ if __name__ == '__main__':
     print(near_ten(3))
     print(left2('Hello'))
     print(num_as_index([1, 2, 3]))
-    print(remove_in_middle("abcabcabc", "abc"))
+    print(remove_in_middle("ABCAaaaAA", "a"))
