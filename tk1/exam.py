@@ -1,4 +1,5 @@
 """Test 1 (t12)."""
+import re
 
 
 def has23(nums):
@@ -84,12 +85,16 @@ def remove_in_middle(text, to_remove):
     :param to_remove: substring to be removed.
     :return: string with middle substrings removed.
     """
-    pass
+    a = text.find(to_remove)
+    b = - text[len(text)-1::-1].find(to_remove[len(text)-1::-1]) - len(to_remove)
+    newtext = text.replace(to_remove, "")
+    newtext = text[0:a+len(to_remove)-1] + " " + newtext[a:len(newtext) - 1 - b] + " " + text[len(text) - 1 - b:]
+    return newtext, a, b
 
 
 if __name__ == '__main__':
     print(has23([2, 5]))
     print(near_ten(3))
-    print(left2('Hepp'))
+    print(left2('Hello'))
     print(num_as_index([1, 2, 3]))
     print(remove_in_middle("abcabcabc", "abc"))
