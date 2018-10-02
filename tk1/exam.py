@@ -87,7 +87,7 @@ def remove_in_middle(text, to_remove):
     a = text.find(to_remove)
     b = text[len(text) - 1:: - 1].find(to_remove[len(text) - 1:: - 1]) + len(to_remove) - 1
     newtext = text.replace(to_remove, "")
-    if a == len(text) - 1 - b or text == newtext or len(newtext) + 2 * len(to_remove) == len(text):
+    if a == len(text) - 1 - b or text == newtext or len(newtext) + 2 * len(to_remove) >= len(text):
         return text
     newtext = text[0:a + len(to_remove)] + newtext[a:len(newtext) - 1 - b + len(to_remove)] + text[len(text) - 1 - b:]
     return newtext
@@ -98,4 +98,4 @@ if __name__ == '__main__':
     print(near_ten(3))
     print(left2('Hello'))
     print(num_as_index([1, 2, 3]))
-    print(remove_in_middle("huf", "def"))
+    print(remove_in_middle("aaaaaaaaaaaaaaaaaaa", "ab"))
