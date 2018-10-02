@@ -5,6 +5,7 @@ regex_b = "(([+-]\s)?\d*)x([^2-9]|$)"
 regex_c = "(?<![x(x2)(x1)])(([+-]\s)?\d+((?!(x|[0-9]))|$))"
 
 # Maybe include the excluding any numbers after regex b's 1.
+# Also add that it excludes plus when there is a plus
 
 if __name__ == '__main__':
 
@@ -31,7 +32,7 @@ if __name__ == '__main__':
     #print_regex_results(regex_c, f2)  # 5, 4
 
 
-    f = "1 - x2"
-    print_regex_results(regex_a, f)
+    f = "1 - x2 + 48587x1"
+    print_regex_results(regex_b, f)
 
     print("end")
