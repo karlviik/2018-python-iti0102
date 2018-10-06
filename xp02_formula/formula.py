@@ -1,8 +1,8 @@
 import re
 import math
 
-regex_a = "(((-\s)|(?<=\\+\s))?\d*)x2([^0-9]|$)"
-regex_b = "(((-\s)|(?<=\\+\s))?\d*)x([^02-9]|$)([^0-9]|$)"
+regex_a = "(((\\-\s)|(?<=\\+\s))?\d*)x2([^0-9]|$)"
+regex_b = "(((-\s)|(?<=\\+\s))?\d*)x([^02-9]|$)" #([^0-9]|$)"
 regex_c = "(?<![x(x2)(x1)])(((-\s)|(?<=\\+\s))?\d+((?!(x|[0-9]))|$))"
 
 
@@ -10,6 +10,7 @@ def sum_of_multipliers(side, regex):
     intsum = 0
     for match in re.finditer(regex, side):
         number = match.group(1)
+        print(number)
         if number == "":
             number = "1"
         elif number == "- ":
@@ -68,6 +69,8 @@ def create_normeq(a, b, c):
         started = 1
     if c != 0:
         normeq += add_space(c, started) + " "
+    if normeq == "":
+        normeq += "0 "
     return normeq + "= 0"
 
 
@@ -87,6 +90,8 @@ def normalize_equation(equation):
 
 def solve_equation(equation):
     a, b, c = get_multiplier_sums(equation)
+    if a == b == c == 0:
+        return None
     if a == 0:
         return "x = " + str(round(- c / b, 2))
     else:
@@ -105,8 +110,8 @@ def solve_equation(equation):
 if __name__ == '__main__':
 
     f = "x2 - 4x + 1x2"
-    print(solve_equation("2x2 + 2 = 0"))
-    print(normalize_equation("2x2 + 3x - 4 + 0x2 - x1 + 0x1 + 12 - 12x2 = 4x2 + x1 - 2"))
+    #print(solve_equation("2x2 + 2 = 0"))
+    print(normalize_equation("- 1x - 2x = 0"))
     #print(normalize_equation(f))
     #print_regex_results(regex_a, f)  # 3
     #print_regex_results(regex_b, f)  # - 4
