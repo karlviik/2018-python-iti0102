@@ -6,13 +6,18 @@ regex_c = "(?<![x(x2)(x1)])(([+-]\s)?\d+((?!(x|[0-9]))|$))"
 
 # Also add that it excludes plus when there is a plus
 
-if __name__ == '__main__':
 
+def print_regex_results(regex, f):
+    for match in re.finditer(regex, f):
+        print(match.group(1))
+
+if __name__ == '__main__':
+"""
     def print_regex_results(regex, f):
         for match in re.finditer(regex, f):
             if match != "aaaaaaaaa":
                 print(match.group(1))
-
+"""
 
 
     f = "3x2 - 4x + 1"
