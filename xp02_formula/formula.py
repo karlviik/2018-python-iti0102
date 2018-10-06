@@ -1,9 +1,14 @@
+"""Normalize and solve linear and square functions."""
 import re
 import math
 
-regex_a = "(((\\-\s)|(?<=\\+\s))?\d*)x2([^0-9]|$)"
-regex_b = "(((-\s)|(?<=\\+\s))?\d*)x([^02-9]|$)(?![0-9])"
-regex_c = "(?<![x(x2)(x1)])(((-\s)|(?<=\\+\s))?\d+((?!(x|[0-9]))|$))"
+# regex_a = "(((\\-\s)|(?<=\\+\s))?\d*)x2([^0-9]|$)"
+# regex_b = "(((-\s)|(?<=\\+\s))?\d*)x([^02-9]|$)(?![0-9])"
+# regex_c = "(?<![x(x2)(x1)])(((-\s)|(?<=\\+\s))?\d+((?!(x|[0-9]))|$))"
+
+regex_a = "(((-\s)|(?<=+\s))?\d*)x2([^0-9]|$)"
+regex_b = "(((-\s)|(?<=+\s))?\d*)x([^02-9]|$)(?![0-9])"
+regex_c = "(?<![x(x2)(x1)])(((-\s)|(?<=+\s))?\d+((?!(x|[0-9]))|$))"
 
 
 def multiplier_sum(side, regex):
@@ -75,14 +80,9 @@ def normalize_equation(equation):
     :return: normalized equation as string
     """
     a, b, c = get_multiplier_sums(equation)
-    if a < 0:
+    if a < 0 or a == 0 and b < 0 or a == b == 0 and c < 0:
         a = a * -1
         b = b * -1
-        c = c * -1
-    elif a == 0 and b < 0:
-        b = b * -1
-        c = c * -1
-    elif a == b == 0 and c < 0:
         c = c * -1
     normeq = ""
     started = 0  # if the equation has been started
@@ -104,8 +104,6 @@ def normalize_equation(equation):
         started = 1
     if c != 0:
         normeq += number_to_string(c, started) + " "
-    if normeq == "":
-        normeq += "0 "
     return normeq + "= 0"
 
 
