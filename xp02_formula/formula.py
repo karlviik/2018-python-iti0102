@@ -2,7 +2,7 @@ import re
 import math
 
 regex_a = "(((\\-\s)|(?<=\\+\s))?\d*)x2([^0-9]|$)"
-regex_b = "(((-\s)|(?<=\\+\s))?\d*)x([^02-9]|$)" #([^0-9]|$)"
+regex_b = "(((-\s)|(?<=\\+\s))?\d*)x([^02-9]|$)(?![0-9])" #([^0-9]|$)"
 regex_c = "(?<![x(x2)(x1)])(((-\s)|(?<=\\+\s))?\d+((?!(x|[0-9]))|$))"
 
 
@@ -10,7 +10,6 @@ def sum_of_multipliers(side, regex):
     intsum = 0
     for match in re.finditer(regex, side):
         number = match.group(1)
-        print(number)
         if number == "":
             number = "1"
         elif number == "- ":
@@ -109,25 +108,13 @@ def solve_equation(equation):
 
 if __name__ == '__main__':
 
-    f = "x2 - 4x + 1x2"
-    #print(solve_equation("2x2 + 2 = 0"))
-    print(normalize_equation("- 1x - 2x = 0"))
-    #print(normalize_equation(f))
+    def print_regex_results(regex, f):
+        for match in re.finditer(regex, f):
+            print(match.group(1))
+
+    f = "x"
     #print_regex_results(regex_a, f)  # 3
-    #print_regex_results(regex_b, f)  # - 4
+    print_regex_results(regex_b, f)  # - 4
     #print_regex_results(regex_c, f)  # 1
-
-    #f2 = "3x2 + 4x + 5 - 2x2 - 7x + 4"
-
-    #print("x2")
-    #print_regex_results(regex_a, f2)  # 3, - 2
-    #print("x")
-    #print_regex_results(regex_b, f2)  # 4, - 7
-    #print("c")
-    #print_regex_results(regex_c, f2)  # 5, 4
-
-
-    #f = "1 - x2 + 48587x"
-    #print_regex_results(regex_b, f)
 
     print("end")
