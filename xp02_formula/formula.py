@@ -2,12 +2,19 @@ import re
 import math
 
 regex_a = "(((\\-\s)|(?<=\\+\s))?\d*)x2([^0-9]|$)"
-regex_b = "(((-\s)|(?<=\\+\s))?\d*)x([^02-9]|$)(?![0-9])" #([^0-9]|$)"
+regex_b = "(((-\s)|(?<=\\+\s))?\d*)x([^02-9]|$)(?![0-9])"
 regex_c = "(?<![x(x2)(x1)])(((-\s)|(?<=\\+\s))?\d+((?!(x|[0-9]))|$))"
 
 
-def sum_of_multipliers(side, regex):
-    intsum = 0
+def multiplier_sum(side, regex):
+    """
+    Get the sum of one type of multiplier in one side of equation.
+
+    :param side: one side of equation
+    :param regex: type of regex to use
+    :return: sum of multiplier
+    """
+    mult_sum = 0
     for match in re.finditer(regex, side):
         number = match.group(1)
         if number == "":
@@ -15,29 +22,42 @@ def sum_of_multipliers(side, regex):
         elif number == "- ":
             number = "- 1"
         if number.find("-") == -1:
-            intsum += int(number)
+            mult_sum += int(number)
         else:
-            intsum -= int(number[2:])
-    return intsum
+            mult_sum -= int(number[2:])  # deals with negative numbers
+    return mult_sum
 
 
 def get_multiplier_sums(equation):
+    """
+    Get sum of all multipliers in whole equation.
+
+    :param equation: whole equation in form of string
+    :return: a, b and c, respective multipliers
+    """
     equation = equation.split("=")
     a = 0
     b = 0
     c = 0
-    forcount = 1
+    forcount = 1  # used for adding up both sides' multipliers correctly
     for side in equation:
         if forcount == 2:
             forcount = -1
-        a += sum_of_multipliers(side, regex_a) * forcount
-        b += sum_of_multipliers(side, regex_b) * forcount
-        c += sum_of_multipliers(side, regex_c) * forcount
+        a += multiplier_sum(side, regex_a) * forcount
+        b += multiplier_sum(side, regex_b) * forcount
+        c += multiplier_sum(side, regex_c) * forcount
         forcount += 1
     return a, b, c
 
 
-def add_space(numb, plusadd):
+def number_to_string(numb, plusadd):
+    """
+    Add space and plus or minus to number and return as string.
+
+    :param numb: number as int
+    :param plusadd: if to add plus and space or not
+    :return: number as string with +/- and space
+    """
     if numb > 0 and plusadd:
         return "+ " + str(numb)
     if numb > 0:
@@ -47,33 +67,13 @@ def add_space(numb, plusadd):
     return str(numb)
 
 
-def create_normeq(a, b, c):
-    normeq = ""
-    started = 0
-    if a != 0:
-        if a == 1:
-            normeq += "x2 "
-        else:
-            normeq += add_space(a, 0) + "x2 "
-        started = 1
-    if b != 0:
-        if b == 1 and started:
-            normeq += "+ x "
-        elif b == 1:
-            normeq += "x "
-        elif b == -1:
-            normeq += "- x "
-        else:
-            normeq += add_space(b, started) + "x "
-        started = 1
-    if c != 0:
-        normeq += add_space(c, started) + " "
-    if normeq == "":
-        normeq += "0 "
-    return normeq + "= 0"
-
-
 def normalize_equation(equation):
+    """
+    Create normalized equation from fed string.
+
+    :param equation: fed equation as string
+    :return: normalized equation as string
+    """
     a, b, c = get_multiplier_sums(equation)
     if a < 0:
         a = a * -1
@@ -84,10 +84,38 @@ def normalize_equation(equation):
         c = c * -1
     elif a == b == 0 and c < 0:
         c = c * -1
-    return create_normeq(a, b, c)
+    normeq = ""
+    started = 0  # if the equation has been started
+    if a != 0:
+        if a == 1:
+            normeq += "x2 "
+        else:
+            normeq += number_to_string(a, 0) + "x2 "
+        started = 1
+    if b != 0:
+        if b == 1 and started:
+            normeq += "+ x "
+        elif b == 1:
+            normeq += "x "
+        elif b == -1:
+            normeq += "- x "
+        else:
+            normeq += number_to_string(b, started) + "x "
+        started = 1
+    if c != 0:
+        normeq += number_to_string(c, started) + " "
+    if normeq == "":
+        normeq += "0 "
+    return normeq + "= 0"
 
 
 def solve_equation(equation):
+    """
+    Solve equation and return answers.
+
+    :param equation: equation as string
+    :return: answers as string
+    """
     a, b, c = get_multiplier_sums(equation)
     if a == b == c == 0:
         return None
@@ -104,17 +132,3 @@ def solve_equation(equation):
         if x1 > x2:
             x1, x2 = x2, x1
         return "x1 = " + str(round(x1, 2)) + ", x2 = " + str(round(x2, 2))
-
-
-if __name__ == '__main__':
-
-    def print_regex_results(regex, f):
-        for match in re.finditer(regex, f):
-            print(match.group(1))
-
-    f = "x"
-    #print_regex_results(regex_a, f)  # 3
-    print_regex_results(regex_b, f)  # - 4
-    #print_regex_results(regex_c, f)  # 1
-
-    print("end")
