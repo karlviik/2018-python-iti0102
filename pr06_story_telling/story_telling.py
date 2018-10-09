@@ -35,7 +35,7 @@ def get_clean_text(messy_text: str) -> str:
         temp = match.group()
         if temp in symbfrom:
             a = symbfrom.find(temp)
-            clean_string += symbto[a:a+1]
+            clean_string += symbto[a:a + 1]
             big = a % 2
             if not a % 4:
                 quotes += 1
