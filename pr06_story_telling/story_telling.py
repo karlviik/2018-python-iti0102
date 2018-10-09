@@ -29,8 +29,8 @@ def get_clean_text(messy_text: str) -> str:
     clean_string = ""
     big = 1
     quotes = 0
-    symbfrom = r"?/!*"
-    symbto = r'!,?"'
+    symbfrom = r"*?/!"
+    symbto = r'"!,?'
     for match in re.finditer(regex, messy_text):
         temp = match.group()
         if temp in symbfrom:
