@@ -28,7 +28,7 @@ def get_clean_text(messy_text: str) -> str:
     :param messy_text: string
     :return: clean string
     """
-    regex = "[a-zA-Z:\.*?!/\s]"
+    regex = "[a-zA-Z:\.*?!/\s'-]"
     clean_string = ""
     big = 1
     quotes = 0
