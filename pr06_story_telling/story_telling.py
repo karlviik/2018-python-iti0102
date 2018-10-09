@@ -10,12 +10,7 @@ def read_file(file) -> str:
     :return: string
     """
     with open(file) as txt:
-        wholelist = txt.readlines()
-        mainstring = ""
-        for line in wholelist:
-            mainstring += line
-        mainstring = get_clean_text(file.read())
-    return mainstring
+        return get_clean_text(txt.read())
 
 
 def get_clean_text(messy_text: str) -> str:
@@ -35,17 +30,16 @@ def get_clean_text(messy_text: str) -> str:
         temp = match.group()
         if temp in symbfrom:
             a = symbfrom.find(temp)
-            clean_string += symbto[a:a + 1]
+            temp = symbto[a]
             big = a % 2
-            if not a % 4:
+            if not a:
                 quotes += 1
-                if quotes % 2 == 1:
+                if quotes % 2:
                     big = 1
-        else:
-            if temp == ".":
-                big = 1
-            if big and temp.lower() in "abcdefghijklmnopqrstuvwxzy":
-                temp = temp.upper()
-                big = 0
-            clean_string += temp
+        elif temp == ".":
+            big = 1
+        elif big and temp.lower() in "abcdefghijklmnopqrstuvwxzy":
+            temp = temp.upper()
+            big = 0
+        clean_string += temp
     return clean_string
