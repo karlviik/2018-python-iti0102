@@ -28,7 +28,7 @@ def get_clean_text(messy_text: str) -> str:
     :param messy_text: string
     :return: clean string
     """
-    regex = "[a-zA-Z\.*?!/\s]"
+    regex = "[a-zA-Z:\.*?!/\s]"
     clean_string = ""
     big = 1
     quotes = 0
@@ -47,6 +47,7 @@ def get_clean_text(messy_text: str) -> str:
             big = 1
         elif temp == r"/":
             clean_string += ','
+            big = 0
         else:
             if temp == ".":
                 big = 1
@@ -75,4 +76,4 @@ if __name__ == "__main__":
                          "37*825s(ure?$0 wh|#i1@0c(6h )on5^0e!*"))  # -> "Good morning, Sir!", the first customer of
     # this morning appeared. "I would like a sliced wheat bread," a young man came closer, looking at freshly baked buns and
     # pretzels. Shop owner smiled and answered: "Sure! Which one?"
-    print(read_file("spooky_story_messy.txt"))
+   # print(read_file("spooky_story_messy.txt"))
