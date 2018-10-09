@@ -13,10 +13,7 @@ def read_file(file) -> str:
         wholelist = txt.readlines()
         mainstring = ""
         for line in wholelist:
-            if 1 == 2: #line.find("\n"):
-                mainstring += line[:-1]
-            else:
-                mainstring += line
+            mainstring += line
         mainstring = get_clean_text(mainstring)
     return mainstring
 
@@ -32,26 +29,23 @@ def get_clean_text(messy_text: str) -> str:
     clean_string = ""
     big = 1
     quotes = 0
+    symbfrom = r"?/!*"
+    symbto = r'!,?"'
     for match in re.finditer(regex, messy_text):
         temp = match.group()
-        if temp == r"*":
-            clean_string += '"'
-            quotes += 1
-            if quotes % 2:
-                big = 1
-        elif temp == r"?":
-            clean_string += '!'
-            big = 1
-        elif temp == r"!":
-            clean_string += '?'
-            big = 1
-        elif temp == r"/":
-            clean_string += ','
-            big = 0
+        if temp in symbfrom:
+            a = symbfrom.find(temp)
+            clean_string += symbto[a:a+1]
+            big = a % 2
+            if not a % 4:
+                quotes += 1
+                if quotes % 2 == 1:
+                    big = 1
+
         else:
             if temp == ".":
                 big = 1
-            if big and temp.lower() in "abcdefghijklmnopqrstuvwxzy": #and not temp == " " and not temp == ".":
+            if big and temp.lower() in "abcdefghijklmnopqrstuvwxzy":
                 temp = temp.upper()
                 big = 0
             clean_string += temp
@@ -77,3 +71,19 @@ if __name__ == "__main__":
     # this morning appeared. "I would like a sliced wheat bread," a young man came closer, looking at freshly baked buns and
     # pretzels. Shop owner smiled and answered: "Sure! Which one?"
     print(read_file("spooky_story_messy.txt"))
+
+    """    
+    elif temp == r"*":
+        clean_string += '"'
+        quotes += 1
+        if quotes % 2:
+            big = 1
+    elif temp == r"?":
+        clean_string += '!'
+        big = 1
+    elif temp == r"!":
+        clean_string += '?'
+        big = 1
+    elif temp == r"/":
+        clean_string += ','
+        big = 0"""
