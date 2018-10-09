@@ -14,7 +14,7 @@ def read_file(file) -> str:
         mainstring = ""
         for line in wholelist:
             mainstring += line
-        mainstring = get_clean_text(txt.read())
+        mainstring = get_clean_text(file.read())
     return mainstring
 
 
