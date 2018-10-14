@@ -16,10 +16,8 @@ def diver(length):
     return "-" * length
 
 
-def create_schedule_string(input_string: str) -> str:
-    """Create schedule string from the given input string."""
-    regex = "(?<=[\\s(\\\\n)])(\\d{1,2})[^0-9](\\d{1,2})\\s+([a-zA-Z]+)(?![a-zA-Z])"
-
+def get_times_and_activities(input_string, regex):
+    """Get time and acts and put into dict, key is time, value is list of acts."""
     timedic = {}
     for match in re.finditer(regex, input_string):
         hour = match.group(1)
@@ -36,37 +34,49 @@ def create_schedule_string(input_string: str) -> str:
             timedic[time].append(activity)
         except KeyError:
             timedic[time] = [activity]
+    return timedic
+
+
+def tidy_time_and_acts(timedic):
+    """Make time into 12-hour and make lines to have no duplicates."""
+    linecontents = []
+    maxtimelen = 4
+    maxactslen = 5
+    for time, acts in sorted(timedic.items()):
+        hour = int(time[0:2])
+        if hour >= 12:
+            ampm = " PM"
+        else:
+            ampm = " AM"
+        hour = hour % 12
+        if hour == 0:
+            hour = 12
+        timecontent = str(hour) + time[2:] + ampm
+        if len(timecontent) > maxtimelen:
+            maxtimelen = len(timecontent)
+        tempacts = []
+        actscontent = ""
+        for act in acts:
+            if act not in tempacts:
+                tempacts.append(act)
+                actscontent += act + ", "
+        actscontent = actscontent[:-2]
+        if len(actscontent) > maxactslen:
+            maxactslen = len(actscontent)
+        linecontents.append([timecontent, actscontent])
+    return linecontents, maxtimelen, maxactslen
+
+
+def create_schedule_string(input_string: str) -> str:
+    """Create schedule string from the given input string."""
+    regex = "(?<=[\\s(\\\\n)])(\\d{1,2})[^0-9](\\d{1,2})\\s+([a-zA-Z]+)(?![a-zA-Z])"
+    timedic = get_times_and_activities(input_string, regex)
     if len(timedic) == 0:
         lines = ["| No items found |"]
         maxtimelen = 5
         maxactslen = 6
     else:
-        linecontents = []
-        maxtimelen = 4
-        maxactslen = 5
-        for time, acts in sorted(timedic.items()):
-            hour = int(time[0:2])
-            if hour >= 12:
-                ampm = " PM"
-            else:
-                ampm = " AM"
-            hour = hour % 12
-            if hour == 0:
-                hour = 12
-            timecontent = str(hour) + time[2:] + ampm
-            if len(timecontent) > maxtimelen:
-                maxtimelen = len(timecontent)
-            tempacts = []
-            actscontent = ""
-            for act in acts:
-                if act not in tempacts:
-                    tempacts.append(act)
-                    actscontent += act + ", "
-            actscontent = actscontent[:-2]
-            if len(actscontent) > maxactslen:
-                maxactslen = len(actscontent)
-            linecontents.append([timecontent, actscontent])
-
+        linecontents, maxtimelen, maxactslen = tidy_time_and_acts(timedic)
         lines = []
         for time, acts in linecontents:
             line = "| " + " " * (maxtimelen - len(time)) + time + " | " + acts + " " * (maxactslen - len(acts)) + " |"
@@ -77,8 +87,3 @@ def create_schedule_string(input_string: str) -> str:
         output += line + "\n"
     output += diver(linelen)
     return output
-
-
-if __name__ == '__main__':
-    #print(create_schedule_string("wat 11:00 teine tekst 11:0 jah ei 10:00 pikktekst 11:00 Lorem"))
-    create_schedule_file("schedule_input.txt", "schedule_output.txt")
