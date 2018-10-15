@@ -27,15 +27,3 @@ def shortest_way_back(path: str) -> str:
     else:
         ne = "N"
     return we * abs(west_or_east) + ne * abs(north_or_south)
-
-
-if __name__ == '__main__':
-    assert shortest_way_back("NNN") == "SSS"
-    assert shortest_way_back("SS") == "NN"
-    assert shortest_way_back("E") == "W"
-    assert shortest_way_back("WWWW") == "EEEE"
-
-    assert shortest_way_back("") == ""
-    assert shortest_way_back("NESW") == ""
-
-    assert shortest_way_back("NNEESEW") in ["SWW", "WSW", "WWS"]
