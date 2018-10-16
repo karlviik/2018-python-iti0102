@@ -27,17 +27,22 @@ def simulate(world_map: list, flight_plan: list) -> list:
     worlddict[crow, ccol] = "-"
     for move in flight_plan:
         if not (crow == 0 and move == "N" or crow == maxrow and move == "S" or ccol == maxcol and move == "E" or ccol == 0 and move == "W"):
+            check = 0
             if move == "W" and worlddict[crow, ccol - 1] != "#":
                 ccol -= 1
+                check = 1
             elif move == "E" and worlddict[crow, ccol + 1] != "#":
                 ccol += 1
+                check = 1
             elif move == "N" and worlddict[crow - 1, ccol] != "#":
                 crow -= 1
+                check = 1
             elif move == "S" and worlddict[crow + 1, ccol] != "#":
                 crow += 1
-            if worlddict[crow, ccol] == "W":
+                check = 1
+            if worlddict[crow, ccol] == "W" and check:
                 worlddict[crow, ccol] = "w"
-            elif worlddict[crow, ccol] == "w":
+            elif worlddict[crow, ccol] == "w" and check:
                 worlddict[crow, ccol] = "-"
     worlddict[crow, ccol] = "X"
     return dictionary_to_list_converter(worlddict, maxcol + 1, maxrow + 1)
