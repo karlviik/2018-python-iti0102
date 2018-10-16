@@ -30,7 +30,6 @@ def simulate(world_map: list, flight_plan: list) -> list:
             break
     worlddict, maxrow, maxcol = list_to_dictionary_converter(world_map)
     for move in flight_plan:
-        #print(move, crow, ccol)
         if not (crow == 0 and move == "N" or crow == maxrow and move == "S" or ccol == maxcol and move == "E" or ccol == 0 and move == "W"):
             if move == "W" and worlddict[crow, ccol - 1] != "#":
                 ccol -= 1
@@ -72,20 +71,12 @@ def dictionary_to_list_converter(space_map: dict, len1: int, len2: int) -> list:
 
 if __name__ == '__main__':
     space_list1 = [
-        "#www-",
-        "wXw#-",
+        "#w",
+        "wX",
     ]
-
     flight_plan1 = ["N", "E", "E", "S", "E"]
-    #print("\n".join(simulate(space_list1, flight_plan1)))
 
-    # #---X
-    # w-w#-
-    #print(simulate(space_list1, flight_plan1))
-    #assert simulate(space_list1, flight_plan1) == ["#---X", "w-w#-"]
-
-    print()
-
+    print(simulate(space_list1, flight_plan1))
     space_list2 = [
         "WWWW",
         "-wwW",
@@ -93,24 +84,3 @@ if __name__ == '__main__':
     ]
 
     flight_plan2 = ["N", "N", "E", "E", "S", "W", "W", "S", "E", "E"]
-    #print("\n".join(simulate(space_list2, flight_plan2)))
-
-    # wwwW
-    # ---W
-    # -X#W
-
-    #assert simulate(space_list2, flight_plan2) == ["wwwW", "---W", "-X#W"]
-
-    #assert list_to_dictionary_converter(["-"]) == ({(0, 0): "-"}, 0, 0)
-    #assert list_to_dictionary_converter(['W#', '-X']) == ({(0, 0): 'W', (0, 1): '#', (1, 0): '-', (1, 1): '-'}, 1, 1)
-
-    assert list_to_dictionary_converter(
-        world_map=space_list1
-    ) == ({(0, 0): '#', (0, 1): 'w', (0, 2): 'w', (0, 3): 'w', (0, 4): '-', (1, 0): 'w', (1, 1): '-', (1, 2): 'w',
-           (1, 3): '#', (1, 4): '-'}, 1, 4)
-
-    assert dictionary_to_list_converter(
-        {(0, 0): '#', (0, 1): 'w', (0, 2): 'w', (0, 3): 'w', (0, 4): '-', (1, 0): 'w', (1, 1): 'X', (1, 2): 'w',
-         (1, 3): '#', (1, 4): '-'}, 5, 2) == space_list1
-
-    assert dictionary_to_list_converter({(0, 0): "X"}, 1, 1) == ["X"]
