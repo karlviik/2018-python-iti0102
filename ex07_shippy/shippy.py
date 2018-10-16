@@ -22,13 +22,9 @@ def simulate(world_map: list, flight_plan: list) -> list:
     If Shippy fights pirates in high presence area, it first turns into low presence ('w')
      and then from low presence into no presence area ('-').
     """
-    crow, ccol = 0, 0
-    for row, text in enumerate(world_map):
-        if text.find("X") != -1:
-            crow, ccol = row, text.find("X")
-            world_map[row] = text.replace("X", "-")
-            break
-    worlddict, maxrow, maxcol = list_to_dictionary_converter(world_map)
+    maxrow, maxcol = len(world_map) - 1, len(world_map[0]) - 1
+    worlddict, crow, ccol = list_to_dictionary_converter(world_map)
+    worlddict[crow, ccol] = "-"
     for move in flight_plan:
         if not (crow == 0 and move == "N" or crow == maxrow and move == "S" or ccol == maxcol and move == "E" or ccol == 0 and move == "W"):
             if move == "W" and worlddict[crow, ccol - 1] != "#":
@@ -52,8 +48,12 @@ def list_to_dictionary_converter(world_map: list) -> Tuple[dict, int, int]:
     mapdict = {}
     for rowi, row in enumerate(world_map):
         for celli, cell in enumerate(row):
+            if cell == "X":
+                cell = "-"
+                shiprow = rowi
+                shipcol = celli
             mapdict[rowi, celli] = cell
-    return mapdict, len(world_map) - 1, len(world_map[0]) - 1
+    return mapdict, shiprow, shipcol
 
 
 def dictionary_to_list_converter(space_map: dict, len1: int, len2: int) -> list:
