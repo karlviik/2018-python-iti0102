@@ -46,6 +46,7 @@ def simulate(world_map: list, flight_plan: list) -> list:
 def list_to_dictionary_converter(world_map: list) -> Tuple[dict, int, int]:
     """Converts a list to dictionary using coordinates as keys."""
     mapdict = {}
+    shiprow, shipcol = 0, 0
     for rowi, row in enumerate(world_map):
         for celli, cell in enumerate(row):
             if cell == "X":
@@ -94,3 +95,21 @@ test_random_list_to_dict_easy: FAILED (2.273 ms)
 test_random_list_to_dict_medium: FAILED (2.588 ms)
 test_random_list_to_dict_hard: FAILED (2.276 ms)
 """
+
+   test_simulate_random_up_to_3x3_cut_low_high: FAILED (21.53 ms)
+
+   test_simulate_random_up_to_3x3_cut_low_high_obstacles: FAILED (20.21 ms)
+
+   test_simulate_random_up_to_3x3_cut_low_high_obstacles_a_lot_of_moves: passed (80.82 ms)
+
+   test_simulate_random_up_to_20x20_cut_low_high_obstacles: FAILED (4.793 ms)
+
+   test_simulate_random_up_to_5x5_cut_low_high_obstacles_time_limit: FAILED (2.519 ms)
+
+   test_list_to_dict_1x1_nothing: FAILED (2.089 ms)
+            UnboundLocalError: local variable 'shiprow' referenced before assignment
+
+
+   test_list_to_dict_2x2: FAILED (4.206 ms)
+            UnboundLocalError: local variable 'shiprow' referenced before assignment
+
