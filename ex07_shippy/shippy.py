@@ -22,13 +22,18 @@ def simulate(world_map: list, flight_plan: list) -> list:
     If Shippy fights pirates in high presence area, it first turns into low presence ('w')
      and then from low presence into no presence area ('-').
     """
+    movedic = {"N": (-1, 0), "S": (1, 0), "E": (0, 1), "W": (0, -1)}
     maxrow, maxcol = len(world_map) - 1, len(world_map[0]) - 1
     worlddict, crow, ccol = list_to_dictionary_converter(world_map)
     worlddict[crow, ccol] = "-"
     for move in flight_plan:
         if not (crow == 0 and move == "N" or crow == maxrow and move == "S" or ccol == maxcol and move == "E" or ccol == 0 and move == "W"):
             check = 0
-            if move == "W" and worlddict[crow, ccol - 1] != "#":
+            nrow, ncol = movedic[move][0], movedic[move][1]
+            if worlddict[nrow, ncol] != "#":
+                check = 1
+                crow, ccol = nrow, ncol
+            """if move == "W" and worlddict[crow, ccol - 1] != "#":
                 ccol -= 1
                 check = 1
             elif move == "E" and worlddict[crow, ccol + 1] != "#":
@@ -39,7 +44,7 @@ def simulate(world_map: list, flight_plan: list) -> list:
                 check = 1
             elif move == "S" and worlddict[crow + 1, ccol] != "#":
                 crow += 1
-                check = 1
+                check = 1"""
             if worlddict[crow, ccol] == "W" and check:
                 worlddict[crow, ccol] = "w"
             elif worlddict[crow, ccol] == "w" and check:
