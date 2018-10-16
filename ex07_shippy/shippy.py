@@ -26,12 +26,11 @@ def simulate(world_map: list, flight_plan: list) -> list:
     maxrow, maxcol = len(world_map) - 1, len(world_map[0]) - 1
     worlddict, crow, ccol = list_to_dictionary_converter(world_map)
     worlddict[crow, ccol] = "-"
-    nrow, ncol = crow, ccol
     for move in flight_plan:
         if not (crow == 0 and move == "N" or crow == maxrow and move == "S" or ccol == maxcol and move == "E" or ccol == 0 and move == "W"):
             check = 0
-            nrow += movedic[move][0]
-            ncol += movedic[move][1]
+            nrow = crow + movedic[move][0]
+            ncol = ccol + movedic[move][1]
             if worlddict[nrow, ncol] != "#":
                 check = 1
                 crow, ccol = nrow, ncol
