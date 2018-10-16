@@ -34,18 +34,6 @@ def simulate(world_map: list, flight_plan: list) -> list:
             if worlddict[nrow, ncol] != "#":
                 check = 1
                 crow, ccol = nrow, ncol
-            """if move == "W" and worlddict[crow, ccol - 1] != "#":
-                ccol -= 1
-                check = 1
-            elif move == "E" and worlddict[crow, ccol + 1] != "#":
-                ccol += 1
-                check = 1
-            elif move == "N" and worlddict[crow - 1, ccol] != "#":
-                crow -= 1
-                check = 1
-            elif move == "S" and worlddict[crow + 1, ccol] != "#":
-                crow += 1
-                check = 1"""
             if worlddict[crow, ccol] == "W" and check:
                 worlddict[crow, ccol] = "w"
             elif worlddict[crow, ccol] == "w" and check:
@@ -58,11 +46,9 @@ def list_to_dictionary_converter(world_map: list) -> Tuple[dict, int, int]:
     """Convert a list to dictionary using coordinates as keys."""
     mapdict = {}
     shiprow, shipcol = 0, 0
-    check = 1
     for rowi, row in enumerate(world_map):
         for celli, cell in enumerate(row):
-            if check and cell == "X":
-                check = 0
+            if cell == "X":
                 cell = "-"
                 shiprow = rowi
                 shipcol = celli
