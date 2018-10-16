@@ -46,7 +46,7 @@ def simulate(world_map: list, flight_plan: list) -> list:
 
 
 def list_to_dictionary_converter(world_map: list) -> Tuple[dict, int, int]:
-    """Converts a list to dictionary using coordinates as keys."""
+    """Convert a list to dictionary using coordinates as keys."""
     mapdict = {}
     shiprow, shipcol = 0, 0
     for rowi, row in enumerate(world_map):
@@ -86,10 +86,3 @@ if __name__ == '__main__':
     ]
 
     flight_plan2 = ["N", "N", "E", "E", "S", "W", "W", "S", "E", "E"]
-
-
-"""
-   test_simulate_random_up_to_20x20_cut_low_high_obstacles: FAILED (7.74 ms)
-
-   test_simulate_random_up_to_5x5_cut_low_high_obstacles_time_limit: FAILED (270.5 ms)
-"""
