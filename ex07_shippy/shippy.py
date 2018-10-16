@@ -25,6 +25,7 @@ def simulate(world_map: list, flight_plan: list) -> list:
     maxrow, maxcol = len(world_map) - 1, len(world_map[0]) - 1
     worlddict, crow, ccol = list_to_dictionary_converter(world_map)
     worlddict[crow, ccol] = "-"
+    lrow, lcol = crow + 1, ccol
     for move in flight_plan:
         if not (crow == 0 and move == "N" or crow == maxrow and move == "S" or ccol == maxcol and move == "E" or ccol == 0 and move == "W"):
             if move == "W" and worlddict[crow, ccol - 1] != "#":
@@ -35,10 +36,11 @@ def simulate(world_map: list, flight_plan: list) -> list:
                 crow -= 1
             elif move == "S" and worlddict[crow + 1, ccol] != "#":
                 crow += 1
-        if worlddict[crow, ccol] == "W":
+        if worlddict[crow, ccol] == "W" and (lrow != crow or lcol != ccol):
             worlddict[crow, ccol] = "w"
-        elif worlddict[crow, ccol] == "w":
+        elif worlddict[crow, ccol] == "w" and (lrow != crow or lcol != ccol):
             worlddict[crow, ccol] = "-"
+        lrow, lcol = crow, ccol
     worlddict[crow, ccol] = "X"
     return dictionary_to_list_converter(worlddict, maxcol + 1, maxrow + 1)
 
@@ -86,4 +88,12 @@ if __name__ == '__main__':
     flight_plan2 = ["N", "N", "E", "E", "S", "W", "W", "S", "E", "E"]
 
 
+"""
+   test_simulate_random_up_to_3x3_cut_low_high: FAILED (27.12 ms)
 
+   test_simulate_random_up_to_3x3_cut_low_high_obstacles: FAILED (16.92 ms)
+
+   test_simulate_random_up_to_20x20_cut_low_high_obstacles: FAILED (2.768 ms)
+
+   test_simulate_random_up_to_5x5_cut_low_high_obstacles_time_limit: FAILED (3.7 ms)
+"""
