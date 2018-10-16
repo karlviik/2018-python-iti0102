@@ -52,8 +52,6 @@ def list_to_dictionary_converter(world_map: list) -> Tuple[dict, int, int]:
     mapdict = {}
     for rowi, row in enumerate(world_map):
         for celli, cell in enumerate(row):
-            if cell == "X":
-                cell = "-"
             mapdict[rowi, celli] = cell
     return mapdict, len(world_map) - 1, len(world_map[0]) - 1
 
@@ -71,11 +69,12 @@ def dictionary_to_list_converter(space_map: dict, len1: int, len2: int) -> list:
 
 if __name__ == '__main__':
     space_list1 = [
-        "#w",
-        "wX",
+        "---",
+        "-X-",
+        "-W-"
     ]
-    flight_plan1 = ["N", "E", "E", "S", "E"]
-
+    flight_plan1 = ["N", "N", "N", "N", "E", "E", "E", "E", "S", "S", "S", "S", "W", "W", "W", "W"]
+    print(list_to_dictionary_converter(space_list1))
     print(simulate(space_list1, flight_plan1))
     space_list2 = [
         "WWWW",
@@ -84,3 +83,14 @@ if __name__ == '__main__':
     ]
 
     flight_plan2 = ["N", "N", "E", "E", "S", "W", "W", "S", "E", "E"]
+
+"""
+test_simulate_random_up_to_3x3_cut_low_high: FAILED (22.68 ms)
+test_simulate_random_up_to_3x3_cut_low_high_obstacles: FAILED (14.46 ms)
+test_simulate_random_up_to_20x20_cut_low_high_obstacles: FAILED (4.578 ms)
+test_simulate_random_up_to_5x5_cut_low_high_obstacles_time_limit: FAILED (10.1 ms)
+test_list_to_dict_2x2: FAILED (3.858 ms)
+test_random_list_to_dict_easy: FAILED (2.273 ms)
+test_random_list_to_dict_medium: FAILED (2.588 ms)
+test_random_list_to_dict_hard: FAILED (2.276 ms)
+"""
