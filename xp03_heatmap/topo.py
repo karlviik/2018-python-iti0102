@@ -1,7 +1,7 @@
 """
 Topography module.
-Helps to read topography related data.
 
+Helps to read topography related data.
 """
 import urllib.request
 import json
@@ -55,7 +55,7 @@ def read_json_from_web(min_lat, max_lat, lat_step, min_lng, max_lng, lng_step):
     :param lng_step: step for longitude (see stride)
     :return: json string with the results
     """
-    url = f"https://coastwatch.pfeg.noaa.gov/erddap/griddap/usgsCeSrtm30v6.json?topo[({min_lat}):{lat_step}:({max_lat})][({min_lng}):{lng_step}:({max_lng})]"
+    url = f"https://coastwatch.pfeg.noaa.gov/erddap/griddap/usgsCeSrtm30v6.json?topo[({max_lat}):{lat_step}:({min_lat})][({min_lng}):{lng_step}:({max_lng})]"
     return read_web(url).decode("utf-8")
 
 
@@ -71,7 +71,7 @@ def read_json_from_file(filename):
         with open(filename) as f:
             contents = f.read()
             return contents  # .decode("utf-8")
-    except UnicodeDecodeError:
+    except UnicodeDecodeError or FileNotFoundError:
         return None
 
 
