@@ -55,6 +55,10 @@ def read_json_from_web(min_lat, max_lat, lat_step, min_lng, max_lng, lng_step):
     :param lng_step: step for longitude (see stride)
     :return: json string with the results
     """
+    if lat_step == 0:
+        lat_step = 1
+    if lng_step == 0:
+        lng_step = 1
     url = f"http://coastwatch.pfeg.noaa.gov/erddap/griddap/usgsCeSrtm30v6.json?topo[({max_lat}):{lat_step}:({min_lat})][({min_lng}):{lng_step}:({max_lng})]"
     return read_web(url).decode("utf-8")
 
