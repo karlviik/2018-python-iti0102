@@ -3,6 +3,9 @@ Topography module.
 Helps to read topography related data.
 
 """
+import urllib.request
+import json
+
 
 def read_web(url):
     """
@@ -13,7 +16,9 @@ def read_web(url):
     :param url: URL to be read
     :return: contents of the web page (string)
     """
-    return ""
+    with urllib.request.urlopen(url) as f:
+        contents = f.read()
+        return contents  # .decode("utf-8")
 
 
 def read_json_from_web(min_lat, max_lat, lat_step, min_lng, max_lng, lng_step):
@@ -50,19 +55,8 @@ def read_json_from_web(min_lat, max_lat, lat_step, min_lng, max_lng, lng_step):
     :param lng_step: step for longitude (see stride)
     :return: json string with the results
     """
-
-    return """{
-  "table": {
-    "columnNames": ["latitude", "longitude", "topo"],
-    "columnTypes": ["double", "double", "short"],
-    "columnUnits": ["degrees_north", "degrees_east", "meters"],
-    "rows": [
-      [61.0, 24.0, 136],
-      [61.0, 24.083333333333343, 153],
-      [61.0, 24.166666666666657, 125]
-    ]
-  }
-}"""
+    url = f"https://coastwatch.pfeg.noaa.gov/erddap/griddap/usgsCeSrtm30v6.json?topo[({min_lat}):{lat_step}:({max_lat})][({min_lng}):{lng_step}:({max_lng})]"
+    return read_web(url).decode("utf-8")
 
 
 def read_json_from_file(filename):
@@ -73,7 +67,12 @@ def read_json_from_file(filename):
     :param filename: filename to be opened
     :return: json string (the contents). None if the file cannot be read.
     """
-    return None
+    try:
+        with open(filename) as f:
+            contents = f.read()
+            return contents  # .decode("utf-8")
+    except UnicodeDecodeError:
+        return None
 
 
 def get_topo_data_from_string(data_string):
@@ -84,6 +83,8 @@ def get_topo_data_from_string(data_string):
     :param data_string: input string (json format)
     :return: list of lists
     """
-    return [[61.0, 24.0, 136],
-      [61.0, 24.083333333333343, 153],
-      [61.0, 24.166666666666657, 125]]
+    data = []
+    data_dict = json.loads(data_string)
+    for row in data_dict["table"]["rows"]:
+        data.append(row)
+    return data
