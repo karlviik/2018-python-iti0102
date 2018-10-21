@@ -71,7 +71,7 @@ def read_json_from_file(filename):
         with open(filename) as f:
             contents = f.read()
             return contents  # .decode("utf-8")
-    except UnicodeDecodeError or FileNotFoundError:
+    except FileNotFoundError:
         return None
 
 
