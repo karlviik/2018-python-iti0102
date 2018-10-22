@@ -38,48 +38,51 @@ def generate_map(topo_data, width, height, filename):
     :param filename: the file to be written
     :return: True if everything ok, False otherwise
     """
-    data_len = len(topo_data)
-    maxlat, minlon, minlat, maxlon = topo_data[0][0], topo_data[0][1], topo_data[data_len - 1][0], topo_data[data_len - 1][1]
-    diflat = maxlat - minlat
-    diflon = maxlon - minlon
-    steplon = topo_data[1][1] - minlon
-    datawidth = round(diflon / steplon + 1)
-    steplat = maxlat - topo_data[datawidth][0]
-    dataheight = round(diflat / steplat + 1)
-    datawidthstep = datawidth / width
-    dataheightstep = dataheight / height
-    minalt, maxalt = 0, 0
-    pixellist = []
-    #print(dataheight, datawidth)
-    for row in range(height):
-        rowlist = []
-        for column in range(width):
-            #print((math.ceil((row + 1) * dataheightstep) - 1) * datawidth, (math.ceil((column + 1) * datawidthstep) - 1))
-            pixel = topo_data[(math.ceil((row + 1) * dataheightstep) - 1) * datawidth + (math.ceil((column + 1) * datawidthstep) - 1)][2]
-            if pixel < minalt:
-                minalt = pixel
-            elif pixel > maxalt:
-                maxalt = pixel
-            rowlist.append(pixel)
-        pixellist.append(rowlist)
-    img = Image.new("RGB", (width, height))
-    draw = ImageDraw.Draw(img)
-    for y, row in enumerate(pixellist):
-        for x, pixel in enumerate(row):
-            if pixel < 0:
-                temp = round(pixel / minalt, 1)
-                R = math.floor(0 - temp * 0)
-                G = math.floor(55 - temp * 45)
-                B = math.floor(160 - temp * 60)
-            else:
-                temp = round(pixel / maxalt, 1)
-                R = math.floor(40 + temp * 215)
-                G = math.floor(105 + temp * 150)
-                B = math.floor(30 + temp * 225)
+    try:
+        data_len = len(topo_data)
+        maxlat, minlon, minlat, maxlon = topo_data[0][0], topo_data[0][1], topo_data[data_len - 1][0], topo_data[data_len - 1][1]
+        diflat = maxlat - minlat
+        diflon = maxlon - minlon
+        steplon = topo_data[1][1] - minlon
+        datawidth = round(diflon / steplon + 1)
+        steplat = maxlat - topo_data[datawidth][0]
+        dataheight = round(diflat / steplat + 1)
+        datawidthstep = datawidth / width
+        dataheightstep = dataheight / height
+        minalt, maxalt = 0, 0
+        pixellist = []
+        #print(dataheight, datawidth)
+        for row in range(height):
+            rowlist = []
+            for column in range(width):
+                #print((math.ceil((row + 1) * dataheightstep) - 1) * datawidth, (math.ceil((column + 1) * datawidthstep) - 1))
+                pixel = topo_data[(math.ceil((row + 1) * dataheightstep) - 1) * datawidth + (math.ceil((column + 1) * datawidthstep) - 1)][2]
+                if pixel < minalt:
+                    minalt = pixel
+                elif pixel > maxalt:
+                    maxalt = pixel
+                rowlist.append(pixel)
+            pixellist.append(rowlist)
+        img = Image.new("RGB", (width, height))
+        draw = ImageDraw.Draw(img)
+        for y, row in enumerate(pixellist):
+            for x, pixel in enumerate(row):
+                if pixel < 0:
+                    temp = round(pixel / minalt, 1)
+                    R = math.floor(0 - temp * 0)
+                    G = math.floor(55 - temp * 45)
+                    B = math.floor(160 - temp * 60)
+                else:
+                    temp = round(pixel / maxalt, 1)
+                    R = math.floor(40 + temp * 215)
+                    G = math.floor(105 + temp * 150)
+                    B = math.floor(30 + temp * 225)
 
-            draw.point((x + 0, y + 0), (R, G, B))
-    img.save(filename, "PNG")
-    return True
+                draw.point((x + 0, y + 0), (R, G, B))
+        img.save(filename, "PNG")
+        return True
+    except:
+        return False
 
 
 def generate_map_with_coordinates(topo_params, image_width, image_height, filename):
@@ -114,12 +117,34 @@ def generate_map_with_coordinates(topo_params, image_width, image_height, filena
     :param filename: filename to store the image
     :return: True, if everything ok, False otherwise
     """
-    return True
+    step = 0.008333333
+    latstep = topo_params[2]
+    lonstep = topo_params[5]
+    if latstep == 0:
+        latrange = topo_params[1] - topo_params[0]
+        datalat = latrange / step
+        latstep = math.floor(datalat / image_height)
+        if latstep == 0:
+            latstep = 1
+    if lonstep == 0:
+        lonrange = topo_params[1] - topo_params[0]
+        datalon = lonrange / step
+        lonstep = math.floor(datalon / image_width)
+        if lonstep == 0:
+            lonstep = 1
+    file = f"topo_{topo_params[0]}-{topo_params[1]}-{latstep}_{topo_params[3]}-{topo_params[4]}-{lonstep}.json"
+    contents = topo.read_json_from_file(file)
+    if not contents:
+        contents = topo.read_json_from_web(topo_params[0], topo_params[1], topo_params[2], topo_params[3], topo_params[4], topo_params[5])
+        with open(file, "w") as f:
+            f.write(contents)
+    data = topo.get_topo_data_from_string(contents)
+    return generate_map(data, image_width, image_height, filename)
 
 
 if __name__ == '__main__':
-    topo_data = topo.get_topo_data_from_string(topo.read_json_from_web(57.5, 60, 1, 22, 29, 1))
-    generate_map(topo_data, 2000, 1333, "eesti.png")
+    #topo_data = topo.get_topo_data_from_string(topo.read_json_from_web(57.5, 60, 1, 22, 29, 1))
+    #generate_map(topo_data, 2000, 1333, "eesti.png")
 
-    #generate_map_with_coordinates((57.5, 60, 0, 22, 29, 0), 1500, 1000, "eesti.png")
+    generate_map_with_coordinates((57.5, 60, 0, 22, 29, 0), 1500, 1000, "eesti.png")
     #generate_map_with_coordinates((-89.9, 90, 0, -180, 179.9, 0), 600, 400, "world.png")
