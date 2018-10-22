@@ -29,10 +29,17 @@ def test_back_to_beginning_four_directions():
 
 
 def test_three_directions_out_one_direction_in():
-    assert shortest_way_back.shortest_way_back("SWEWES") == "NN"
-    assert shortest_way_back.shortest_way_back("NEWWEN") == "SS"
-    assert shortest_way_back.shortest_way_back("ENSENS") == "WW"
-    assert shortest_way_back.shortest_way_back("SNSNWW") == "EE"
+    assert shortest_way_back.shortest_way_back("SWEWESEEWEWWS") == "NNN"
+    assert shortest_way_back.shortest_way_back("NEWWENWWWNWEEEEEW") == "SSS"
+    assert shortest_way_back.shortest_way_back("ENSENSSNNESNNNSSNSS") == "WWW"
+    assert shortest_way_back.shortest_way_back("SNSNWWNNNSSSNSNSNSSWNSSNN") == "EEE"
+
+
+def test_four_directions_out_one_direction_in():
+    assert shortest_way_back.shortest_way_back("SENWWNSWENSWEWNNWESWSEW") == "EEE"
+    assert shortest_way_back.shortest_way_back("SENWWENSEWENESWEWENENWEESWSEW") == "WWW"
+    assert shortest_way_back.shortest_way_back("SENWWESNSEWWENESWSWEWENWENWESESWSEW") == "NNN"
+    assert shortest_way_back.shortest_way_back("SENWNWESNSEWNWENESWSWEWNNENWNENWESENSWSEW") == "SSS"
 
 
 def test_two_directions():
@@ -42,10 +49,12 @@ def test_two_directions():
 
 def test_three_directions():
     assert shortest_way_back.shortest_way_back("WNSNNWS") in ["SEE", "ESE", "EES"]
+    assert shortest_way_back.shortest_way_back("SSNEE") in ["WWN", "WNW", "NWW"]
 
 
 def test_four_directions():
     assert shortest_way_back.shortest_way_back("WNSNENWS") in ["SE", "ES"]
+    assert shortest_way_back.shortest_way_back("SSEWENSN") in ["NW", "WN"]
 
 
 def test_long_one_way():
