@@ -71,7 +71,7 @@ def generate_map(topo_data, width, height, filename):
                 draw.point((x + 0, y + 0), (R, G, B))
         img.save(filename, "PNG")
         return True
-    except:
+    except TypeError:
         return False
 
 
