@@ -58,14 +58,14 @@ def generate_map(topo_data, width, height, filename):
         for x, pixel in enumerate(row):
             if pixel < 0:
                 temp = round(pixel / minalt, 1)
-                R = math.floor(40 - temp * 40)
-                G = math.floor(115 - temp * 105)
-                B = math.floor(250 - temp * 150)
+                R = math.floor(0 + temp * 255)
+                G = math.floor(0 + temp * 255)
+                B = math.floor(0 + temp * 255)
             else:
                 temp = round(pixel / maxalt, 1)
-                R = math.floor(40 + temp * 215)
-                G = math.floor(105 + temp * 150)
-                B = math.floor(30 + temp * 225)
+                R = math.floor(255 - temp * 255)
+                G = math.floor(50 - temp * 50)
+                B = math.floor(60 - temp * 60)
             draw.point((x, y), (R, G, B))
     img.save(filename, "PNG")
     return True
@@ -128,6 +128,5 @@ def generate_map_with_coordinates(topo_params, image_width, image_height, filena
     return generate_map(data, image_width, image_height, filename)
 
 
-# print(generate_map_with_coordinates((12, 71, 0, -168, -40, 0), 10000, 10000, "1v1.png"))
-# print(generate_map_with_coordinates((30, 50, 0, 0, 20, 0), 1000, 1000, "2v1.png"))
-
+# print(generate_map_with_coordinates((10, 70, 0, -170, -50, 0), 2000, 1000, "1v3.png"))
+# print(generate_map_with_coordinates((30, 50, 0, 0, 20, 0), 1000, 1000, "2v3.png"))
