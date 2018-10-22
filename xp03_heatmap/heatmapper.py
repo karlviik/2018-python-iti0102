@@ -146,5 +146,6 @@ if __name__ == '__main__':
     #topo_data = topo.get_topo_data_from_string(topo.read_json_from_web(57.5, 60, 1, 22, 29, 1))
     #generate_map(topo_data, 2000, 1333, "eesti.png")
 
-    generate_map_with_coordinates((57.5, 60, 0, 22, 29, 0), 1500, 1000, "eesti.png")
+    #print(generate_map_with_coordinates((57, 60, 0, 22, 29, 0), 1500, 1000, "eesti.png"), generate_map_with_coordinates((1, 2, 0, 1, 2, 0), 500, 500, "rando.png"))
+
     #generate_map_with_coordinates((-89.9, 90, 0, -180, 179.9, 0), 600, 400, "world.png")
