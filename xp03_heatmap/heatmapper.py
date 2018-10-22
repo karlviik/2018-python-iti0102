@@ -1,3 +1,4 @@
+"""Create nice map based on given parameters."""
 import topo
 from PIL import Image
 from PIL import ImageDraw
@@ -6,7 +7,7 @@ import math
 
 def generate_map(topo_data, width, height, filename):
     """
-    Generates (heat)map into an image file.
+    Generate (heat)map into an image file.
 
     topo_data comes from topo module. The data is a list
     where every element contains latitude, longitude and altitude (in meters).
@@ -17,15 +18,6 @@ def generate_map(topo_data, width, height, filename):
     For example, if topo_data has 12 elements (latitude, longitude, altitude):
     10, 10, 1
     10, 12, 1
-    10, 14, 2
-    12, 10, 1
-    12, 12, 3
-    12, 14, 1
-    14, 10, 6
-    14, 12, 9
-    14, 14, 12
-    16, 10, 1
-    16, 12, 1
     16, 14, 3
     and the width = 100, height = 100
     then the first line in data should be represented as a rectangle (0, 0) - (33, 25)
@@ -51,11 +43,9 @@ def generate_map(topo_data, width, height, filename):
         dataheightstep = dataheight / height
         minalt, maxalt = 0, 0
         pixellist = []
-        #print(dataheight, datawidth)
         for row in range(height):
             rowlist = []
             for column in range(width):
-                #print((math.ceil((row + 1) * dataheightstep) - 1) * datawidth, (math.ceil((column + 1) * datawidthstep) - 1))
                 pixel = topo_data[(math.ceil((row + 1) * dataheightstep) - 1) * datawidth + (math.ceil((column + 1) * datawidthstep) - 1)][2]
                 if pixel < minalt:
                     minalt = pixel
@@ -140,3 +130,6 @@ def generate_map_with_coordinates(topo_params, image_width, image_height, filena
             f.write(contents)
     data = topo.get_topo_data_from_string(contents)
     return generate_map(data, image_width, image_height, filename)
+
+
+print(generate_map_with_coordinates((1, 2, 1, 1, 2, 1), 100, 100, "aaaahahah.png"))
