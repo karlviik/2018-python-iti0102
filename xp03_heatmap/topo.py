@@ -56,7 +56,7 @@ def read_json_from_web(min_lat, max_lat, lat_step, min_lng, max_lng, lng_step):
     :return: json string with the results
     """
     url = f"http://coastwatch.pfeg.noaa.gov/erddap/griddap/usgsCeSrtm30v6.json?topo[({max_lat}):{lat_step}:({min_lat})][({min_lng}):{lng_step}:({max_lng})]"
-    return read_web(url)  # .decode("utf-8")
+    return read_web(url).decode("utf-8")
 
 
 def read_json_from_file(filename):
