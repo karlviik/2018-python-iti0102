@@ -127,10 +127,10 @@ def generate_map_with_coordinates(topo_params, image_width, image_height, filena
     if not contents:
         try:
             contents = topo.read_json_from_web(topo_params[0], topo_params[1], topo_params[2], topo_params[3], topo_params[4], topo_params[5])
-            with open(file, "w") as f:
-                f.write(contents)
         except:
             return False
+        with open(file, "w") as f:
+            f.write(contents)
     data = topo.get_topo_data_from_string(contents)
     return generate_map(data, image_width, image_height, filename)
 
