@@ -17,11 +17,7 @@ def read_web(url):
     :return: contents of the web page (string)
     """
     with urllib.request.urlopen(url) as f:
-        contents = f.read()
-        print(type(contents))
-        if type(contents) is bytes:
-            print("woo")
-    return contents  # .decode("utf-8")
+        return f.read()
 
 
 def read_json_from_web(min_lat, max_lat, lat_step, min_lng, max_lng, lng_step):
@@ -60,8 +56,8 @@ def read_json_from_web(min_lat, max_lat, lat_step, min_lng, max_lng, lng_step):
     """
     url = f"http://coastwatch.pfeg.noaa.gov/erddap/griddap/usgsCeSrtm30v6.json?topo[({max_lat}):{lat_step}:({min_lat})][({min_lng}):{lng_step}:({max_lng})]"
     contents = read_web(url)
-    if type(contents) is bytes:
-        contents = contents.decode("utf-8")
+    #if type(contents) is bytes:
+    contents = contents.decode("utf-8")
     return contents
 
 
@@ -76,7 +72,7 @@ def read_json_from_file(filename):
     try:
         with open(filename) as f:
             contents = f.read()
-            return contents  # .decode("utf-8")
+            return contents
     except FileNotFoundError:
         return None
 
@@ -94,6 +90,3 @@ def get_topo_data_from_string(data_string):
     for row in data_dict["table"]["rows"]:
         data.append(row)
     return data
-
-
-# print(read_json_from_web(1, 2, 1, 1, 2, 1))
