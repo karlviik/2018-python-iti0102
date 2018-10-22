@@ -66,7 +66,7 @@ def generate_map(topo_data, width, height, filename):
                 R = math.floor(40 + temp * 215)
                 G = math.floor(105 + temp * 150)
                 B = math.floor(30 + temp * 225)
-            draw.point((x + 0, y + 0), (R, G, B))
+            draw.point((x, y), (R, G, B))
     img.save(filename, "PNG")
     return True
 
@@ -128,4 +128,6 @@ def generate_map_with_coordinates(topo_params, image_width, image_height, filena
     return generate_map(data, image_width, image_height, filename)
 
 
-# print(generate_map_with_coordinates((30, 50, 0, 0, 20, 0), 1000, 1000, "something.png"))
+# print(generate_map_with_coordinates((12, 71, 0, -168, -40, 0), 10000, 10000, "1v1.png"))
+# print(generate_map_with_coordinates((30, 50, 0, 0, 20, 0), 1000, 1000, "2v1.png"))
+
