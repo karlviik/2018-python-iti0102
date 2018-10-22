@@ -123,14 +123,14 @@ def generate_map_with_coordinates(topo_params, image_width, image_height, filena
         if lonstep == 0:
             lonstep = 1
     file = f"topo_{topo_params[0]}-{topo_params[1]}-{latstep}_{topo_params[3]}-{topo_params[4]}-{lonstep}.json"
-    try:
-        contents = topo.read_json_from_file(file)
-    except:
-        return False
+    contents = topo.read_json_from_file(file)
     if not contents:
-        contents = topo.read_json_from_web(topo_params[0], topo_params[1], topo_params[2], topo_params[3], topo_params[4], topo_params[5])
-        with open(file, "w") as f:
-            f.write(contents)
+        try:
+            contents = topo.read_json_from_web(topo_params[0], topo_params[1], topo_params[2], topo_params[3], topo_params[4], topo_params[5])
+            with open(file, "w") as f:
+                f.write(contents)
+        except:
+            return False
     data = topo.get_topo_data_from_string(contents)
     return generate_map(data, image_width, image_height, filename)
 
