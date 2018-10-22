@@ -124,7 +124,7 @@ def generate_map_with_coordinates(topo_params, image_width, image_height, filena
             lonstep = 1
     file = f"topo_{topo_params[0]}-{topo_params[1]}-{latstep}_{topo_params[3]}-{topo_params[4]}-{lonstep}.json"
     contents = topo.read_json_from_file(file)
-    if contents == "" or contents == None:
+    if contents == "" or contents is None:
         contents = topo.read_json_from_web(topo_params[0], topo_params[1], topo_params[2], topo_params[3], topo_params[4], topo_params[5])
         with open(file, "w") as f:
             f.write(contents)
