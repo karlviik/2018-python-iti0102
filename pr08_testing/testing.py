@@ -69,6 +69,17 @@ def test_long_two_cancelling_ways():
     assert shortest_way_back.shortest_way_back("SN" * 100) == ""
 
 
+def test_long_two_almost_cancelling_ways():
+    assert shortest_way_back.shortest_way_back("W" * 50 + "E" * 51) == "W"
+    assert shortest_way_back.shortest_way_back("W" * 50 + "E" * 49) == "E"
+    assert shortest_way_back.shortest_way_back("N" * 50 + "S" * 51) == "N"
+    assert shortest_way_back.shortest_way_back("N" * 50 + "S" * 49) == "S"
+
+
+
+
+
+
 
 
 # TODO: add more functions
