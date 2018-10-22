@@ -56,8 +56,8 @@ def read_json_from_web(min_lat, max_lat, lat_step, min_lng, max_lng, lng_step):
     """
     url = f"http://coastwatch.pfeg.noaa.gov/erddap/griddap/usgsCeSrtm30v6.json?topo[({max_lat}):{lat_step}:({min_lat})][({min_lng}):{lng_step}:({max_lng})]"
     contents = read_web(url)
-    #if type(contents) is bytes:
-    contents = contents.decode("utf-8")
+    if type(contents) is bytes:
+        contents = contents.decode("utf-8")
     return contents
 
 
