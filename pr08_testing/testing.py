@@ -39,4 +39,27 @@ def test_two_directions():
     assert shortest_way_back.shortest_way_back("WNW") in ["SEE", "ESE", "EES"]
     assert shortest_way_back.shortest_way_back("SSE") in ["NNW", "NWN", "WNN"]
 
+
+def test_three_directions():
+    assert shortest_way_back.shortest_way_back("WNSNNWS") in ["SEE", "ESE", "EES"]
+
+
+def test_four_directions():
+    assert shortest_way_back.shortest_way_back("WNSNENWS") in ["SE", "ES"]
+
+
+def test_long_one_way():
+    assert shortest_way_back.shortest_way_back("W" * 100) == "E" * 100
+    assert shortest_way_back.shortest_way_back("E" * 100) == "W" * 100
+    assert shortest_way_back.shortest_way_back("N" * 100) == "S" * 100
+    assert shortest_way_back.shortest_way_back("S" * 100) == "N" * 100
+
+
+def test_long_two_cancelling_ways():
+    assert shortest_way_back.shortest_way_back("W" * 50 + "E" * 50) == ""
+    assert shortest_way_back.shortest_way_back("SN" * 100) == ""
+
+
+
+
 # TODO: add more functions
