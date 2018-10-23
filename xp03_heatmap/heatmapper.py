@@ -58,14 +58,14 @@ def generate_map(topo_data, width, height, filename):
         for x, pixel in enumerate(row):
             if pixel < 0:
                 temp = round(pixel / minalt, 1)
-                R = math.floor(0 + temp * 255)
-                G = math.floor(0 + temp * 255)
-                B = math.floor(0 + temp * 255)
+                R = math.floor(235 - temp * 235)
+                G = math.floor(0 + temp * 0)
+                B = math.floor(0 - temp * 0)
             else:
                 temp = round(pixel / maxalt, 1)
-                R = math.floor(255 - temp * 255)
-                G = math.floor(50 - temp * 50)
-                B = math.floor(60 - temp * 60)
+                R = math.floor(235 - temp * 235)
+                G = math.floor(175 - temp * 175)
+                B = math.floor(0 + temp * 0)
             draw.point((x, y), (R, G, B))
     img.save(filename, "PNG")
     return True
@@ -128,5 +128,8 @@ def generate_map_with_coordinates(topo_params, image_width, image_height, filena
     return generate_map(data, image_width, image_height, filename)
 
 
-# print(generate_map_with_coordinates((10, 70, 0, -170, -50, 0), 2000, 1000, "1v3.png"))
-# print(generate_map_with_coordinates((30, 50, 0, 0, 20, 0), 1000, 1000, "2v3.png"))
+ver = 10
+print(generate_map_with_coordinates((10, 70, 0, -170, -50, 0), 2000, 1000, f"{ver}-North America.png"))
+print(generate_map_with_coordinates((30, 50, 0, 0, 20, 0), 1000, 1000, f"{ver}-Italyish.png"))
+print(generate_map_with_coordinates((57.5, 60, 0, 22, 29, 0), 1500, 1000, f"{ver}-Estonia.png"))
+print(generate_map_with_coordinates((-89.9, 90, 0, -180, 179.9, 0), 600, 400, f"{ver}-World.png"))

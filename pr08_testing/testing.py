@@ -1,6 +1,7 @@
 import pytest
 import shortest_way_back
 import random
+import re
 
 
 def test_no_movement():
@@ -76,6 +77,24 @@ def test_long_two_almost_cancelling_ways():
     assert shortest_way_back.shortest_way_back("W" * 50 + "E" * 49) == "E"
     assert shortest_way_back.shortest_way_back("N" * 50 + "S" * 51) == "N"
     assert shortest_way_back.shortest_way_back("N" * 50 + "S" * 49) == "S"
+
+
+def test_random():
+    def generate_random(length):
+        directions = ["W", "E", "N", "S"]
+        movement = ""
+        for _ in range(length):
+            movement += random.choice(directions)
+        return movement
+
+    def check(path, multiplier):
+        we = len(re.findall("W", path)) - len(re.findall("E", path))
+        ns = len(re.findall("N", path)) - len(re.findall("S", path))
+        return we * multiplier, ns * multiplier
+
+    for i in range(5):
+        movement = generate_random(20 + i)
+        assert check(shortest_way_back.shortest_way_back(movement), 1) == check(movement, -1)
 
 
 """
