@@ -69,14 +69,6 @@ def test_four_directions():
     assert shortest_way_back.shortest_way_back("SSEWENSN") in ["NW", "WN"]
 
 
-def test_long_one_way():
-    """Test case where movement is long and only in one direction."""
-    assert shortest_way_back.shortest_way_back("W" * 100) == "E" * 100
-    assert shortest_way_back.shortest_way_back("E" * 100) == "W" * 100
-    assert shortest_way_back.shortest_way_back("N" * 100) == "S" * 100
-    assert shortest_way_back.shortest_way_back("S" * 100) == "N" * 100
-
-
 def test_random():
     """Test 5 random cases."""
     def generate_random(length):
