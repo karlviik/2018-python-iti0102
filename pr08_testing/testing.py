@@ -1,3 +1,4 @@
+"""Test pr07 shortest_way_back code."""
 import shortest_way_back
 import random
 import re
