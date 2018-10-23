@@ -25,7 +25,7 @@ def test_back_to_beginning_two_directions():
 
 def test_back_to_beginning_four_directions():
     assert shortest_way_back.shortest_way_back("WENS") == ""
-    assert shortest_way_back.shortest_way_back("WENSSNEW") == ""
+    assert shortest_way_back.shortest_way_back("WENSSENW") == ""
 
 
 def test_three_directions_out_one_direction_in():
@@ -36,7 +36,7 @@ def test_three_directions_out_one_direction_in():
 
 
 def test_four_directions_out_one_direction_in():
-    assert shortest_way_back.shortest_way_back("SENWWNSWENSWEWNNWESWSEW") == "EEE"
+    assert shortest_way_back.shortest_way_back("SENWWNSSWENSWENEWNNWEWSWSEW") == "EEE"
     assert shortest_way_back.shortest_way_back("SENWWENSEWENESWEWENENWEESWSEW") == "WWW"
     assert shortest_way_back.shortest_way_back("SENWWESNSEWWENESWSWEWENWENWESESWSEW") == "NNN"
     assert shortest_way_back.shortest_way_back("SENWNWESNSEWNWENESWSWEWNNENWNENWESENSWSEW") == "SSS"
@@ -45,11 +45,13 @@ def test_four_directions_out_one_direction_in():
 def test_two_directions():
     assert shortest_way_back.shortest_way_back("WNW") in ["SEE", "ESE", "EES"]
     assert shortest_way_back.shortest_way_back("SSE") in ["NNW", "NWN", "WNN"]
+    assert shortest_way_back.shortest_way_back("ENN") in ["SSW", "WSS", "SWS"]
+    assert shortest_way_back.shortest_way_back("WWS") in ["NEE", "ENE", "EEN"]
 
 
 def test_three_directions():
     assert shortest_way_back.shortest_way_back("WNSNNWS") in ["SEE", "ESE", "EES"]
-    assert shortest_way_back.shortest_way_back("SSNEE") in ["WWN", "WNW", "NWW"]
+    assert shortest_way_back.shortest_way_back("SSNENES") in ["WWN", "WNW", "NWW"]
 
 
 def test_four_directions():
@@ -66,7 +68,7 @@ def test_long_one_way():
 
 def test_long_two_cancelling_ways():
     assert shortest_way_back.shortest_way_back("W" * 50 + "E" * 50) == ""
-    assert shortest_way_back.shortest_way_back("SN" * 100) == ""
+    assert shortest_way_back.shortest_way_back("SSNN" * 100) == ""
 
 
 def test_long_two_almost_cancelling_ways():
@@ -76,7 +78,16 @@ def test_long_two_almost_cancelling_ways():
     assert shortest_way_back.shortest_way_back("N" * 50 + "S" * 49) == "S"
 
 
+"""
+test_testing_basic[result_has_only_other1-False]: FAILED (70.9 ms)
 
+   test_testing_basic[result_has_only_other2-False]: passed (392.6 ms)
+
+   test_testing_basic[result_has_only_other3-False]: FAILED (72.6 ms)
+
+   test_testing_basic[result_has_only_other4-False]: passed (451.8 ms)
+
+   test_uses_random: FAILED (363.7 ms)"""
 
 
 
