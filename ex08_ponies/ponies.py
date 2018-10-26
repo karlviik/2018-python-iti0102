@@ -1,7 +1,17 @@
+import codecs
 
 
 def decode(line: str) -> str:
-    pass
+    """
+    Decode input base64 in unicode string into unicode string.
+
+    :param line: given base64 in unicode string
+    :return: decoded base64 in unicode
+    """
+    line = line.encode("utf-8")
+    line = codecs.decode(line, "base64")
+    line = line.decode("utf-8")
+    return line
 
 
 def extract_information(line: str) -> dict:
@@ -46,3 +56,7 @@ def format_line(pony: dict, place: int) -> str:
 
 def write(input_file: str, kind: str):
     pass
+
+
+print(decode('TWF1ZCBQb21tZWwgICAgICAgICBVbmljb3JuICAgICAgICAgICAgIHBpbmsgICAgICAgICAgICAgICAgZ3JlZW4gICAgICAgICA'
++ 'gICAgICBjeWFuICAgICAgICAgICAgICAgIENhc3RsZSBvZiBGcmllbmRzaGlw'))
