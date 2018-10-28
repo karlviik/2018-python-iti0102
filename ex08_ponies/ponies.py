@@ -1,6 +1,7 @@
 import codecs
 import re
 
+
 def decode(line: str) -> str:
     """
     Decode input base64 in unicode string into unicode string.
@@ -20,7 +21,10 @@ def extract_information(line: str) -> dict:
     info_type_list = ["name", "kind", "coat_color", "mane_color", "eye_color", "location"]
     info_dict = {}
     for counter, match in enumerate(re.finditer(regex, line)):
-        info_dict[info_type_list[counter]] = match.group()
+        match = match.group()
+        if match.find("\n") > -1:
+            match = match[:-1]
+        info_dict[info_type_list[counter]] = match
     return info_dict
 
 
@@ -64,5 +68,5 @@ def write(input_file: str, kind: str):
     pass
 
 
-print(extract_information('Maud Pommel         Unicorn             pink                green               cyan                Castle of Friendship'))
+assert extract_information(' MaudPommel       Unicorn       pink  green     cyan   Castle of Friendship\n') == {'name': 'MaudPommel', 'kind': 'Unicorn', 'coat_color': 'pink', 'mane_color': 'green', 'eye_color': 'cyan', 'location': 'Castle of Friendship'}
 
