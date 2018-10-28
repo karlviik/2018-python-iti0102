@@ -1,5 +1,5 @@
 import codecs
-
+import re
 
 def decode(line: str) -> str:
     """
@@ -15,7 +15,13 @@ def decode(line: str) -> str:
 
 
 def extract_information(line: str) -> dict:
-    pass
+
+    regex = "[^(\\s{2,'inf'})]([a-zA-Z]|(\\s(?!\\s)))+"
+    info_type_list = ["name", "kind", "coat_color", "mane_color", "eye_color", "location"]
+    info_dict = {}
+    for counter, match in enumerate(re.finditer(regex, line)):
+        info_dict[info_type_list[counter]] = match.group()
+    return info_dict
 
 
 def read(read_file: str) -> list:
@@ -58,5 +64,5 @@ def write(input_file: str, kind: str):
     pass
 
 
-print(decode('TWF1ZCBQb21tZWwgICAgICAgICBVbmljb3JuICAgICAgICAgICAgIHBpbmsgICAgICAgICAgICAgICAgZ3JlZW4gICAgICAgICA'
-+ 'gICAgICBjeWFuICAgICAgICAgICAgICAgIENhc3RsZSBvZiBGcmllbmRzaGlw'))
+print(extract_information('Maud Pommel         Unicorn             pink                green               cyan                Castle of Friendship'))
+
