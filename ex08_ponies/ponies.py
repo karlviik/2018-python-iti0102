@@ -1,3 +1,4 @@
+"""Decode and present pony rankings."""
 import codecs
 import re
 
@@ -158,7 +159,7 @@ def sort_by_points(ponies: list) -> list:
     """
     newponies = []
     for pony in ponies:
-        if pony["points"] != None:
+        if pony["points"] is not None:
             newponies.append(pony)
 
     def get_points(dictionary):
@@ -167,12 +168,44 @@ def sort_by_points(ponies: list) -> list:
 
 
 def format_line(pony: dict, place: int) -> str:
-    pass
+    """
+    Return formatted line of pony information.
+
+    :param pony: dictionary of pony info
+    :param place: place pony achieved in competition
+    :return: formatted line
+    """
+    ponystring = str(place) + " " * (10 - len(str(place)))
+    order = [("points", 10), ("name", 20), ("kind", 20), ("coat_color", 20), ("mane_color", 20), ("eye_color", 20), ("location", 0)]
+    for item, itemlen in order:
+        ponystring += str(pony[item])
+        if itemlen > 0:
+            ponystring += (itemlen - len(str(pony[item]))) * " "
+    return ponystring
 
 
 def write(input_file: str, kind: str):
-    pass
+    """
+    Read input file and output a file of pony rankings.
+
+    :param input_file: file with coded lines
+    :param kind: what kind of ponies to include
+    :return: nothing
+    """
+    filename = f"results_for_{kind}.txt"
+    ponylist = read(input_file)
+    ponylist = filter_by_kind(filter_by_location(ponylist), kind)
+    ponylist = evaluate_ponies(ponylist)
+    ponylist = sort_by_points(sort_by_name(ponylist))
+    header = "PLACE" + " " * 5 + "POINTS" + " " * 4 + "NAME" + " " * 16 + "KIND" + " " * 16 + "COAT COLOR" + " " * 10 + "MANE COLOR" + " " * 10 + "EYE COLOR" + " " * 11 + "LOCATION"
+    with open(filename, "w") as f:
+        f.write(header + "\n")
+        f.write(len(header) * "-" + "\n")
+        maxpony = len(ponylist) - 1
+        for place, pony in enumerate(ponylist):
+            f.write(format_line(pony, place + 1))
+            if place < maxpony:
+                f.write("\n")
 
 
-
-print(decode("TkFNRSAgICAgICAgICAgICAgICBLSU5EICAgICAgICAgICAgICAgIENPQVQgQ09MT1IgICAgICAgICAgTUFORSBDT0xPUiAgICAgICAgICBFWUUgQ09MT1IgICAgICAgICAgIExPQ0FUSU9O"))
+write("näidis_sisendfail.txt", "Earth")
