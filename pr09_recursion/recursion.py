@@ -1,4 +1,6 @@
 """Does recursive and loopy things."""
+
+
 def recursive_sum(numbers: list) -> int:
     """
     Find out the sum of all the even numbers using recursion.
