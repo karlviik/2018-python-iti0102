@@ -1,3 +1,4 @@
+"""Does recursive and loopy things."""
 def recursive_sum(numbers: list) -> int:
     """
     Find out the sum of all the even numbers using recursion.
@@ -48,12 +49,3 @@ def recursive_reverse(s: str) -> str:
     if len(s) > 1:
         return s[-1] + recursive_reverse(s[:-1])
     return s
-
-
-if __name__ == '__main__':
-    print(recursive_sum([1, 3, 5, 7, 9]))
-    print(recursive_sum([2, 4, 5, 8]))
-    print(loop_sum([1, 3, 5, 7, 9]))
-    print(loop_sum([2, 4, 5, 8]))
-    print(recursive_reverse("abcdef"))
-    print(loop_reverse("abcdef"))
