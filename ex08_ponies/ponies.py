@@ -208,4 +208,4 @@ def write(input_file: str, kind: str):
                 f.write("\n")
 
 
-write("näidis_sisendfail.txt", "Earth")
+# write("näidis_sisendfail.txt", "Earth")
