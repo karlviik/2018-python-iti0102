@@ -101,12 +101,14 @@ def get_points_for_color(color: str) -> int or None:
 
 def add_points(pony: dict) -> dict:
     """
-    Add key "points" to the dict and return it.
+    Add key "points" to the dict and return it if location is valid.
 
     :param pony: dict of pony info
     :return: dict of pony info plus points key
     """
-    pony["points"] = None
+    evaluation_locations = ['Town Hall', 'Theater', 'School of Friendship', 'Schoolhouse', 'Crusaders Clubhouse', 'Golden Oak Library', 'Train station', 'Castle of Friendship', 'Retirement Village']
+    if pony["location"] in evaluation_locations:
+        pony["points"] = None
     return pony
 
 
