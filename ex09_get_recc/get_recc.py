@@ -26,7 +26,9 @@ def count_portions(number_of_participants: int, day: int) -> int:
     :param day: the specified day.
     :return: a total of portions served during the camp at the end of the specified day.
     """
-    if number_of_participants > 0 and day > 0 and number_of_participants - day + 1 > 0:
+    if number_of_participants > 0 and day > 0:
+        if day > number_of_participants:
+            return count_portions(number_of_participants, day - 1)
         return (number_of_participants - day + 1) * 4 + count_portions(number_of_participants, day - 1)
     return 0
 
@@ -152,7 +154,7 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
     """
     pass
 
-"""
+
 # first recursion
 assert count_portions(0, 7) == 0
 assert count_portions(6, 0) == 0
@@ -193,4 +195,3 @@ traversable = {(0, 2), (0, 3), (0, 4),
                (4, 1), (4, 2), (4, 3)}
 
 assert traversable_coordinates(world, (2, 2)) == traversable
-"""
