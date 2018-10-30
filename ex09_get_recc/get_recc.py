@@ -97,7 +97,7 @@ def people_in_the_know(hours_passed, cache: dict=None) -> int:
     # caching and calculating
     oneback = hours_passed - 1
     twoback = hours_passed - 2
-    if oneback in cache.keys():
+    """if oneback in cache.keys():
         oneturnback = cache[oneback]
     else:
         oneturnback = people_in_the_know(oneback)
@@ -106,10 +106,11 @@ def people_in_the_know(hours_passed, cache: dict=None) -> int:
         twoturnsback = cache[twoback]
     else:
         twoturnsback = people_in_the_know(twoback)
-        cache[twoback] = twoturnsback
+        cache[twoback] = twoturnsback"""
 
     # returning
-    return oneturnback + twoturnsback
+    #return oneturnback + twoturnsback
+    return people_in_the_know(oneback) + people_in_the_know(twoback)
 
 
 def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_coords: set=None) -> set:
