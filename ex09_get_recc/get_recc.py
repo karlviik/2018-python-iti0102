@@ -87,12 +87,12 @@ def people_in_the_know(hours_passed, cache: dict=None) -> int:
     :param cache: helper to store already calculated results.
     :return: the number of people that have heard the rumor.
     """
-    if cache is None:
-        cache = {}
     if hours_passed == 1:
         return 1
     elif hours_passed <= 0:
         return 0
+    if cache is None:
+        cache = {}
 
     # caching and calculating
     if hours_passed - 1 in cache.keys():
