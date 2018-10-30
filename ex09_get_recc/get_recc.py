@@ -95,16 +95,18 @@ def people_in_the_know(hours_passed, cache: dict=None) -> int:
         cache = {}
 
     # caching and calculating
-    if hours_passed - 1 in cache.keys():
-        oneturnback = cache[hours_passed - 1]
+    oneback = hours_passed - 1
+    twoback = hours_passed - 2
+    if oneback in cache.keys():
+        oneturnback = cache[oneback]
     else:
-        oneturnback = people_in_the_know(hours_passed - 1)
-        cache[hours_passed - 1] = oneturnback
-    if hours_passed - 2 in cache.keys():
-        twoturnsback = cache[hours_passed - 2]
+        oneturnback = people_in_the_know(oneback)
+        cache[oneback] = oneturnback
+    if twoback in cache.keys():
+        twoturnsback = cache[twoback]
     else:
-        twoturnsback = people_in_the_know(hours_passed - 2)
-        cache[hours_passed - 2] = twoturnsback
+        twoturnsback = people_in_the_know(twoback)
+        cache[twoback] = twoturnsback
 
     # returning
     return oneturnback + twoturnsback
