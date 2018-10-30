@@ -97,20 +97,19 @@ def people_in_the_know(hours_passed, cache: dict=None) -> int:
     # caching and calculating
     oneback = hours_passed - 1
     twoback = hours_passed - 2
-    """if oneback in cache.keys():
+    if oneback in cache.keys():
         oneturnback = cache[oneback]
     else:
-        oneturnback = people_in_the_know(oneback)
+        oneturnback = people_in_the_know(oneback, cache)
         cache[oneback] = oneturnback
     if twoback in cache.keys():
         twoturnsback = cache[twoback]
     else:
-        twoturnsback = people_in_the_know(twoback)
-        cache[twoback] = twoturnsback"""
+        twoturnsback = people_in_the_know(twoback, cache)
+        cache[twoback] = twoturnsback
 
     # returning
-    #return oneturnback + twoturnsback
-    return people_in_the_know(oneback) + people_in_the_know(twoback)
+    return oneturnback + twoturnsback
 
 
 def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_coords: set=None) -> set:
@@ -157,7 +156,7 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
     """
     pass
 
-"""
+
 # first recursion
 assert count_portions(0, 7) == 0
 assert count_portions(6, 0) == 0
@@ -177,7 +176,7 @@ assert people_in_the_know(1) == 1
 assert people_in_the_know(2) == 1
 assert people_in_the_know(3) == 2
 assert people_in_the_know(4) == 3
-assert people_in_the_know(7) == 13
+people_in_the_know(7) == 13
 # fourth recursion
 assert traversable_coordinates([]) == set()
 assert traversable_coordinates([[]]) == set()
@@ -198,4 +197,3 @@ traversable = {(0, 2), (0, 3), (0, 4),
                (4, 1), (4, 2), (4, 3)}
 
 assert traversable_coordinates(world, (2, 2)) == traversable
-"""
