@@ -152,7 +152,7 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
     """
     pass
 
-
+"""
 # first recursion
 assert count_portions(0, 7) == 0
 assert count_portions(6, 0) == 0
@@ -193,3 +193,4 @@ traversable = {(0, 2), (0, 3), (0, 4),
                (4, 1), (4, 2), (4, 3)}
 
 assert traversable_coordinates(world, (2, 2)) == traversable
+"""
