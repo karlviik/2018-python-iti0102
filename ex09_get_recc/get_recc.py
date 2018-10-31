@@ -193,18 +193,33 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
     else:
         for yadd, xadd in moves:
             try:
-                ynew = y + yadd
-                xnew = x + xadd
-                if ynew < 0 or xnew < 0:
-                    continue
-                if world_map[ynew][xnew] == "":
-                    traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
+                if type(world_map[y][x]) is str:
+                    ynew = y + yadd
+                    xnew = x + xadd
+                    if ynew < 0 or xnew < 0:
+                        continue
+                    if world_map[ynew][xnew] == "":
+                        traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
             except IndexError:
                 continue
     # print(traversable_coords)
     return traversable_coords
 
 
+world = [["1", "1", "1", "1", "1"],
+         ["1", 1, "1", "", "1"],
+         ["1", "1", "", "1", "1"],
+         ["1", "1", "", "1", "1"],
+         ["1", "1", "1", "1", "1"]]
+
+traversable = {(0, 2), (0, 3), (0, 4),
+               (1, 1), (1, 2), (1, 3), (1, 4),
+               (2, 1), (2, 2), (2, 3), (2, 4),
+               (3, 1), (3, 2), (3, 3),
+               (4, 1), (4, 2), (4, 3)}
+
+print(traversable_coordinates(world, (1, 1)))
+"""
 # fourth recursion
 assert traversable_coordinates([]) == set()
 assert traversable_coordinates([[]]) == set()
@@ -225,3 +240,4 @@ traversable = {(0, 2), (0, 3), (0, 4),
                (4, 1), (4, 2), (4, 3)}
 
 assert traversable_coordinates(world, (2, 2)) == traversable
+"""
