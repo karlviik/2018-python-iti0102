@@ -160,10 +160,10 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
     if traversable_coords is None:
         traversable_coords = set()
     y, x = coord
-    if x < 0 or y < 0 or type(world_map[y][x]) is not str:
-        return traversable_coords
     try:
         string = world_map[y][x]
+        if type(string) is not str:
+            return traversable_coords
     except IndexError:
         return traversable_coords
     if string == "":
