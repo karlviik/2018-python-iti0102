@@ -160,6 +160,8 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
     if traversable_coords is None:
         traversable_coords = set()
     y, x = coord
+    if x < 0 or y < 0:
+        return traversable_coords
     try:
         string = world_map[y][x]
     except IndexError:
@@ -202,7 +204,7 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
     # print(traversable_coords)
     return traversable_coords
 
-"""
+
 # fourth recursion
 assert traversable_coordinates([]) == set()
 assert traversable_coordinates([[]]) == set()
@@ -223,4 +225,3 @@ traversable = {(0, 2), (0, 3), (0, 4),
                (4, 1), (4, 2), (4, 3)}
 
 assert traversable_coordinates(world, (2, 2)) == traversable
-"""
