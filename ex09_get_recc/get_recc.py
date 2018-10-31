@@ -164,7 +164,7 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
         string = world_map[y][x]
     except IndexError:
         return traversable_coords
-    if x < 0 or y < 0 or type(world_map[y][x]) is not str:
+    if x < 0 or y < 0:
         return traversable_coords
     if string == "":
         traversable_coords.add(coord)
@@ -174,7 +174,7 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
                 xnew = x + xadd
                 if ynew < 0 or xnew < 0:
                     continue
-                if type(world_map[ynew][xnew]) is str and (ynew, xnew) not in traversable_coords:
+                if type(world_map[ynew][xnew]) and (ynew, xnew) not in traversable_coords:
                     traversable_coords.add((ynew, xnew))
                     traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
             except IndexError:
@@ -186,14 +186,14 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
                 xnew = x + xadd
                 if ynew < 0 or xnew < 0:
                     continue
-                if type(world_map[ynew][xnew]) is str and (ynew, xnew) not in traversable_coords:
+                if type(world_map[ynew][xnew]) and (ynew, xnew) not in traversable_coords:
                     traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
             except IndexError:
                 continue
     else:
         for yadd, xadd in moves:
             try:
-                if type(world_map[y][x]) is str:
+                if type(world_map[y][x]):
                     ynew = y + yadd
                     xnew = x + xadd
                     if ynew < 0 or xnew < 0:
@@ -207,10 +207,10 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
 
 
 world = [["1", "1", "1", "1", "1"],
-         ["1", 1, "1", "", "1"],
-         ["1", "1", "", "1", "1"],
-         ["1", "1", "", "1", "1"],
-         ["1", "1", "1", "1", "1"]]
+         ["1", "", "1", "1", "1"],
+         ["1", "1", "1", "1", "1"],
+         ["1", "1", "1", "1", "1"],
+         ["1", "1", "1", "1", ""]]
 
 traversable = {(0, 2), (0, 3), (0, 4),
                (1, 1), (1, 2), (1, 3), (1, 4),
