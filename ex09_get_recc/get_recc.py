@@ -112,6 +112,9 @@ def people_in_the_know(hours_passed, cache: dict=None) -> int:
     return oneturnback + twoturnsback
 
 
+moves = [(-1, -1), (-1, 0), (0, -1), (-1, 1), (1, -1), (1, 1), (1, 0), (0, 1)]
+
+
 def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_coords: set=None) -> set:
     """
     Return the coordinates that are traversable by humans or adjacent to traversable coordinates.
@@ -154,29 +157,52 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
     :return: set of traversable and traversable-adjacent cell
             coordinate tuples with respect to starting coord
     """
-    pass
+    if traversable_coords is None:
+        traversable_coords = set()
+    y, x = coord
+    try:
+        string = world_map[y][x]
+    except IndexError:
+        return traversable_coords
+    if string == "":
+        traversable_coords.add(coord)
+        for yadd, xadd in moves:
+            try:
+                ynew = y + yadd
+                xnew = x + xadd
+                if ynew < 0 or xnew < 0:
+                    continue
+                if type(world_map[ynew][xnew]) is str and (ynew, xnew) not in traversable_coords:
+                    traversable_coords.add((ynew, xnew))
+                    traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
+            except IndexError:
+                continue
+    elif coord in traversable_coords:
+        for yadd, xadd in moves:
+            try:
+                ynew = y + yadd
+                xnew = x + xadd
+                if ynew < 0 or xnew < 0:
+                    continue
+                if type(world_map[ynew][xnew]) is str and (ynew, xnew) not in traversable_coords:
+                    traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
+            except IndexError:
+                continue
+    else:
+        for yadd, xadd in moves:
+            try:
+                ynew = y + yadd
+                xnew = x + xadd
+                if ynew < 0 or xnew < 0:
+                    continue
+                if world_map[ynew][xnew] == "":
+                    traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
+            except IndexError:
+                continue
+    # print(traversable_coords)
+    return traversable_coords
 
 """
-# first recursion
-assert count_portions(0, 7) == 0
-assert count_portions(6, 0) == 0
-assert count_portions(-8, 5) == 0
-assert count_portions(9, -5) == 0
-assert count_portions(6, 1) == 24
-assert count_portions(6, 2) == 44
-assert count_portions(6, 3) == 60
-# second recursion
-assert names_to_be_eliminated({}) == set()
-assert names_to_be_eliminated({"Dylan": 10}) == {"Dylan"}
-assert names_to_be_eliminated({"Carl": 4, "Bert": -10}) == {"Bert"}
-assert names_to_be_eliminated({"Terry": 4, "Pete": 4}) == {"Terry", "Pete"}
-# third recursion
-assert people_in_the_know(0) == 0
-assert people_in_the_know(1) == 1
-assert people_in_the_know(2) == 1
-assert people_in_the_know(3) == 2
-assert people_in_the_know(4) == 3
-people_in_the_know(7) == 13
 # fourth recursion
 assert traversable_coordinates([]) == set()
 assert traversable_coordinates([[]]) == set()
