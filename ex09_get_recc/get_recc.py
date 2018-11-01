@@ -164,7 +164,7 @@ def traversable_coordinates(world_map: list, coord: tuple = (0, 0), traversable_
         string = world_map[y][x]
     except IndexError:
         return traversable_coords
-    if (x < 0) + (y < 0):
+    if x < 0 or y < 0:
         return traversable_coords
     if string == "":
         traversable_coords.add(coord)
@@ -176,8 +176,7 @@ def traversable_coordinates(world_map: list, coord: tuple = (0, 0), traversable_
                     continue
                 if type(world_map[ynew][xnew]) and (ynew, xnew) not in traversable_coords:
                     traversable_coords.add((ynew, xnew))
-                    if world_map[ynew][xnew] == "":
-                        traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
+                    traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
             except IndexError:
                 continue
     return traversable_coords
