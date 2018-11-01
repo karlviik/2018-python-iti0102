@@ -172,9 +172,7 @@ def traversable_coordinates(world_map: list, coord: tuple = (0, 0), traversable_
             try:
                 ynew = y + yadd
                 xnew = x + xadd
-                if ynew < 0 or xnew < 0:
-                    continue
-                if type(world_map[ynew][xnew]) and (ynew, xnew) not in traversable_coords:
+                if ynew >= 0 and xnew >= 0 and type(world_map[ynew][xnew]) and (ynew, xnew) not in traversable_coords:
                     traversable_coords.add((ynew, xnew))
                     traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
             except IndexError:
