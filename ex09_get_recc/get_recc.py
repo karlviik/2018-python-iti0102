@@ -206,26 +206,19 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
     return traversable_coords
 
 
-world = [["1", "1", "1", "1", "1"],
-         ["1", "", "1", "1", "1"],
-         ["1", "1", "1", "1", "1"],
-         ["1", "1", "1", "1", "1"],
-         ["1", "1", "1", "1", ""]]
+world = [["", "", "", "", ""],
+         ["", 11, 11, 11, ""],
+         ["", 11, 22, 11, ""],
+         ["", 11, 11, 11, ""],
+         ["", "", "", "", ""]]
 
-traversable = {(0, 2), (0, 3), (0, 4),
-               (1, 1), (1, 2), (1, 3), (1, 4),
-               (2, 1), (2, 2), (2, 3), (2, 4),
-               (3, 1), (3, 2), (3, 3),
-               (4, 1), (4, 2), (4, 3)}
+print(traversable_coordinates(world, (2, 2)))
 
-print(traversable_coordinates(world, (1, 1)))
-"""
 # fourth recursion
 assert traversable_coordinates([]) == set()
 assert traversable_coordinates([[]]) == set()
-assert traversable_coordinates([["", "", ""]], (5, 2)) == set()
 assert traversable_coordinates([["1", "1", ""]], (-4, -9)) == set()
-assert traversable_coordinates([["1", [], "1"]], (0, 1)) == set()
+print(traversable_coordinates([["1", [], ""]], (0, 2)))
 
 world = [["1", "1", "1", "1", "1"],
          ["1", "1", "1", "", "1"],
@@ -240,4 +233,4 @@ traversable = {(0, 2), (0, 3), (0, 4),
                (4, 1), (4, 2), (4, 3)}
 
 assert traversable_coordinates(world, (2, 2)) == traversable
-"""
+
