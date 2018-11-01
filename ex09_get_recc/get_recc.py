@@ -176,10 +176,11 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
                     continue
                 if type(world_map[ynew][xnew]) and (ynew, xnew) not in traversable_coords:
                     traversable_coords.add((ynew, xnew))
-                    traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
+                    if world_map[ynew][xnew] == "":
+                        traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
             except IndexError:
                 continue
-    elif coord in traversable_coords:
+    """elif coord in traversable_coords:
         for yadd, xadd in moves:
             try:
                 ynew = y + yadd
@@ -189,7 +190,7 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
                 if type(world_map[ynew][xnew]) and (ynew, xnew) not in traversable_coords:
                     traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
             except IndexError:
-                continue
+                continue"""
     """else:
         for yadd, xadd in moves:
             try:
