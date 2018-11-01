@@ -33,7 +33,7 @@ def count_portions(number_of_participants: int, day: int) -> int:
     return 0
 
 
-def names_to_be_eliminated(points_dict: dict, names: set=None, lowest_score: int=None) -> set:
+def names_to_be_eliminated(points_dict: dict, names: set = None, lowest_score: int = None) -> set:
     """
     Recursively find the names that are to be eliminated.
 
@@ -68,7 +68,7 @@ def names_to_be_eliminated(points_dict: dict, names: set=None, lowest_score: int
     return set()
 
 
-def people_in_the_know(hours_passed, cache: dict=None) -> int:
+def people_in_the_know(hours_passed, cache: dict = None) -> int:
     """
     Return the number of people who know a rumor given the hours passed from the initial release.
 
@@ -115,7 +115,7 @@ def people_in_the_know(hours_passed, cache: dict=None) -> int:
 moves = [(-1, -1), (-1, 0), (0, -1), (-1, 1), (1, -1), (1, 1), (1, 0), (0, 1)]
 
 
-def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_coords: set=None) -> set:
+def traversable_coordinates(world_map: list, coord: tuple = (0, 0), traversable_coords: set = None) -> set:
     """
     Return the coordinates that are traversable by humans or adjacent to traversable coordinates.
 
@@ -164,7 +164,7 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
         string = world_map[y][x]
     except IndexError:
         return traversable_coords
-    if x < 0 or y < 0:
+    if (x < 0) + (y < 0):
         return traversable_coords
     if string == "":
         traversable_coords.add(coord)
@@ -180,58 +180,4 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
                         traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
             except IndexError:
                 continue
-    """elif coord in traversable_coords:
-        for yadd, xadd in moves:
-            try:
-                ynew = y + yadd
-                xnew = x + xadd
-                if ynew < 0 or xnew < 0:
-                    continue
-                if type(world_map[ynew][xnew]) and (ynew, xnew) not in traversable_coords:
-                    traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
-            except IndexError:
-                continue"""
-    """else:
-        for yadd, xadd in moves:
-            try:
-                if type(world_map[y][x]):
-                    ynew = y + yadd
-                    xnew = x + xadd
-                    if ynew < 0 or xnew < 0:
-                        continue
-                    if world_map[ynew][xnew] == "":
-                        traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
-            except IndexError:
-                continue"""
-    # print(traversable_coords)
     return traversable_coords
-
-
-if __name__ == "__main__":
-    world = [["", "", "", "", ""],
-             ["", 11, 11, 11, ""],
-             ["", 11, 22, 11, ""],
-             ["", 11, 11, 11, ""],
-             ["", "", "", "", ""]]
-
-    print(traversable_coordinates(world, (2, 2)))
-
-    # fourth recursion
-    assert traversable_coordinates([]) == set()
-    assert traversable_coordinates([[]]) == set()
-    assert traversable_coordinates([["1", "1", ""]], (-4, -9)) == set()
-    print(traversable_coordinates([["1", [], ""]], (0, 2)))
-
-    world = [["1", "1", "1", "1", "1"],
-             ["1", "1", "1", "", "1"],
-             ["1", "1", "", "1", "1"],
-             ["1", "1", "", "1", "1"],
-             ["1", "1", "1", "1", "1"]]
-
-    traversable = {(0, 2), (0, 3), (0, 4),
-                   (1, 1), (1, 2), (1, 3), (1, 4),
-                   (2, 1), (2, 2), (2, 3), (2, 4),
-                   (3, 1), (3, 2), (3, 3),
-                   (4, 1), (4, 2), (4, 3)}
-
-    assert traversable_coordinates(world, (2, 2)) == traversable
