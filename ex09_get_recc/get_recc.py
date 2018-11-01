@@ -190,7 +190,7 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
                     traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
             except IndexError:
                 continue
-    else:
+    """else:
         for yadd, xadd in moves:
             try:
                 if type(world_map[y][x]):
@@ -201,36 +201,36 @@ def traversable_coordinates(world_map: list, coord: tuple=(0, 0), traversable_co
                     if world_map[ynew][xnew] == "":
                         traversable_coords = traversable_coordinates(world_map, (ynew, xnew), traversable_coords)
             except IndexError:
-                continue
+                continue"""
     # print(traversable_coords)
     return traversable_coords
 
 
-world = [["", "", "", "", ""],
-         ["", 11, 11, 11, ""],
-         ["", 11, 22, 11, ""],
-         ["", 11, 11, 11, ""],
-         ["", "", "", "", ""]]
+if __name__ == "__main__":
+    world = [["", "", "", "", ""],
+             ["", 11, 11, 11, ""],
+             ["", 11, 22, 11, ""],
+             ["", 11, 11, 11, ""],
+             ["", "", "", "", ""]]
 
-print(traversable_coordinates(world, (2, 2)))
+    print(traversable_coordinates(world, (2, 2)))
 
-# fourth recursion
-assert traversable_coordinates([]) == set()
-assert traversable_coordinates([[]]) == set()
-assert traversable_coordinates([["1", "1", ""]], (-4, -9)) == set()
-print(traversable_coordinates([["1", [], ""]], (0, 2)))
+    # fourth recursion
+    assert traversable_coordinates([]) == set()
+    assert traversable_coordinates([[]]) == set()
+    assert traversable_coordinates([["1", "1", ""]], (-4, -9)) == set()
+    print(traversable_coordinates([["1", [], ""]], (0, 2)))
 
-world = [["1", "1", "1", "1", "1"],
-         ["1", "1", "1", "", "1"],
-         ["1", "1", "", "1", "1"],
-         ["1", "1", "", "1", "1"],
-         ["1", "1", "1", "1", "1"]]
+    world = [["1", "1", "1", "1", "1"],
+             ["1", "1", "1", "", "1"],
+             ["1", "1", "", "1", "1"],
+             ["1", "1", "", "1", "1"],
+             ["1", "1", "1", "1", "1"]]
 
-traversable = {(0, 2), (0, 3), (0, 4),
-               (1, 1), (1, 2), (1, 3), (1, 4),
-               (2, 1), (2, 2), (2, 3), (2, 4),
-               (3, 1), (3, 2), (3, 3),
-               (4, 1), (4, 2), (4, 3)}
+    traversable = {(0, 2), (0, 3), (0, 4),
+                   (1, 1), (1, 2), (1, 3), (1, 4),
+                   (2, 1), (2, 2), (2, 3), (2, 4),
+                   (3, 1), (3, 2), (3, 3),
+                   (4, 1), (4, 2), (4, 3)}
 
-assert traversable_coordinates(world, (2, 2)) == traversable
-
+    assert traversable_coordinates(world, (2, 2)) == traversable
