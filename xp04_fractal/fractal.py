@@ -1,6 +1,7 @@
+"""Make fractals."""
 from PIL import Image
 from PIL import ImageDraw
-import random
+
 
 class Fractal:
     def __init__(self, size, scale, computation):
@@ -70,30 +71,27 @@ class Fractal:
 
 if __name__ == "__main__":
     def mandelbrot_computation(pixel):
-        x, y = pixel
-        xold, yold = 0, 0
+        """Returns iteration count for given weights."""
+        # x, y = pixel
+        # xold, yold = 0, 0
         c = complex(pixel[0], pixel[1])
         z = 0
         for iterations in range(129):
-
             z = z * z + c
             if abs(z) > 2:
                 break
-            """
-            xnew = xold ** 2 - yold ** 2 + x
-            ynew = 2 * xold * yold + y
-            if xnew ** 2 + ynew ** 2 > 4:
-                break
-            xold, yold = xnew, ynew
-            """
+            # Following part is basically the above, but slower and easier to understand.
+            # xnew = xold ** 2 - yold ** 2 + x
+            # ynew = 2 * xold * yold + y
+            # if xnew ** 2 + ynew ** 2 > 4:
+            #     break
+            # xold, yold = xnew, ynew
         return iterations
 
-    real = random.randint(-100, 100) / 100
-    imag = random.randint(-100, 100) / 100
-
-    def computation(pixel):
-        x, y = pixel
-        xold, yold = x, y
+    def julia_computation(pixel):
+        """Returns iteration count for given weights."""
+        # x, y = pixel
+        # xold, yold = x, y
         c = complex(real, imag)
         z = complex(pixel[0], pixel[1])
         for iterations in range(129):
@@ -101,29 +99,21 @@ if __name__ == "__main__":
             z = z * z + c
             if abs(z) > 2:
                 break
-            """
-            xnew = xold ** 2 - yold ** 2 - 0.75
-            ynew = 2 * xold * yold + 0.11
-            if xnew ** 2 + ynew ** 2 > 4:
-                break
-            xold, yold = xnew, ynew
-            """
+
+            # xnew = xold ** 2 - yold ** 2 - 0.75
+            # ynew = 2 * xold * yold + 0.11
+            # if xnew ** 2 + ynew ** 2 > 4:
+            #     break
+            # xold, yold = xnew, ynew
         return iterations
 
 
-    #mandelbrot = Fractal((750, 600), [(-2, -1.2), (1, 1.2)], mandelbrot_computation)
-    #mandelbrot.compute()
-    #mandelbrot.save_image("mandelbrot.png")
-    mandelbrot = Fractal((1000, 1000), [(-2, -2), (2, 2)], computation)
-    mandelbrot.compute()
-    mandelbrot.save_image("other one.png")
-    #mandelbrot2 = Fractal((1000, 1000), [(-0.74877, 0.065053), (-0.74872, 0.065103)], mandelbrot_computation)
-    #mandelbrot2.compute()
-    #mandelbrot2.save_image("mandelbrot2.png")
-
-    for _ in range(25):
-        real = random.randint(-100, 100) / 100
-        imag = random.randint(-100, 100) / 100
-        mandelbrot = Fractal((1000, 1000), [(-2, -2), (2, 2)], computation)
-        mandelbrot.compute()
-        mandelbrot.save_image(f"{real} {imag}.png")
+    # mandelbrot = Fractal((750, 600), [(-2, -1.2), (1, 1.2)], mandelbrot_computation)
+    # mandelbrot.compute()
+    # mandelbrot.save_image("mandelbrot.png")
+    # mandelbrot = Fractal((1000, 1000), [(-2, -2), (2, 2)], julia_computation)
+    # mandelbrot.compute()
+    # mandelbrot.save_image("other one.png")
+    # mandelbrot2 = Fractal((1000, 1000), [(-0.74877, 0.065053), (-0.74872, 0.065103)], mandelbrot_computation)
+    # mandelbrot2.compute()
+    # mandelbrot2.save_image("mandelbrot2.png")
