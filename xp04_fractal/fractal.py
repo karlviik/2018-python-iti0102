@@ -15,7 +15,7 @@ class Fractal:
         """
         self.iteration_computer = computation
         width, height = size
-        self.image = Image.new("RGB", size)
+        self.image = Image.new("HSV", size)
         min_x, min_y = scale[0]
         max_x, max_y = scale[1]
         xrange = max_x - min_x
@@ -27,7 +27,7 @@ class Fractal:
             yweight = min_y + ystep * ycount
             for xcount in range(width):
                 xweight = min_x + xstep * xcount
-                self.pixels[(xcount + 1, ycount + 1)] = (xweight, yweight)
+                self.pixels[(xcount, ycount)] = (xweight, yweight)
 
     def compute(self):
         """Create the fractal by computing every pixel value."""
@@ -55,33 +55,41 @@ class Fractal:
         """
         draw = ImageDraw.Draw(self.image)
         for pixel, iterations in self.pixels.items():
-            iterations = iterations * 4 - 1
-            if iterations > 255:
-                iterations = 255
-            draw.point(pixel, (0, iterations, 0))
-        self.image.save(filename, "PNG")
+            iterations = iterations * 2
+            value = 255
+            if iterations >= 255:
+                iterations = 0
+                value = 0
+            draw.point(pixel, (iterations, 255, value))
+        self.image.convert("RGB").save(filename, "PNG")
 
 
 if __name__ == "__main__":
     def mandelbrot_computation(pixel):
         x, y = pixel
         xold, yold = 0, 0
-        for iterations in range(64):
+        c = complex(pixel[0], pixel[1])
+        z = 0
+        for iterations in range(129):
+            z = z * z + c
+            if abs(z) > 2:
+                break
+            """
             xnew = xold ** 2 - yold ** 2 + x
             ynew = 2 * xold * yold + y
             if xnew ** 2 + ynew ** 2 > 4:
                 break
             if xnew == xold and ynew == yold:
-                iterations = 64
+                iterations = 128
                 break
-            xold, yold = xnew, ynew
-        return iterations  # returns just one value right now, dunno how to color scheme yet
+            xold, yold = xnew, ynew"""
+        return iterations
 
 
-    mandelbrot = Fractal((1000, 1000), [(-2, -2), (2, 2)], mandelbrot_computation)
+    mandelbrot = Fractal((750, 600), [(-2, -1.2), (1, 1.2)], mandelbrot_computation)
     mandelbrot.compute()
     mandelbrot.save_image("mandelbrot.png")
-    mandelbrot2 = Fractal((1000, 1000), [(-0.74877, 0.065053), (-0.74872, 0.065103)], mandelbrot_computation)
-    mandelbrot2.compute()
-    mandelbrot2.save_image("mandelbrot2.png")
+    #mandelbrot2 = Fractal((1000, 1000), [(-0.74877, 0.065053), (-0.74872, 0.065103)], mandelbrot_computation)
+    #mandelbrot2.compute()
+    #mandelbrot2.save_image("mandelbrot2.png")
 
