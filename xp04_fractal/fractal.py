@@ -5,6 +5,7 @@ from PIL import ImageDraw
 
 class Fractal:
     """Framework for fractal creation."""
+
     def __init__(self, size, scale, computation):
         """Constructor.
 
