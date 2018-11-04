@@ -1,7 +1,6 @@
 from PIL import Image
 from PIL import ImageDraw
-import math
-
+import random
 
 class Fractal:
     def __init__(self, size, scale, computation):
@@ -18,21 +17,26 @@ class Fractal:
         self.image = Image.new("HSV", size)
         min_x, min_y = scale[0]
         max_x, max_y = scale[1]
-        xrange = max_x - min_x
-        xstep = xrange / (width - 1)
-        yrange = max_y - min_y
-        ystep = yrange / (height - 1)
+        xstep = (max_x - min_x) / (width - 1)
+        ystep = (max_y - min_y) / (height - 1)
         self.pixels = {}
-        for ycount in range(height):
-            yweight = min_y + ystep * ycount
-            for xcount in range(width):
-                xweight = min_x + xstep * xcount
-                self.pixels[(xcount, ycount)] = (xweight, yweight)
+        self.weights = []
+        xweight, yweight = min_x, min_y
+        xweights, yweights = [], []
+        for x in range(width):
+            xweight = xweight + xstep
+            xweights.append(xweight)
+        self.weights.append(xweights)
+        for y in range(height):
+            yweight = yweight + ystep
+            yweights.append(yweight)
+        self.weights.append(yweights)
 
     def compute(self):
         """Create the fractal by computing every pixel value."""
-        for pixel, weight in self.pixels.items():
-            self.pixels[pixel] = self.pixel_value(weight)
+        for x, xweight in enumerate(self.weights[0]):
+            for y, yweight in enumerate(self.weights[1]):
+                self.pixels[(x, y)] = self.pixel_value((xweight, yweight))
 
     def pixel_value(self, pixel):
         """
@@ -71,6 +75,7 @@ if __name__ == "__main__":
         c = complex(pixel[0], pixel[1])
         z = 0
         for iterations in range(129):
+
             z = z * z + c
             if abs(z) > 2:
                 break
@@ -79,17 +84,46 @@ if __name__ == "__main__":
             ynew = 2 * xold * yold + y
             if xnew ** 2 + ynew ** 2 > 4:
                 break
-            if xnew == xold and ynew == yold:
-                iterations = 128
+            xold, yold = xnew, ynew
+            """
+        return iterations
+
+    real = random.randint(-100, 100) / 100
+    imag = random.randint(-100, 100) / 100
+
+    def computation(pixel):
+        x, y = pixel
+        xold, yold = x, y
+        c = complex(real, imag)
+        z = complex(pixel[0], pixel[1])
+        for iterations in range(129):
+
+            z = z * z + c
+            if abs(z) > 2:
                 break
-            xold, yold = xnew, ynew"""
+            """
+            xnew = xold ** 2 - yold ** 2 - 0.75
+            ynew = 2 * xold * yold + 0.11
+            if xnew ** 2 + ynew ** 2 > 4:
+                break
+            xold, yold = xnew, ynew
+            """
         return iterations
 
 
-    mandelbrot = Fractal((750, 600), [(-2, -1.2), (1, 1.2)], mandelbrot_computation)
+    #mandelbrot = Fractal((750, 600), [(-2, -1.2), (1, 1.2)], mandelbrot_computation)
+    #mandelbrot.compute()
+    #mandelbrot.save_image("mandelbrot.png")
+    mandelbrot = Fractal((1000, 1000), [(-2, -2), (2, 2)], computation)
     mandelbrot.compute()
-    mandelbrot.save_image("mandelbrot.png")
+    mandelbrot.save_image("other one.png")
     #mandelbrot2 = Fractal((1000, 1000), [(-0.74877, 0.065053), (-0.74872, 0.065103)], mandelbrot_computation)
     #mandelbrot2.compute()
     #mandelbrot2.save_image("mandelbrot2.png")
 
+    for _ in range(25):
+        real = random.randint(-100, 100) / 100
+        imag = random.randint(-100, 100) / 100
+        mandelbrot = Fractal((1000, 1000), [(-2, -2), (2, 2)], computation)
+        mandelbrot.compute()
+        mandelbrot.save_image(f"{real} {imag}.png")
