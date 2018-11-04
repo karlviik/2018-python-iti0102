@@ -4,6 +4,7 @@ from PIL import ImageDraw
 
 
 class Fractal:
+    """Framework for fractal creation."""
     def __init__(self, size, scale, computation):
         """Constructor.
 
@@ -71,7 +72,7 @@ class Fractal:
 
 if __name__ == "__main__":
     def mandelbrot_computation(pixel):
-        """Returns iteration count for given weights."""
+        """Return iteration count for given weights."""
         # x, y = pixel
         # xold, yold = 0, 0
         c = complex(pixel[0], pixel[1])
@@ -89,10 +90,10 @@ if __name__ == "__main__":
         return iterations
 
     def julia_computation(pixel):
-        """Returns iteration count for given weights."""
+        """Return iteration count for given weights."""
         # x, y = pixel
         # xold, yold = x, y
-        c = complex(real, imag)
+        c = complex(0.7, 0.11)
         z = complex(pixel[0], pixel[1])
         for iterations in range(129):
 
@@ -106,7 +107,6 @@ if __name__ == "__main__":
             #     break
             # xold, yold = xnew, ynew
         return iterations
-
 
     # mandelbrot = Fractal((750, 600), [(-2, -1.2), (1, 1.2)], mandelbrot_computation)
     # mandelbrot.compute()
