@@ -62,6 +62,8 @@ class Fractal:
         Returns:
         the number of iterations of computation it took to go out of bounds as integer.
         """
+        x, y = pixel
+        pixel = (self.weights[0][x], self.weights[1][y])
         return self.iteration_computer(pixel)
 
     def save_image(self, filename):
@@ -112,12 +114,12 @@ if __name__ == "__main__":
             # xold, yold = xnew, ynew
         return iterations
 
-    mandelbrot = Fractal((750 * 32, 600 * 32), [(-2, -1.2), (1, 1.2)], mandelbrot_computation)
-    mandelbrot.compute()
-    mandelbrot.save_image("mandelbrot.png")
-    del mandelbrot
+    # mandelbrot = Fractal((750 * 32, 600 * 32), [(-2, -1.2), (1, 1.2)], mandelbrot_computation)
+    # mandelbrot.compute()
+    # mandelbrot.save_image("mandelbrot.png")
+    # del mandelbrot
 
-    juliasize = (4000 * 4.5, 4000 * 4.5)
+    juliasize = (int(4000 * 4.5), int(4000 * 4.5))
 
     real, imag = -0.2, 0.66
     julia1 = Fractal(juliasize, [(-2, -2), (2, 2)], julia_computation)
