@@ -22,7 +22,6 @@ class Fractal:
         max_x, max_y = scale[1]
         xstep = (max_x - min_x) / (width - 1)
         ystep = (max_y - min_y) / (height - 1)
-        self.pixels = {}
         self.weights = [[], []]
         xweight, yweight = min_x, min_y
         for x in range(width):
@@ -35,24 +34,16 @@ class Fractal:
     def compute(self):
         """Create the fractal by computing every pixel value."""
         draw = ImageDraw.Draw(self.image)
-        for x, xweight in enumerate(self.weights[0]):
-            for y, yweight in enumerate(self.weights[1]):
-                # self.pixels[(x, y)] = self.pixel_value((xweight, yweight))
+        for x in range(len(self.weights[0])):
+            for y in range(len(self.weights[1])):
                 iterations = self.pixel_value((x, y)) * 2
                 value = 255
                 if iterations >= 255:
                     iterations = 0
                     value = 0
                 draw.point((x, y), (iterations, 255, value))
-        # for pixel, iterations in self.pixels.items():
-        #     iterations = iterations * 2
-        #     value = 255
-        #     if iterations >= 255:
-        #         iterations = 0
-        #         value = 0
-        #     draw.point(pixel, (iterations, 255, value))
 
-    def pixel_value(self, pixel):  # to pass test this should just be pixel that goes in x, y 0 to width/height -1
+    def pixel_value(self, pixel):
         """
         Return the number of iterations it took for the pixel to go out of bounds.
 
@@ -99,7 +90,7 @@ if __name__ == "__main__":
         """Return iteration count for given weights."""
         # x, y = pixel
         # xold, yold = x, y
-        c = complex(real, imag)
+        c = complex(-0.11, 0.33)
         z = complex(pixel[0], pixel[1])
         for iterations in range(129):
 
