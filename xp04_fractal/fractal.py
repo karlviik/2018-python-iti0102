@@ -38,7 +38,7 @@ class Fractal:
         for x, xweight in enumerate(self.weights[0]):
             for y, yweight in enumerate(self.weights[1]):
                 # self.pixels[(x, y)] = self.pixel_value((xweight, yweight))
-                iterations = self.pixel_value((xweight, yweight)) * 2
+                iterations = self.pixel_value((x, y)) * 2
                 value = 255
                 if iterations >= 255:
                     iterations = 0
@@ -118,7 +118,7 @@ if __name__ == "__main__":
     # mandelbrot.compute()
     # mandelbrot.save_image("mandelbrot.png")
     # del mandelbrot
-
+    """
     juliasize = (int(4000 * 4.5), int(4000 * 4.5))
 
     real, imag = -0.2, 0.66
@@ -180,3 +180,4 @@ if __name__ == "__main__":
     # mandelbrot2 = Fractal((1000, 1000), [(-0.74877, 0.065053), (-0.74872, 0.065103)], mandelbrot_computation)
     # mandelbrot2.compute()
     # mandelbrot2.save_image("mandelbrot2.png")
+    """
