@@ -1,6 +1,10 @@
+"""KT tasks."""
+
+
 def capitalize_string(s: str) -> str:
     """
     Return capitalized string. The first char is capitalized, the rest remain as they are.
+
     capitalize_string("abc") => "Abc"
     capitalize_string("ABc") => "ABc"
     capitalize_string("") => ""
@@ -15,6 +19,7 @@ def capitalize_string(s: str) -> str:
 def sum_half_evens(nums: list) -> int:
     """
     Return the sum of first half of even ints in the given array.
+
     If there are odd number of even numbers, then include the middle number.
 
     sum_half_evens([2, 1, 2, 3, 4]) => 4
@@ -40,18 +45,13 @@ def max_block(s: str) -> int:
     max_block("abbCCCddBBBxx") => 3
     max_block("") => 0
     """
-    block_in_progress = False
     largestblock = 0
     thisblock = 0
     blockchar = ""
     for letter in s:
-        if not block_in_progress:
-            block_in_progress = True
-            blockchar = letter
-            thisblock = 1
-        elif letter == blockchar:
+        if letter == blockchar:
             thisblock += 1
-        else: # letter != blockchar:
+        else:
             if thisblock > largestblock:
                 largestblock = thisblock
             thisblock = 1
@@ -59,16 +59,8 @@ def max_block(s: str) -> int:
     return largestblock
 
 
-
 """
-print(capitalize_string("abc")) #=> "Abc"
-print(capitalize_string("ABc")) #=> "ABc"
-print(capitalize_string("")) #=> ""
-print(sum_half_evens([2, 1, 2, 3, 4])) #=> 4
-print(sum_half_evens([2, 2, 0, 4])) #=> 4
-print(sum_half_evens([1, 3, 5, 8])) #=> 8
-print(sum_half_evens([2, 3, 5, 7, 8, 9, 10, 11])) #=> 10
-print(max_block("hoopla")) # = > 2
-print(max_block("abbCCCddBBBxx")) # = > 3
-print(max_block("")) # = > 0
+print(max_block("hoooooopppppppla"))  # = > 2
+print(max_block("abbCcCCddBBBxx"))  # = > 3
+print(max_block(""))  # = > 0
 """
