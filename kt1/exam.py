@@ -49,7 +49,7 @@ def max_block(s: str) -> int:
     thisblock = 0
     blockchar = ""
     for letter in s:
-        if letter == blockchar:
+        if letter.lower() == blockchar:
             thisblock += 1
         else:
             if thisblock > largestblock:
@@ -59,8 +59,8 @@ def max_block(s: str) -> int:
     return largestblock
 
 
-"""
+
 print(max_block("hoooooopppppppla"))  # = > 2
 print(max_block("abbCcCCddBBBxx"))  # = > 3
 print(max_block(""))  # = > 0
-"""
+
