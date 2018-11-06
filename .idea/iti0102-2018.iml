@@ -6,10 +6,10 @@
       <sourceFolder url="file://$MODULE_DIR$/xp03_heatmap" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pr08_testing" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ex08_ponies" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.7 (iti0102-2018)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="iti0201-2018" />
     <orderEntry type="module" module-name="iti0201-2018" />
   </component>
   <component name="PackageRequirementsSettings">
