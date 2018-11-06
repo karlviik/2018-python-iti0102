@@ -59,10 +59,3 @@ def max_block(s: str) -> int:
     if thisblock > largestblock:
         largestblock = thisblock
     return largestblock
-
-
-
-print(max_block("hoooooopppppppla"))  # = > 2
-print(max_block("abbCcCCddBBBxx"))  # = > 3
-print(max_block("j"))  # = > 0
-
