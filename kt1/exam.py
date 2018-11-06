@@ -49,7 +49,8 @@ def max_block(s: str) -> int:
     thisblock = 0
     blockchar = ""
     for letter in s:
-        if letter.lower() == blockchar:
+        letter = letter.lower()
+        if letter == blockchar:
             thisblock += 1
         else:
             if thisblock > largestblock:
