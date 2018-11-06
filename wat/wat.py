@@ -1,6 +1,6 @@
-"""Do wat."""
+"""Wat."""
 
 
 def wat():
-    """Return wat"""
+    """Wat."""
     return "wat"
