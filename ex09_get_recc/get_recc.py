@@ -1,4 +1,5 @@
 """Make life easier whilst volunteering in a French language camp."""
+MOVES = [(-1, -1), (-1, 0), (0, -1), (-1, 1), (1, -1), (1, 1), (1, 0), (0, 1)]
 
 
 def count_portions(number_of_participants: int, day: int) -> int:
@@ -110,9 +111,6 @@ def people_in_the_know(hours_passed, cache: dict = None) -> int:
 
     # returning
     return oneturnback + twoturnsback
-
-
-moves = [(-1, -1), (-1, 0), (0, -1), (-1, 1), (1, -1), (1, 1), (1, 0), (0, 1)]
 
 
 def traversable_coordinates(world_map: list, coord: tuple = (0, 0), traversable_coords: set = None) -> set:
