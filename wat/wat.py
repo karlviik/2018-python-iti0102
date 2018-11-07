@@ -1,7 +1,5 @@
 """Do wat."""
 
 
-def wat():
-    """Do wat."""
-    print("wat")
-    return wat()
+def first(n: int):
+    return n - 1
