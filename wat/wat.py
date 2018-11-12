@@ -1,6 +1,7 @@
 """Do wat."""
 import random
 
+
 def first(n: int):
     if 8 < n < 1000:
         return random.choice([8, 12])
