@@ -1,9 +1,12 @@
 """Do wat."""
 import random
-
+A = 0
 
 def first(n: int):
     """Do wat."""
+    global A
+    A += 1
+    return A - 1
     if 8 < n < 1000:
         return random.choice([8, 12])
     if n > 1000:
