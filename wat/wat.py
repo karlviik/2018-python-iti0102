@@ -14,5 +14,7 @@ def first(n: int):
         return 2
     if 2 < n < 9:
         return random.choice([4, 6])
+    if n == -1:
+        return 14
     else:
         return random.choice([11, 12])
