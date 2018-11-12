@@ -1,12 +1,13 @@
 """Do wat."""
 import random
-A = 0
+A = [0, 2, 4, 6, 8, 11, 12, 14, 18]
+B = 0
 
 def first(n: int):
     """Do wat."""
-    global A
-    A += 1
-    return A - 1
+    global B
+    B += 1
+    return A[B - 1]
     if 8 < n < 1000:
         return random.choice([8, 12])
     if n > 1000:
