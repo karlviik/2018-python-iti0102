@@ -3,7 +3,7 @@ import random
 
 
 def first(n: int):
-    """Does wat."""
+    """Do wat."""
     if 8 < n < 1000:
         return random.choice([8, 12])
     if n > 1000:
