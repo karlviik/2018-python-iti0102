@@ -1,6 +1,6 @@
 """Wat."""
 
 
-def wat():
+def wat(n: int):
     """Wat."""
-    return "wat"
+    return 8, 12
