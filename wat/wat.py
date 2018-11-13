@@ -14,36 +14,36 @@ def first(n: int):
 
 def last_neg(n):
     """Negative wat."""
-    if -12000 <= n <= -7020:
-        return round(3000 + n * 0.33326)  # (-1000 + abs(12000 + n) / 3) 3000 3001 3002 3003 + x / 3
-    if -7019 <= n <= -1624:
-        pass  # aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    if -1623 <= n <= -625:
-        return -1345 + 2 * abs(1623 + n)
-    if -624 <= n <= -15:
-        return -11355 + 19 * abs(624 + n)
-    if -14 <= n <= -4:
-        return 0
+    #if -12000 <= n <= -7020:
+    #    return round(3000 + n * 0.33326)  # (-1000 + abs(12000 + n) / 3) 3000 3001 3002 3003 + x / 3
+    #if -7019 <= n <= -1624:
+    #    pass  # aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    #if -1623 <= n <= -625:
+    #    return -1345 + 2 * abs(1623 + n)
+    #if -624 <= n <= -15:
+    #    return -11355 + 19 * abs(624 + n)
+    #if -14 <= n <= -4:
+    #    return 0
 
 
 def last_pos(n):
     """Positive wat."""
-    if -3 <= n <= 102:
-        return 2 * (n + 3)
-    if 103 <= n <= 998:
-        return int(-616 + (n - 103) * 1.5 - (int(n / 137)) * 137)
-    if 999 <= n <= 1011:
-        return chr((n - 999) * 2 + 98)
-    if 1012 <= n <= 2002:
-        return int(math.sqrt(n))
-    if 2003 <= n <= 7981:
-        return n - int(n / 1337) * 1337
-    if 7982 <= n <= 12000:
-        n = str(n)
-        nsum = 0
-        for num in n:
-            nsum += int(num)
-        return nsum + 1
+    #if -3 <= n <= 102:
+    #    return 2 * (n + 3)
+    #if 103 <= n <= 998:
+    #    return int(-616 + (n - 103) * 1.5 - (int(n / 137)) * 137)
+    #if 999 <= n <= 1011:
+    #    return chr((n - 999) * 2 + 98)
+    #if 1012 <= n <= 2002:
+    #    return int(math.sqrt(n))
+    #if 2003 <= n <= 7981:
+    #    return n - int(n / 1337) * 1337
+    #if 7982 <= n <= 12000:
+    #    n = str(n)
+    #    nsum = 0
+    #    for num in n:
+    #        nsum += int(num)
+    #    return nsum + 1
 
 
 def last(n: int):
