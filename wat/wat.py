@@ -31,10 +31,10 @@ def last_pos(n):
     """Positive wat."""
     #if -3 <= n <= 102:  # should be corrreeeeeeecccccccccccccttttttttttt, 90 tests
     #    return 2 * (n + 3)
-    #if 103 <= n <= 998:
-    #    return int(-616 + (n - 103) * 1.5 - (int(n / 137)) * 137)
-    if 999 <= n <= 1011:
-        return chr((n - 999) * 2 + 98)
+    if 103 <= n <= 998:
+        return int(-616 + (n - 103) * 1.5 - (int(n / 137)) * 137)
+    #if 999 <= n <= 1011:  # should be correeecccctttttt, 11 tests
+    #    return chr((n - 999) * 2 + 98)
     #if 1012 <= n <= 2002:  # should be corrreeeeeeccccccccttt, 100 tests
     #    return int(math.sqrt(n))
     #if 2003 <= n <= 7981:  # should be corrreccctttttt, 100 tests
