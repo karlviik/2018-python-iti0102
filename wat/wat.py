@@ -35,10 +35,10 @@ def last_pos(n):
     #    return int(-616 + (n - 103) * 1.5 - (int(n / 137)) * 137)
     #if 999 <= n <= 1011:
     #    return chr((n - 999) * 2 + 98)
-    #if 1012 <= n <= 2002:
-    #    return int(math.sqrt(n))
-    if 2003 <= n <= 7981:
-        return n - int(n / 1337) * 1337
+    if 1012 <= n <= 2002:
+        return int(math.sqrt(n))
+    #if 2003 <= n <= 7981:  # should be corrreccctttttt, 100 tests
+    #    return n - int(n / 1337) * 1337
     #if 7982 <= n <= 12000:  # should be corrreccctttt, 100 tests
     #    n = str(n)
     #    nsum = 0
