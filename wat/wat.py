@@ -14,38 +14,36 @@ def first(n: int):
 
 def last_neg(n):
     """Negative wat."""
-    #if -12000 <= n <= -7020:
-    #    return round(3000 + n * 0.333255)  # ow(-1000 + abs(12000 + n) / 3) 3000 3001 3002 3003 + x / 3
+    if -12000 <= n <= -7020:
+        return round(3000 + n * 0.333255)  # ow(-1000 + abs(12000 + n) / 3) 3000 3001 3002 3003 + x / 3
     if -7019 <= n <= -1624:
         return ((n + n % 2 * 6) / 2)
-    #if -1623 <= n <= -625:  # should be corrrrrrreeecccttt, 100 tests
-    #    return -1345 + 2 * abs(1623 + n)
-    #if -624 <= n <= -15:  # should be corrreeeccccttttt, 100 tests
-    #    return -11355 + 19 * abs(624 + n)
-    #if -14 <= n <= -4:  # should be corrreeeccccccccttttt, 11 tests
-    #    return 0
-    pass
+    if -1623 <= n <= -625:  # should be corrrrrrreeecccttt, 100 tests
+        return -1345 + 2 * abs(1623 + n)
+    if -624 <= n <= -15:  # should be corrreeeccccttttt, 100 tests
+        return -11355 + 19 * abs(624 + n)
+    if -14 <= n <= -4:  # should be corrreeeccccccccttttt, 11 tests
+        return 0
 
 
 def last_pos(n):
     """Positive wat."""
-    #if -3 <= n <= 102:  # should be corrreeeeeeecccccccccccccttttttttttt, 90 tests
-    #    return 2 * (n + 3)
-    #if 103 <= n <= 998:  # should be correeeccctttt, 100 tests
-    #    return int(-616 + (n - 103) * 1.5 - (int(n / 137)) * 137)
-    #if 999 <= n <= 1011:  # should be correeecccctttttt, 11 tests
-    #    return chr((n - 999) * 2 + 98)
-    #if 1012 <= n <= 2002:  # should be corrreeeeeeccccccccttt, 100 tests
-    #    return int(math.sqrt(n))
-    #if 2003 <= n <= 7981:  # should be corrreccctttttt, 100 tests
-    #    return n - int(n / 1337) * 1337
-    #if 7982 <= n <= 12000:  # should be corrreccctttt, 100 tests
-    #    n = str(n)
-    #    nsum = 0
-    #    for num in n:
-    #        nsum += int(num)
-    #    return nsum + 1
-    pass
+    if -3 <= n <= 102:  # should be corrreeeeeeecccccccccccccttttttttttt, 90 tests
+        return 2 * (n + 3)
+    if 103 <= n <= 998:  # should be correeeccctttt, 100 tests
+        return int(-616 + (n - 103) * 1.5 - (int(n / 137)) * 137)
+    if 999 <= n <= 1011:  # should be correeecccctttttt, 11 tests
+        return chr((n - 999) * 2 + 98)
+    if 1012 <= n <= 2002:  # should be corrreeeeeeccccccccttt, 100 tests
+        return int(math.sqrt(n))
+    if 2003 <= n <= 7981:  # should be corrreccctttttt, 100 tests
+        return n - int(n / 1337) * 1337
+    if 7982 <= n <= 12000:  # should be corrreccctttt, 100 tests
+        n = str(n)
+        nsum = 0
+        for num in n:
+            nsum += int(num)
+        return nsum + 1
 
 
 def last(n: int):
