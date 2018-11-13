@@ -24,6 +24,7 @@ def last_neg(n):
     #    return -11355 + 19 * abs(624 + n)
     #if -14 <= n <= -4:
     #    return 0
+    pass
 
 
 def last_pos(n):
@@ -44,6 +45,7 @@ def last_pos(n):
     #    for num in n:
     #        nsum += int(num)
     #    return nsum + 1
+    pass
 
 
 def last(n: int):
