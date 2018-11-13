@@ -15,7 +15,7 @@ def first(n: int):
 def last_neg(n):
     """Negative wat."""
     if -12000 <= n <= -7020:
-        return round(3000 + n * 0.333255)  # (-1000 + abs(12000 + n) / 3) 3000 3001 3002 3003 + x / 3
+        return round(3000 + n * 0.333255)  # ow(-1000 + abs(12000 + n) / 3) 3000 3001 3002 3003 + x / 3
     #if -7019 <= n <= -1624:
     #    pass  # aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     #if -1623 <= n <= -625:  # should be corrrrrrreeecccttt, 100 tests
