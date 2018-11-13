@@ -1,4 +1,5 @@
 """Do wat."""
+import math
 FIRST_LIST = [0, 2, 4, 6, 8, 11, 12, 14, 16, 18]
 
 first_counter = 0
@@ -34,7 +35,7 @@ def last_pos(n):
     if 999 <= n <= 1011:
         return chr((n - 999) * 2 + 98)
     if 1012 <= n <= 2002:
-        return 33 + int((n - 1096) / 84)  # aaaaaaaaaaaaaaaaaaaaaaaaaaa
+        return int(math.sqrt(n))
     if 2003 <= n <= 7981:
         return n - int(n / 1337) * 1337
     if 7982 <= n <= 12000:
