@@ -20,10 +20,10 @@ def last_neg(n):
     #    pass  # aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     #if -1623 <= n <= -625:
     #    return -1345 + 2 * abs(1623 + n)
-    #if -624 <= n <= -15:
-    #    return -11355 + 19 * abs(624 + n)
-    if -14 <= n <= -4:
-        return 0
+    if -624 <= n <= -15:
+        return -11355 + 19 * abs(624 + n)
+    #if -14 <= n <= -4:  # should be corrreeeccccccccttttt, 11 tests
+    #    return 0
     pass
 
 
