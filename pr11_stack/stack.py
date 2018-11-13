@@ -4,13 +4,13 @@ from typing import Any
 
 class StackOverflowException(Exception):
     """Exception for when stack is full and a push is attempted."""
-    # Erind, mis tõstetakse, kui täis stacki püütakse panna elementi.
+
     pass
 
 
 class StackUnderflowException(Exception):
     """Exception for when stack is empty and a pop is attempted."""
-    # Erind, mis tõstetakse, kui tühjast stackist püütakse elementi võtta.
+
     pass
 
 
