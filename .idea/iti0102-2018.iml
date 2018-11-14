@@ -11,6 +11,7 @@
     <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="iti0201-2018" />
+    <orderEntry type="module" module-name="Robootika" />
   </component>
   <component name="PackageRequirementsSettings">
     <option name="requirementsPath" value="" />
