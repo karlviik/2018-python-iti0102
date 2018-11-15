@@ -12,6 +12,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="iti0201-2018" />
     <orderEntry type="module" module-name="Robootika" />
+    <orderEntry type="module" module-name="Workspace" />
   </component>
   <component name="PackageRequirementsSettings">
     <option name="requirementsPath" value="" />
