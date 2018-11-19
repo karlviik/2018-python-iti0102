@@ -121,6 +121,8 @@ class Store:
             customer.pay(amount * product.price)
             customer.add_item(product, amount)
             self.products[product] -= amount
+            if not self.products[product]:
+                del self.products[product]
             self.money += product.price * amount
             return "Thank you for the purchase!"
         except ProductCannotBeSold as errormessage:
@@ -188,15 +190,36 @@ class Store:
 
 if __name__ == "__main__":
     john = Customer("John", 20, 300)
+    bobby = Customer("Bobby", 17, 150)
+    sandy = Customer("Sandy", 12, 100)
 
     store = Store()
 
+    beer = Product("beer", 50)
+    water = Product("water", 30)
     choco = Product("chocolate", 45)
+    pretzel = Product("pretzel", 35)
 
-    for _ in range(2):
+    store.add_product(beer)
+    store.add_product(water)
+    for _ in range(3):
         store.add_product(choco)
+        store.add_product(pretzel)
 
-    print(store)
-    print(store.buy(choco, 1, john))  # -> Thank you for the purchase!
+    print(store.buy(beer, 1, john))  # -> Thank you for the purchase!
+    print(beer not in store.products)  # -> True
     print(john)  # -> John's items: beer; money: 250.
-    print(store)
+
+    tobacco = Product("tobacco", 55)
+    store.add_product(tobacco)
+    print(store.buy(tobacco, 1, bobby))  # -> You are too young to buy tobacco!
+
+    print(store.buy(water, 2, sandy))  # -> Item is not available in chosen amount!
+
+    candy = Product("candy", 25)
+    print(store.buy(candy, 1, bobby))  # -> Item not found!
+
+    store.buy(choco, 2, bobby)
+    print(bobby.money)  # -> 60
+    store.buy(water, 1, bobby)
+    print(bobby)  # -> Bobby's items: chocolate(2), water; money: 30.
