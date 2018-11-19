@@ -151,10 +151,13 @@ class Store:
         :param product: product to be bought
         :param amount: amount of product
         """
-        if product.name not in self.products.keys():
-            raise ProductCannotBeSold("Item not found!")
-        elif self.products[product.name] < amount:
-            raise ProductCannotBeSold("Item is not available in chosen amount!")
+        try:
+            if product.name not in self.products.keys():
+                raise ProductCannotBeSold("Item not found!")
+            elif self.products[product.name] < amount:
+                raise ProductCannotBeSold("Item is not available in chosen amount!")
+        except KeyError:
+            raise IndexError
 
     def add_product(self, product: Product) -> None:
         """
