@@ -61,10 +61,13 @@ class Customer:
         :param product: product
         :param amount: amount
         """
-        if product.name not in self.items.keys():
-            self.items[product.name] = amount
-        else:
-            self.items[product.name] += amount
+        try:
+            if product.name not in self.items.keys():
+                self.items[product.name] = amount
+            else:
+                self.items[product.name] += amount
+        except KeyError:
+            raise IndexError
 
     def pay(self, money_to_pay: int) -> None:
         """
@@ -115,18 +118,16 @@ class Store:
         :return: message
         """
         try:
-            try:
-                self.check_product_availability(product, amount)
-                self.allowed_to_buy(product, customer)
-                customer.pay(amount * product.price)
-                customer.add_item(product, amount)
-                self.products[product.name] -= amount
-                self.money += product.price * amount
-                return "Thank you for the purchase!"
-            except ProductCannotBeSold as errormessage:
-                return errormessage
-        except KeyError:
-            raise IndexError
+            self.check_product_availability(product, amount)
+            self.allowed_to_buy(product, customer)
+            customer.pay(amount * product.price)
+            customer.add_item(product, amount)
+            self.products[product.name] -= amount
+            self.money += product.price * amount
+            return "Thank you for the purchase!"
+        except ProductCannotBeSold as errormessage:
+            return errormessage
+
 
     def allowed_to_buy(self, product: Product, customer: Customer):
         """
@@ -161,10 +162,13 @@ class Store:
 
         :param product:  product name
         """
-        if product.name not in self.products.keys():
-            self.products[product.name] = 1
-        else:
-            self.products[product.name] += 1
+        try:
+            if product.name not in self.products.keys():
+                self.products[product.name] = 1
+            else:
+                self.products[product.name] += 1
+        except KeyError:
+            raise IndexError
 
     def __str__(self) -> str:
         """
@@ -197,9 +201,6 @@ if __name__ == "__main__":
     for _ in range(2):
         store.add_product(choco)
 
-    print(store.buy(choco, 1, john))  # -> Thank you for the purchase!
-    print(john)  # -> John's items: beer; money: 250.
-    print(store)
     print(store.buy(choco, 1, john))  # -> Thank you for the purchase!
     print(john)  # -> John's items: beer; money: 250.
     print(store)
