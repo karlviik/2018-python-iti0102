@@ -175,7 +175,10 @@ class Store:
                 item += f"({price_and_amount[1]})"
             if price_and_amount[1]:
                 itemlist.append(item)
-        stringitemlist = ", ".join(itemlist)
+        if len(itemlist) > 1:
+            stringitemlist = ", ".join(itemlist)
+        else:
+            stringitemlist = itemlist[0]
         return f"Store items: {stringitemlist}; store money: {self.money}."
 
 
@@ -214,5 +217,3 @@ if __name__ == "__main__":
     print(bobby.money)  # -> 60
     store.buy(water, 1, bobby)
     print(bobby)  # -> Bobby's items: chocolate(2), water; money: 30.
-
-
