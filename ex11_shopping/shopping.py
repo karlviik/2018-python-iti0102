@@ -62,10 +62,10 @@ class Customer:
         :param amount: amount
         """
         try:
-            if product.name not in self.items.keys():
-                self.items[product.name] = amount
+            if product not in self.items.keys():
+                self.items[product] = amount
             else:
-                self.items[product.name] += amount
+                self.items[product] += amount
         except KeyError:
             raise IndexError
 
@@ -91,9 +91,10 @@ class Customer:
         try:
             itemlist = []
             for item, amount in self.items.items():
+                temp = item.name
                 if amount > 1:
-                    item += f"({amount})"
-                itemlist.append(item)
+                    temp += f"({amount})"
+                itemlist.append(temp)
             if len(itemlist) > 1:
                 stringitemlist = ", ".join(itemlist)
             else:
@@ -216,6 +217,8 @@ if __name__ == "__main__":
     for _ in range(2):
         store.add_product(choco)
 
+    print(john)  # -> John's items: beer; money: 250.
+    print(store)
     print(store.buy(choco, 1, john))  # -> Thank you for the purchase!
     print(john)  # -> John's items: beer; money: 250.
     print(store)
