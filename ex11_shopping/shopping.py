@@ -88,16 +88,19 @@ class Customer:
 
         :return: string
         """
-        itemlist = []
-        for item, amount in self.items.items():
-            if amount > 1:
-                item += f"({amount})"
-            itemlist.append(item)
-        if len(itemlist) > 1:
-            stringitemlist = ", ".join(itemlist)
-        else:
-            stringitemlist = itemlist[0]
-        return f"{self.name}'s items: {stringitemlist}; money: {self.money}."
+        try:
+            itemlist = []
+            for item, amount in self.items.items():
+                if amount > 1:
+                    item += f"({amount})"
+                itemlist.append(item)
+            if len(itemlist) > 1:
+                stringitemlist = ", ".join(itemlist)
+            else:
+                stringitemlist = itemlist[0]
+            return f"{self.name}'s items: {stringitemlist}; money: {self.money}."
+        except KeyError:
+            raise IndexError
 
 
 class Store:
@@ -118,15 +121,18 @@ class Store:
         :return: message
         """
         try:
-            self.check_product_availability(product, amount)
-            self.allowed_to_buy(product, customer)
-            customer.pay(amount * product.price)
-            customer.add_item(product, amount)
-            self.products[product.name] -= amount
-            self.money += product.price * amount
-            return "Thank you for the purchase!"
-        except ProductCannotBeSold as errormessage:
-            return errormessage
+            try:
+                self.check_product_availability(product, amount)
+                self.allowed_to_buy(product, customer)
+                customer.pay(amount * product.price)
+                customer.add_item(product, amount)
+                self.products[product.name] -= amount
+                self.money += product.price * amount
+                return "Thank you for the purchase!"
+            except ProductCannotBeSold as errormessage:
+                return errormessage
+        except KeyError:
+            raise IndexError
 
 
     def allowed_to_buy(self, product: Product, customer: Customer):
@@ -140,8 +146,11 @@ class Store:
         :param product: product to buy
         :param customer: customer who makes the purchase
         """
-        if customer.age < 18 and (product.name == "beer" or product.name == "tobacco"):
-            raise ProductCannotBeSold(f"You are too young to buy {product.name}!")
+        try:
+            if customer.age < 18 and (product.name == "beer" or product.name == "tobacco"):
+                raise ProductCannotBeSold(f"You are too young to buy {product.name}!")
+        except KeyError:
+            raise IndexError
 
     def check_product_availability(self, product: Product, amount: int):
         """
@@ -179,19 +188,22 @@ class Store:
 
         :return: string
         """
-        itemlist = []
-        for item, amount in self.products.items():
-            if amount > 1:
-                item += f"({amount})"
-            if amount:
-                itemlist.append(item)
-        if len(itemlist) > 1:
-            stringitemlist = ", ".join(itemlist)
-        elif len(itemlist):
-            stringitemlist = itemlist[0]
-        else:
-            stringitemlist = ""
-        return f"Store items: {stringitemlist}; store money: {self.money}."
+        try:
+            itemlist = []
+            for item, amount in self.products.items():
+                if amount > 1:
+                    item += f"({amount})"
+                if amount:
+                    itemlist.append(item)
+            if len(itemlist) > 1:
+                stringitemlist = ", ".join(itemlist)
+            elif len(itemlist):
+                stringitemlist = itemlist[0]
+            else:
+                stringitemlist = ""
+            return f"Store items: {stringitemlist}; store money: {self.money}."
+        except KeyError:
+            raise IndexError
 
 
 if __name__ == "__main__":
