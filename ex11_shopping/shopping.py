@@ -115,15 +115,18 @@ class Store:
         :return: message
         """
         try:
-            self.check_product_availability(product, amount)
-            self.allowed_to_buy(product, customer)
-            customer.pay(amount * product.price)
-            customer.add_item(product, amount)
-            self.products[product.name] -= amount
-            self.money += product.price * amount
-            return "Thank you for the purchase!"
-        except ProductCannotBeSold as errormessage:
-            return errormessage
+            try:
+                self.check_product_availability(product, amount)
+                self.allowed_to_buy(product, customer)
+                customer.pay(amount * product.price)
+                customer.add_item(product, amount)
+                self.products[product.name] -= amount
+                self.money += product.price * amount
+                return "Thank you for the purchase!"
+            except ProductCannotBeSold as errormessage:
+                return errormessage
+        except KeyError:
+            raise IndexError
 
     def allowed_to_buy(self, product: Product, customer: Customer):
         """
