@@ -119,7 +119,7 @@ class Store:
             self.allowed_to_buy(product, customer)
             customer.pay(amount * self.products[product.name][0])
             customer.add_item(product, amount)
-            self.products[product.name][1] -= 1
+            self.products[product.name][1] -= amount
             self.money += self.products[product.name][0]
             return "Thank you for the purchase!"
         except ProductCannotBeSold as errormessage:
