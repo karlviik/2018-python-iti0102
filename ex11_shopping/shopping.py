@@ -117,10 +117,10 @@ class Store:
         try:
             self.check_product_availability(product, amount)
             self.allowed_to_buy(product, customer)
-            customer.pay(amount * self.products[product.name][0])
+            customer.pay(amount * product.price)
             customer.add_item(product, amount)
-            self.products[product.name][1] -= amount
-            self.money += self.products[product.name][0]
+            self.products[product.name] -= amount
+            self.money += product.price * amount
             return "Thank you for the purchase!"
         except ProductCannotBeSold as errormessage:
             return errormessage
@@ -149,7 +149,7 @@ class Store:
         """
         if product.name not in self.products.keys():
             raise ProductCannotBeSold("Item not found!")
-        elif self.products[product.name][1] < amount:
+        elif self.products[product.name] < amount:
             raise ProductCannotBeSold("Item is not available in chosen amount!")
 
     def add_product(self, product: Product) -> None:
@@ -159,9 +159,9 @@ class Store:
         :param product:  product name
         """
         if product.name not in self.products.keys():
-            self.products[product.name] = [product.price, 1]
+            self.products[product.name] = 1
         else:
-            self.products[product.name][1] += 1
+            self.products[product.name] += 1
 
     def __str__(self) -> str:
         """
@@ -170,10 +170,10 @@ class Store:
         :return: string
         """
         itemlist = []
-        for item, price_and_amount in self.products.items():
-            if price_and_amount[1] > 1:
-                item += f"({price_and_amount[1]})"
-            if price_and_amount[1]:
+        for item, amount in self.products.items():
+            if amount > 1:
+                item += f"({amount})"
+            if amount:
                 itemlist.append(item)
         if len(itemlist) > 1:
             stringitemlist = ", ".join(itemlist)
@@ -217,3 +217,4 @@ if __name__ == "__main__":
     print(bobby.money)  # -> 60
     store.buy(water, 1, bobby)
     print(bobby)  # -> Bobby's items: chocolate(2), water; money: 30.
+    print(store)
