@@ -61,13 +61,10 @@ class Customer:
         :param product: product
         :param amount: amount
         """
-        try:
-            if product not in self.items.keys():
-                self.items[product] = amount
-            else:
-                self.items[product] += amount
-        except KeyError:
-            raise IndexError
+        if product not in self.items.keys():
+            self.items[product] = amount
+        else:
+            self.items[product] += amount
 
     def pay(self, money_to_pay: int) -> None:
         """
@@ -88,20 +85,17 @@ class Customer:
 
         :return: string
         """
-        try:
-            itemlist = []
-            for item, amount in self.items.items():
-                temp = item.name
-                if amount > 1:
-                    temp += f"({amount})"
-                itemlist.append(temp)
-            if len(itemlist) > 1:
-                stringitemlist = ", ".join(itemlist)
-            else:
-                stringitemlist = itemlist[0]
-            return f"{self.name}'s items: {stringitemlist}; money: {self.money}."
-        except KeyError:
-            raise IndexError
+        itemlist = []
+        for item, amount in self.items.items():
+            temp = item.name
+            if amount > 1:
+                temp += f"({amount})"
+            itemlist.append(temp)
+        if len(itemlist) > 1:
+            stringitemlist = ", ".join(itemlist)
+        else:
+            stringitemlist = itemlist[0]
+        return f"{self.name}'s items: {stringitemlist}; money: {self.money}."
 
 
 class Store:
@@ -122,19 +116,15 @@ class Store:
         :return: message
         """
         try:
-            try:
-                self.check_product_availability(product, amount)
-                self.allowed_to_buy(product, customer)
-                customer.pay(amount * product.price)
-                customer.add_item(product, amount)
-                self.products[product.name] -= amount
-                self.money += product.price * amount
-                return "Thank you for the purchase!"
-            except ProductCannotBeSold as errormessage:
-                return errormessage
-        except KeyError:
-            raise IndexError
-
+            self.check_product_availability(product, amount)
+            self.allowed_to_buy(product, customer)
+            customer.pay(amount * product.price)
+            customer.add_item(product, amount)
+            self.products[product] -= amount
+            self.money += product.price * amount
+            return "Thank you for the purchase!"
+        except ProductCannotBeSold as errormessage:
+            return errormessage
 
     def allowed_to_buy(self, product: Product, customer: Customer):
         """
@@ -147,11 +137,8 @@ class Store:
         :param product: product to buy
         :param customer: customer who makes the purchase
         """
-        try:
-            if customer.age < 18 and (product.name == "beer" or product.name == "tobacco"):
-                raise ProductCannotBeSold(f"You are too young to buy {product.name}!")
-        except KeyError:
-            raise IndexError
+        if customer.age < 18 and (product.name == "beer" or product.name == "tobacco"):
+            raise ProductCannotBeSold(f"You are too young to buy {product.name}!")
 
     def check_product_availability(self, product: Product, amount: int):
         """
@@ -161,13 +148,10 @@ class Store:
         :param product: product to be bought
         :param amount: amount of product
         """
-        try:
-            if product.name not in self.products.keys():
-                raise ProductCannotBeSold("Item not found!")
-            elif self.products[product.name] < amount:
-                raise ProductCannotBeSold("Item is not available in chosen amount!")
-        except KeyError:
-            raise IndexError
+        if product not in self.products.keys():
+            raise ProductCannotBeSold("Item not found!")
+        elif self.products[product] < amount:
+            raise ProductCannotBeSold("Item is not available in chosen amount!")
 
     def add_product(self, product: Product) -> None:
         """
@@ -175,13 +159,10 @@ class Store:
 
         :param product:  product name
         """
-        try:
-            if product.name not in self.products.keys():
-                self.products[product.name] = 1
-            else:
-                self.products[product.name] += 1
-        except KeyError:
-            raise IndexError
+        if product not in self.products.keys():
+            self.products[product] = 1
+        else:
+            self.products[product] += 1
 
     def __str__(self) -> str:
         """
@@ -189,22 +170,20 @@ class Store:
 
         :return: string
         """
-        try:
-            itemlist = []
-            for item, amount in self.products.items():
-                if amount > 1:
-                    item += f"({amount})"
-                if amount:
-                    itemlist.append(item)
-            if len(itemlist) > 1:
-                stringitemlist = ", ".join(itemlist)
-            elif len(itemlist):
-                stringitemlist = itemlist[0]
-            else:
-                stringitemlist = ""
-            return f"Store items: {stringitemlist}; store money: {self.money}."
-        except KeyError:
-            raise IndexError
+        itemlist = []
+        for item, amount in self.products.items():
+            temp = item.name
+            if amount > 1:
+                temp += f"({amount})"
+            if amount:
+                itemlist.append(temp)
+        if len(itemlist) > 1:
+            stringitemlist = ", ".join(itemlist)
+        elif len(itemlist):
+            stringitemlist = itemlist[0]
+        else:
+            stringitemlist = ""
+        return f"Store items: {stringitemlist}; store money: {self.money}."
 
 
 if __name__ == "__main__":
@@ -217,7 +196,6 @@ if __name__ == "__main__":
     for _ in range(2):
         store.add_product(choco)
 
-    print(john)  # -> John's items: beer; money: 250.
     print(store)
     print(store.buy(choco, 1, john))  # -> Thank you for the purchase!
     print(john)  # -> John's items: beer; money: 250.
