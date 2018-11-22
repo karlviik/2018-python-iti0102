@@ -24,6 +24,9 @@ class Member:
     def get_all_gyms(self) -> list:
         return self.gyms
 
+    def get_gyms(self) -> list:
+        return self.gyms
+
     def __repr__(self):
         return f"{self.name}, {self.age}: {self.trainers}"
 
@@ -190,6 +193,9 @@ class City:
             if count:
                 gyms_with_this_name.append(gym)
         return sorted(gyms_with_this_name, key=lambda x: x.get_name_count(name), reverse=True)
+
+    def get_all_gyms(self) -> list:
+        return self.gyms
 
 
 if __name__ == "__main__":
