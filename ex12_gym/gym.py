@@ -67,7 +67,8 @@ class Gym:
 
     def can_add_member(self, member: Member) -> bool:
         """Check if member can join. Has to be Member, have trainer color and pos stamina and not in this gym."""
-        if type(member) is Member and member.trainers.color and member.trainers.stamina >= 0 and member not in self.members:
+        if type(
+                member) is Member and member.trainers.color and member.trainers.stamina >= 0 and member not in self.members:
             return True
         return False
 
