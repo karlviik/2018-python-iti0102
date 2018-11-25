@@ -34,6 +34,7 @@ class MazeSolver:
         :param maze_str: Map string
         :param configuration: Optional dictionary of symbol costs.
         """
+
         if configuration is None:
             configuration = {
                 ' ': 1,
@@ -65,7 +66,7 @@ class MazeSolver:
 
     def isavalidcoord(self, x, y):
         """Given x and y coordinates, output True if the coord has no negative components and is traversable."""
-        if 0 <= y < len(self.maze[x]) and 0 <= x < len(self.maze):
+        if 0 <= x < len(self.maze) and 0 <= y < len(self.maze[x]):
             if self.maze[x][y] >= 0:
                 return True
         return False
@@ -86,7 +87,6 @@ class MazeSolver:
         :param goal: Goal cell (y, x)
         :return: shortest_path, cost
         """
-
         def distance(a, b):
             ax, ay = a
             bx, by = b
