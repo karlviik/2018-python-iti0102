@@ -10,6 +10,7 @@ class MazeSolver:
     def __init__(self, maze_str: str, configuration: dict = None):
         """
         Initialize the solver with map string and configuration.
+
         Map string can consist of several lines, line break separates the lines.
         Empty lines in the beginning and in the end should be ignored.
         Line can also consist of spaces, so the lines cannot be stripped.
@@ -34,7 +35,6 @@ class MazeSolver:
         :param maze_str: Map string
         :param configuration: Optional dictionary of symbol costs.
         """
-
         if configuration is None:
             configuration = {
                 ' ': 1,
