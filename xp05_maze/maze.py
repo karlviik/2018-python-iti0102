@@ -1,9 +1,12 @@
+"""Maze solver."""
 from queue import PriorityQueue
 
 MOVES = [(1, 0), (0, -1), (-1, 0), (0, 1)]
 
 
 class MazeSolver:
+    """Solve a given maze."""
+
     def __init__(self, maze_str: str, configuration: dict = None):
         """
         Initialize the solver with map string and configuration.
@@ -70,6 +73,7 @@ class MazeSolver:
                     self.maze[x].append(configuration[symbol])
 
     def isavalidcoord(self, x, y):
+        """Given x and y coordinates, output True if the coord has no negative components and is traversable."""
         if 0 <= y < len(self.maze[x]) and 0 <= x < len(self.maze):
             if self.maze[x][y] >= 0:
                 return True
