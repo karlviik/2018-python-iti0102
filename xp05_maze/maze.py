@@ -31,15 +31,6 @@ class MazeSolver:
         When a symbol on the map string is not in configuration, its cost is 0.
         Cells with negative cost cannot be moved on/through.
 
-        Default configuration:
-        configuration = {
-            ' ': 1,
-            '#': -1,
-            '.': 2,
-            '-': 5,
-            'w': 10
-        }
-
         :param maze_str: Map string
         :param configuration: Optional dictionary of symbol costs.
         """
