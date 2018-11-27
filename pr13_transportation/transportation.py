@@ -31,7 +31,7 @@ def get_nearest_stop(api_base, lat, lng):
     """
     response = get_nearby_stops(api_base, lat, lng)
     if response != []:
-        response = sorted(response, key=(lambda x: x["distance"]))[0]
+        response = response[0]
     else:
         response = None
     return response
@@ -63,7 +63,7 @@ def get_next_departure(api_base, region, stop_id):
     """
     response = get_next_departures(api_base, region, stop_id)
     if response != []:
-        response = sorted(response, key=(lambda x: x["time"]))[0]
+        response = response[0]
     else:
         response = None
     return response
