@@ -68,9 +68,7 @@ class Deck:
         pass
 
     def shuffle(self):
-        """
-        Shuffle the deck.
-        """
+        """Shuffle the deck."""
         self.is_shuffled = requests.get(f"{BASE}/{self.deck_id}/shuffle").json()["shuffled"]
 
     def draw(self) -> Card:
@@ -107,6 +105,7 @@ class BlackjackController:
         self.player_loop()
 
     def player_loop(self):
+        """Loop for player control, calls dealer loop if required conditions are met."""
         while True:
             if self.player.score == 21:
                 self.view.player_won(self.state)
@@ -123,6 +122,7 @@ class BlackjackController:
                 break
 
     def dealer_loop(self):
+        """Dealer loop."""
         while True:
             if self.dealer.score > self.player.score:
                 if self.dealer.score > 21:
