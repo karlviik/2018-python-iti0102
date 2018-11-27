@@ -30,6 +30,7 @@ class Hand:
 
     def calculate_score(self, card):
         """Calculate score based on given rules."""
+        self.aces = 0
         if card.value.isdigit():
             addition = int(card.value)
         elif card.value != "ACE":
@@ -80,7 +81,6 @@ class Deck:
         if new_card:
             new_card = new_card[0]
             return Card(new_card["value"], new_card["suit"], new_card["code"])
-        raise KeyError
 
 
 class BlackjackController:
