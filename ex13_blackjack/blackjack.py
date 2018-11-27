@@ -80,7 +80,7 @@ class Deck:
         if new_card:
             new_card = new_card[0]
             return Card(new_card["value"], new_card["suit"], new_card["code"])
-        return None
+        raise KeyError
 
 
 class BlackjackController:
