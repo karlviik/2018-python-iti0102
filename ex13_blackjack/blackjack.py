@@ -80,7 +80,8 @@ class Deck:
         :return: card instance.
         """
         new_card = requests.get(f"{BASE}/{self.deck_id}/draw").json()["cards"][0]
-        return Card(new_card["value"], new_card["suit"], new_card["code"])
+        card = Card(new_card["value"], new_card["suit"], new_card["code"])
+        return card
 
 
 class BlackjackController:
