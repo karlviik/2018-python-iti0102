@@ -26,28 +26,26 @@ class Hand:
         """Construct with blank variables."""
         self.cards = []
         self.score = 0
+        self.aces = 0
 
-    def calculate_score(self):
+    def calculate_score(self, card):
         """Calculate score based on given rules."""
-        score = 0
-        aces = 0
-        for card in self.cards:
-            if card.value.isdigit():
-                addition = int(card.value)
-            elif card.value != "ACE":
-                addition = 10
-            else:
-                addition = 11
-                aces += 1
-            score += addition
-        if score > 21:
-            score -= aces * 10
-        self.score = score
+        if card.value.isdigit():
+            addition = int(card.value)
+        elif card.value != "ACE":
+            addition = 10
+        else:
+            addition = 11
+            self.aces += 1
+        self.score += addition
+        if self.score > 21 and self.aces:
+            self.score -= 10
+            self.aces -= 1
 
     def add_card(self, card: Card):
         """Add the new card to the hand and calculate new score."""
         self.cards.append(card)
-        self.calculate_score()
+        self.calculate_score(card)
 
 
 class Deck:
