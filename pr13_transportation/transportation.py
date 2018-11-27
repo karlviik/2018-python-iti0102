@@ -16,7 +16,7 @@ def get_nearby_stops(api_base, lat, lng):
     """
     response = requests.get(f"{api_base}/stops/{lat}/{lng}").json()
     if response != []:
-        response = sorted(response, key=(lambda x: int(x["distance"])))
+        response = sorted(response, key=(lambda x: int(str(x["distance"]).strip("m"))))
     return response
 
 
