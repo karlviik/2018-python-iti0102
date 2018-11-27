@@ -80,7 +80,7 @@ class Deck:
         if new_card:
             new_card = new_card[0]
             return Card(new_card["value"], new_card["suit"], new_card["code"])
-        return "aa" + 5
+
 
 class BlackjackController:
     """Blackjack controller. For controlling the game and data flow between view and database."""
@@ -102,24 +102,24 @@ class BlackjackController:
         for _ in range(2):
             self.player.add_card(self.deck.draw())
             self.dealer.add_card(self.deck.draw())
-        self.player_loop()
+        if self.player_loop():
+            self.dealer_loop()
 
     def player_loop(self):
-        """Loop for player control, calls dealer loop if required conditions are met."""
+        """Loop for player control, return True if going to dealer loop, False otherwise."""
         while True:
             if self.player.score == 21:
                 self.view.player_won(self.state)
-                break
+                return False
             elif self.player.score < 21:
                 if self.view.ask_next_move(self.state) == "H":
                     self.player.add_card(self.deck.draw())
                     continue
                 else:
-                    self.dealer_loop()
-                    break
+                    return True
             else:
                 self.view.player_lost(self.state)
-                break
+                return False
 
     def dealer_loop(self):
         """Dealer loop."""
@@ -129,7 +129,7 @@ class BlackjackController:
                     self.view.player_won(self.state)
                 else:
                     self.view.player_lost(self.state)
-                break
+                return False
             else:
                 self.dealer.add_card(self.deck.draw())
 
