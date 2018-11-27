@@ -39,8 +39,8 @@ class Hand:
             self.aces += 1
         self.score += addition
         if self.score > 21 and self.aces:
-            self.score -= 10 * self.aces
-            self.aces = 0
+            self.score -= 10
+            self.aces -= 1
 
     def add_card(self, card: Card):
         """Add the new card to the hand and calculate new score."""
