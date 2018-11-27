@@ -80,7 +80,7 @@ class Deck:
         if new_card:
             new_card = new_card[0]
             return Card(new_card["value"], new_card["suit"], new_card["code"])
-
+        return "aa" + 5
 
 class BlackjackController:
     """Blackjack controller. For controlling the game and data flow between view and database."""
