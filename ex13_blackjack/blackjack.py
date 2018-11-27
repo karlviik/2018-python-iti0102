@@ -65,7 +65,6 @@ class Deck:
         self.deck_id = request["deck_id"]
         self.remaining = request["remaining"]
         self.is_shuffled = request["shuffled"]
-        pass
 
     def shuffle(self):
         """Shuffle the deck."""
@@ -77,9 +76,11 @@ class Deck:
 
         :return: card instance.
         """
-        new_card = requests.get(f"{BASE}/{self.deck_id}/draw").json()
-        new_card = new_card["cards"][0]
-        return Card(new_card["value"], new_card["suit"], new_card["code"])
+        new_card = requests.get(f"{BASE}/{self.deck_id}/draw").json()["cards"]
+        if new_card:
+            new_card = new_card[0]
+            return Card(new_card["value"], new_card["suit"], new_card["code"])
+        return None
 
 
 class BlackjackController:
