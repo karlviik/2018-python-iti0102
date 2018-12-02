@@ -1,9 +1,11 @@
+"""Do exam."""
 import math
 
 
 def segment_number(first_number, last_number):
     """
     Return list with elements dividable by 5 but not dividable by 3 between (inclusive) two arguments.
+
     Return list of numbers where only numbers between first_number
     and last_number (both inclusive) which divide by 5 but do not divide by 3
     are used.
@@ -99,7 +101,7 @@ def string_between_string(word1, word2):
     :param word2: Word to reverse and insert. String.
     :return: New word as string.
     """
-    test = int(len(word1)/2)
+    test = int(len(word1) / 2)
     return word1[:test] + word2[::-1] + word1[test:]
 
 
@@ -200,50 +202,3 @@ def show_highest_grade(grade1, grade2):
     """
     print(f"Highest grade: {max(grade1, grade2)}")
     return None
-
-
-if __name__ == '__main__':
-
-    assert segment_number(1, 11) == [5, 10]
-    assert segment_number(1, 4) == []
-    assert segment_number(-20, 20) == [-20, -10, -5, 5, 10, 20]
-
-    assert add_or_subtract([1, 2, 0, 3]) == 0
-    assert add_or_subtract([0, 1, 2]) == -3
-    assert add_or_subtract([1, 2, 0, 2, 0, 4]) == 5
-
-    assert should_get_up_early(True, True, True) is True
-    assert should_get_up_early(False, True, False) is False
-
-    assert pear_fear(10, 3) == 5
-    assert pear_fear(10, 5) == 2
-    assert pear_fear(0, 3) == 0
-    assert pear_fear(17, 2) == 8
-    assert pear_fear(21, 10) == 3
-
-    assert string_between_string("ho", "lle") == "hello"
-    assert string_between_string("", "yas") == "say"
-    assert string_between_string("smrt", "a") == "smart"
-    assert string_between_string("w  d", " ro ") == "w  or  d"
-    assert string_between_string(".,", ",.") == "..,,"
-
-    assert get_padded_string("pizza", "bbq") == "bbqpizzabbq"
-    assert get_padded_string("dog", "cat") == "catdogcat"
-    assert get_padded_string("geoff", "giraffe") == "geoffgiraffegeoff"
-
-    assert remove_duplicate([1, 1, 2, 2, 3, 3]) == [1, 2, 3]
-    assert remove_duplicate([1, 2, 3]) == [1, 2, 3]
-    assert remove_duplicate([1, 1, 1, 1, 1, 2, 1, 1, 3]) == [1, 2, 1, 3]
-
-    assert who_called({}, "Nathan") == -1
-    assert who_called({"Alex": "James", "Jeff": "Bill", "James": "Alex", "Daniel": "Matt"}, "Alex") == "James"
-    assert who_called({"Alex": "James", "Jeff": "Bill", "James": "Alex", "Daniel": "Matt"}, "Olaf") == -1
-
-    assert remove_lowest_digit(123) == 23
-    assert remove_lowest_digit(100) == 10
-    assert remove_lowest_digit(7) == 0
-    assert remove_lowest_digit(171) == 71
-
-    assert show_highest_grade(10, 14) is None
-    # prints:
-    # Highest grade: 14
