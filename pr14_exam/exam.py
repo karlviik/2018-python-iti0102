@@ -135,6 +135,8 @@ def remove_duplicate(number_list):
     :param number_list: input list
     :return: new list
     """
+    if not len(number_list):
+        return []
     newlist = [number_list[0]]
     for i in number_list:
         if i != newlist[-1]:
