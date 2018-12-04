@@ -71,6 +71,17 @@ class MazeSolver:
                 return True
         return False
 
+    def endcheck(self, currentpos, goal, frontier, currentcost):
+        """Complexity tone down."""
+        if currentpos == goal:
+            if frontier.empty():
+                return True, frontier
+            temp = frontier.get()
+            frontier.put((temp[0], (temp[1][0], temp[1][1])))
+            if temp[0] > currentcost + 1:
+                return True, frontier
+        return False, frontier
+
     def get_shortest_path(self, start, goal):
         """
         Return shortest path and the total cost of it.
@@ -95,15 +106,6 @@ class MazeSolver:
             bx, by = b
             return abs(ax - bx) + abs(ay - by) - x
 
-        def endcheck():
-            if currentpos == goal:
-                if frontier.empty():
-                    return True
-                temp = frontier.get()
-                frontier.put((temp[0], (temp[1][0], temp[1][1])))
-                if temp[0] > currentcost + 1:
-                    return True
-
         frontier = PriorityQueue()
         frontier.put((0, start))
         came_from = {}
@@ -114,7 +116,9 @@ class MazeSolver:
         while not frontier.empty():
             currentcost, currentpos = frontier.get()
 
-            if endcheck():
+            flag, frontier = self.endcheck(currentpos, goal, frontier, currentcost)
+
+            if flag:
                 break
 
             for xdiff, ydiff in MOVES:
