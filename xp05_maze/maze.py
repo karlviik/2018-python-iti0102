@@ -106,7 +106,12 @@ class MazeSolver:
             currentcost, currentpos = frontier.get()
 
             if currentpos == goal:
-                break
+                temp = frontier.get()
+                frontier.put(temp)
+                xtemp, ytemp = temp[1]
+                print(temp)
+                if (xtemp, ytemp) in cost_so_far and cost_so_far[(xtemp, ytemp)] > cost_so_far[goal] + 1:
+                    break
 
             for xdiff, ydiff in MOVES:
                 x, y = currentpos
