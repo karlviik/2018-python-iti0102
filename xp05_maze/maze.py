@@ -5,7 +5,7 @@ MOVES = [(0, -1), (0, 1), (-1, 0), (1, 0)]
 
 
 class MazeSolver:
-    """Solve a given maze."""
+    """Solve a given maze maze."""
 
     def __init__(self, maze_str: str, configuration: dict = None):
         """
@@ -109,8 +109,8 @@ class MazeSolver:
                 temp = frontier.get()
                 frontier.put(temp)
                 xtemp, ytemp = temp[1]
-                print(temp)
-                if (xtemp, ytemp) in cost_so_far and cost_so_far[(xtemp, ytemp)] > cost_so_far[goal] + 1:
+                # print(temp)
+                if (xtemp, ytemp) in cost_so_far and cost_so_far[(xtemp, ytemp)] > cost_so_far[goal]:
                     break
 
             for xdiff, ydiff in MOVES:
@@ -121,10 +121,10 @@ class MazeSolver:
                 if self.isavalidcoord(xnew, ynew):
                     new_cost = cost_so_far[(x, y)] + self.maze[xnew][ynew]
                     if newpos not in cost_so_far or new_cost < cost_so_far[newpos]:
-                        print(newpos)
+                        # print(newpos)
                         cost_so_far[newpos] = new_cost
                         priority = new_cost + distance(goal, newpos, ydiff)
-                        print(priority)
+                        # print(priority)
                         frontier.put((priority, newpos))
                         came_from[newpos] = currentpos
         if goal not in cost_so_far.keys():
