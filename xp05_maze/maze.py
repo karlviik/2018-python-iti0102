@@ -1,7 +1,7 @@
 """Maze solver."""
 from queue import PriorityQueue
 
-MOVES = [(1, 0), (0, -1), (-1, 0), (0, 1)]
+MOVES = [(0, -1), (0, 1), (-1, 0), (1, 0)]
 
 
 class MazeSolver:
@@ -87,10 +87,13 @@ class MazeSolver:
         :param goal: Goal cell (y, x)
         :return: shortest_path, cost
         """
-        def distance(a, b):
+        def distance(a, b, ydiff):
+            x = 0
+            if ydiff == 1:
+                x = 0.000001
             ax, ay = a
             bx, by = b
-            return abs(ax - bx) + abs(ay - by)
+            return abs(ax - bx) + abs(ay - by) - x
 
         frontier = PriorityQueue()
         frontier.put((0, start))
@@ -113,8 +116,10 @@ class MazeSolver:
                 if self.isavalidcoord(xnew, ynew):
                     new_cost = cost_so_far[(x, y)] + self.maze[xnew][ynew]
                     if newpos not in cost_so_far or new_cost < cost_so_far[newpos]:
+                        print(newpos)
                         cost_so_far[newpos] = new_cost
-                        priority = new_cost + distance(goal, newpos)
+                        priority = new_cost + distance(goal, newpos, ydiff)
+                        print(priority)
                         frontier.put((priority, newpos))
                         came_from[newpos] = currentpos
         if goal not in cost_so_far.keys():
@@ -126,6 +131,7 @@ class MazeSolver:
                 path.append(came_from[pos])
                 pos = came_from[pos]
             path.reverse()
+            print(cost_so_far[goal])
             return path, cost_so_far[goal]
 
     def solve(self):
@@ -148,3 +154,18 @@ class MazeSolver:
                     mincost = cost
                     bestpath = path
         return bestpath, mincost
+
+
+if __name__ == '__main__':
+
+    maze = """
+#####
+#   |
+#   |
+| # #
+#####
+| # |
+#####
+    """
+    solver = MazeSolver(maze)
+    assert solver.get_shortest_path((3, 0), (1, 4))[1] == 4
