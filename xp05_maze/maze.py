@@ -95,6 +95,15 @@ class MazeSolver:
             bx, by = b
             return abs(ax - bx) + abs(ay - by) - x
 
+        def endcheck():
+            if currentpos == goal:
+                if frontier.empty():
+                    return True
+                temp = frontier.get()
+                frontier.put((temp[0], (temp[1][0], temp[1][1])))
+                if temp[0] > currentcost + 1:
+                    return True
+
         frontier = PriorityQueue()
         frontier.put((0, start))
         came_from = {}
@@ -105,13 +114,8 @@ class MazeSolver:
         while not frontier.empty():
             currentcost, currentpos = frontier.get()
 
-            if currentpos == goal:
-                if frontier.empty():
-                    break
-                temp = frontier.get()
-                frontier.put((temp[0], (temp[1][0], temp[1][1])))
-                if temp[0] > currentcost + 1:
-                    break
+            if endcheck():
+                break
 
             for xdiff, ydiff in MOVES:
                 x, y = currentpos
