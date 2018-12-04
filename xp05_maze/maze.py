@@ -106,11 +106,11 @@ class MazeSolver:
             currentcost, currentpos = frontier.get()
 
             if currentpos == goal:
+                if frontier.empty():
+                    break
                 temp = frontier.get()
-                frontier.put(temp)
-                xtemp, ytemp = temp[1]
-                # print(temp)
-                if (xtemp, ytemp) in cost_so_far and cost_so_far[(xtemp, ytemp)] + distance((xtemp, ytemp), goal, 0) > cost_so_far[goal] + 1:
+                frontier.put((temp[0], (temp[1][0], temp[1][1])))
+                if temp[0] > currentcost + 1:
                     break
 
             for xdiff, ydiff in MOVES:
@@ -123,7 +123,7 @@ class MazeSolver:
                     if newpos not in cost_so_far or new_cost < cost_so_far[newpos]:
                         # print(newpos)
                         cost_so_far[newpos] = new_cost
-                        priority = new_cost + distance(goal, newpos, ydiff)
+                        priority = new_cost + distance(goal, newpos, ydiff) + 1
                         # print(priority)
                         frontier.put((priority, newpos))
                         came_from[newpos] = currentpos
@@ -137,6 +137,7 @@ class MazeSolver:
                 pos = came_from[pos]
             path.reverse()
             print(cost_so_far[goal])
+            print(path)
             return path, cost_so_far[goal]
 
     def solve(self):
@@ -163,6 +164,30 @@ class MazeSolver:
 
 if __name__ == '__main__':
     maze = """
+########
+#      #
+#      #
+|      |
+########
+"""
+    solver = MazeSolver(maze)
+    assert solver.solve() == ([(3, 0), (3, 1), (3, 2), (3, 3), (3, 4), (3, 5), (3, 6), (3, 7)], 6)
+    print("!")
+    assert solver.get_shortest_path((3, 0), (3, 1)) == ([(3, 0), (3, 1)], 1)
+    print("1")
+    assert solver.get_shortest_path((3, 0), (2, 0)) == (None, -1)
+
+    maze = """
+#####
+#   #
+| # #
+# # |
+#####
+    """
+    solver = MazeSolver(maze)
+    assert solver.solve() == ([(2, 0), (2, 1), (1, 1), (1, 2), (1, 3), (2, 3), (3, 3), (3, 4)], 6)
+
+    maze = """
 #####
 #   |
 #   |
@@ -172,4 +197,9 @@ if __name__ == '__main__':
 #####
     """
     solver = MazeSolver(maze)
+    print(solver.solve())
+    assert solver.solve() == ([(3, 0), (3, 1), (2, 1), (2, 2), (2, 3), (2, 4)], 4)
+    print(solver.get_shortest_path((3, 0), (1, 4)))
+    # multiple paths possible, let's just assert the cost
     assert solver.get_shortest_path((3, 0), (1, 4))[1] == 4
+    assert solver.get_shortest_path((5, 0), (5, 4)) == (None, -1)
