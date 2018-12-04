@@ -157,7 +157,6 @@ class MazeSolver:
 
 
 if __name__ == '__main__':
-
     maze = """
 #####
 #   |
