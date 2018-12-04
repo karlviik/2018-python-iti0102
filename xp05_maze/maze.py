@@ -90,7 +90,7 @@ class MazeSolver:
         def distance(a, b, ydiff):
             x = 0
             if ydiff == 1:
-                x = 0.000001
+                x = 0
             ax, ay = a
             bx, by = b
             return abs(ax - bx) + abs(ay - by) - x
