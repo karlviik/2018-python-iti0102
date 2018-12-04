@@ -110,7 +110,7 @@ class MazeSolver:
                 frontier.put(temp)
                 xtemp, ytemp = temp[1]
                 # print(temp)
-                if (xtemp, ytemp) in cost_so_far and cost_so_far[(xtemp, ytemp)] + distance(xtemp, ytemp, 0) > cost_so_far[goal]:
+                if (xtemp, ytemp) in cost_so_far and cost_so_far[(xtemp, ytemp)] + distance((xtemp, ytemp), goal, 0) > cost_so_far[goal] + 1:
                     break
 
             for xdiff, ydiff in MOVES:
