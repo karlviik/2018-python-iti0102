@@ -188,8 +188,8 @@ class World:
             raise NoAvailablePokemonsInWorldException("Could not find any pokemons.")
         else:
             pokemon = random.choice(self.available_pokemons)
-            self.remove_available_pokemon(pokemon)
             person.add_pokemon(pokemon)
+            self.remove_available_pokemon(pokemon)
 
     def remove_available_pokemon(self, pokemon: Pokemon):
         """
@@ -197,7 +197,8 @@ class World:
 
         :param pokemon: Pokemon to be removed.
         """
-        self.available_pokemons.remove(pokemon)
+        if pokemon in self.available_pokemons:
+            self.available_pokemons.remove(pokemon)
 
     def remove_pokemon_from_world(self, pokemon: Pokemon):
         """
@@ -205,7 +206,10 @@ class World:
 
         :param pokemon: Pokemon to be removed.
         """
-        self.pokemons.remove(pokemon)
+        if pokemon in self.pokemons:
+            self.pokemons.remove(pokemon)
+        if pokemon in self.available_pokemons:
+            self.available_pokemons.remove(pokemon)
 
     def fight(self, person1: Person, person2: Person):
         """
@@ -217,13 +221,13 @@ class World:
         """
         poke1 = person1.pokemon
         poke2 = person2.pokemon
-        if person1.pokemon.get_power() > person2.pokemon.get_power():
+        if poke1.get_power() > poke2.get_power():
             winner = person1
-            self.remove_pokemon_from_world(person2.pokemon)
+            self.remove_pokemon_from_world(poke2)
             person2.remove_pokemon()
         else:
             winner = person2
-            self.remove_pokemon_from_world(person1.pokemon)
+            self.remove_pokemon_from_world(poke1)
             person1.remove_pokemon()
         return f"There was a battle between {poke1.name} and {poke2.name} and the winner was {winner.name}"
 
@@ -285,7 +289,7 @@ class World:
 class Main:
     if __name__ == '__main__':
         world = World("Poke land")
-        world.add_pokemons(10)
+        world.add_pokemons(2)
         print(len(world.pokemons))  # -> 128
         print(len(world.get_pokemons_by_type().keys()))  # -> 16
         ago = Person("Ago", 10)
