@@ -142,6 +142,7 @@ class World:
         self.name = name
         self.pokemons = []
         self.available_pokemons = []
+        self.people = []
 
     def add_pokemons(self, no_of_pokemons):
         """
@@ -184,6 +185,8 @@ class World:
 
         :param person: Person who goes to hike.
         """
+        if person not in self.people:
+            self.people.append(person)
         if len(self.available_pokemons) == 0:
             raise NoAvailablePokemonsInWorldException("Could not find any pokemons.")
         else:
@@ -210,6 +213,9 @@ class World:
             self.pokemons.remove(pokemon)
         if pokemon in self.available_pokemons:
             self.available_pokemons.remove(pokemon)
+        for person in self.people:
+            if pokemon == person.pokemon:
+                person.remove_pokemon()
 
     def fight(self, person1: Person, person2: Person):
         """
@@ -224,11 +230,9 @@ class World:
         if poke1.get_power() > poke2.get_power():
             winner = person1
             self.remove_pokemon_from_world(poke2)
-            person2.remove_pokemon()
         else:
             winner = person2
             self.remove_pokemon_from_world(poke1)
-            person1.remove_pokemon()
         return f"There was a battle between {poke1.name} and {poke2.name} and the winner was {winner.name}"
 
     def group_pokemons(self):
@@ -299,7 +303,5 @@ class Main:
         print(ago.pokemon.name)
         world.hike(peeter)
         print(peeter)
-        print(len(world.available_pokemons))  # -> 126
-        print(world.get_most_experienced_pokemon())  # -> [CHANSEY]
-        print(world.get_min_experience_pokemon())  # -> [CATERPIE, WEEDLE]
-        print(world.fight(ago, peeter))  # String that says who battled with who and who won.
+        peeter.remove_pokemon()
+        print(peeter)
