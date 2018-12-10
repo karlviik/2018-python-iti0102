@@ -1,14 +1,17 @@
+"""Simplified pokemon world."""
 import requests
 import random
 
 
 class CannotAddPokemonException(Exception):
     """Custom exception."""
+
     pass
 
 
 class NoAvailablePokemonsInWorldException(Exception):
     """Custom exception."""
+
     pass
 
 
@@ -151,9 +154,7 @@ class World:
         self.people = []
 
     def add_pokemons(self, no_of_pokemons):
-        """
-        Add Pokemons to world, GET data from the API.
-        """
+        """Add Pokemons to world, GET data from the API."""
         data = Data.get_all_pokemons_data("https://pokeapi.co/api/v2/pokemon/")
         for i in range(no_of_pokemons):
             url = data["results"][i]["url"]
@@ -283,9 +284,7 @@ class World:
         return finallist
 
     def get_most_experienced_pokemon(self):
-        """
-        Get the Pokemon(s) which has the maximum experience level.
-        """
+        """Get the Pokemon(s) which has the maximum experience level."""
         maxexp = 0
         maxpokes = []
         for pokemon in self.pokemons:
@@ -297,9 +296,7 @@ class World:
         return maxpokes
 
     def get_min_experience_pokemon(self):
-        """
-        Get the Pokemon(s) which has the minimum experience level.
-        """
+        """Get the Pokemon(s) which has the minimum experience level."""
         minexp = float("inf")
         minpokes = []
         for pokemon in self.pokemons:
@@ -309,19 +306,3 @@ class World:
             elif pokemon.experience == minexp:
                 minpokes.append(pokemon)
         return minpokes
-
-
-class Main:
-    if __name__ == '__main__':
-        world = World("Poke land")
-        world.add_pokemons(2)
-        print(len(world.pokemons))  # -> 128
-        print(len(world.get_pokemons_by_type().keys()))  # -> 16
-        ago = Person("Ago", 10)
-        peeter = Person("Peeter", 11)
-        print(len(world.available_pokemons))  # -> 128
-        world.hike(ago)
-        print(ago.pokemon.name)
-        world.hike(peeter)
-        print(peeter)
-        print(world.sort_by_type_experience())
