@@ -264,7 +264,20 @@ class World:
 
         :return: List of sorted Pokemons.
         """
-        pass
+        typelist = ["fire", "poison", "grass", "bug", "ground", "rock", "fire", "electric", "water", "ice", "flying", "fairy", "ghost", "normal", "fighting", "psychic", "steel"]
+        sortedlist = []
+        for _ in range(len(typelist)):
+            sortedlist.append([])
+        for pokemon in self.pokemons:
+            poketype = pokemon.types[0]
+            if poketype in typelist:
+                if poketype != "fire":
+                    sortedlist[typelist.index(poketype)].append(pokemon)
+                elif pokemon.experience < 100:
+                    sortedlist[0].append(pokemon)
+                else:
+                    sortedlist[6].append(pokemon)  # could do like typelist[1:].index("fire") + 1 or something prolly.
+        return sortedlist
 
     def get_most_experienced_pokemon(self):
         """
