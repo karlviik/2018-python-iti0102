@@ -279,7 +279,7 @@ class World:
                     sortedlist[6].append(pokemon)  # could do like typelist[1:].index("fire") + 1 or something prolly.
         finallist = []
         for i in range(len(sortedlist)):
-            finallist += sortedlist[i]
+            finallist += sorted(sortedlist[i], key=lambda x: x.experience, reverse=True)
         return finallist
 
     def get_most_experienced_pokemon(self):
