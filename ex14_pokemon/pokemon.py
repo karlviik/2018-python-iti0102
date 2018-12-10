@@ -147,7 +147,7 @@ class World:
         """
         Add Pokemons to world, GET data from the API.
         """
-        data = Data.get_all_pokemons_data("https://pokeapi.co/api/v2/pokemon")
+        data = Data.get_all_pokemons_data("https://pokeapi.co/api/v2/pokemon/")
         for i in range(no_of_pokemons):
             url = data["results"][i]["url"]
             pokedata = Data.get_additional_data(url)
