@@ -35,7 +35,10 @@ class Person:
         """
         if self.pokemon is None:
             if type(pokemon) is Pokemon:
-                self.pokemon = pokemon
+                if pokemon.owner is None or self:
+                    self.pokemon = pokemon
+                else:
+                    raise CannotAddPokemonException("Pokemon already has a person!")
             else:
                 raise CannotAddPokemonException("Must be instance of Pokemon!")
         else:
@@ -51,6 +54,7 @@ class Person:
 
     def remove_pokemon(self):
         """Remove Person's Pokemon."""
+        self.pokemon.owner = None
         self.pokemon = None
 
     def __repr__(self):
@@ -104,6 +108,7 @@ class Pokemon:
         self.attack = attack
         self.defence = defence
         self.types = types
+        self.owner = None
 
     def get_power(self):
         """
@@ -191,6 +196,7 @@ class World:
             raise NoAvailablePokemonsInWorldException("Could not find any pokemons.")
         else:
             pokemon = random.choice(self.available_pokemons)
+            pokemon.owner = person
             person.add_pokemon(pokemon)
             self.remove_available_pokemon(pokemon)
 
@@ -213,9 +219,8 @@ class World:
             self.pokemons.remove(pokemon)
         if pokemon in self.available_pokemons:
             self.available_pokemons.remove(pokemon)
-        for person in self.people:
-            if pokemon == person.pokemon:
-                person.remove_pokemon()
+        if pokemon.owner is not None:
+            pokemon.owner.remove_pokemon()
 
     def fight(self, person1: Person, person2: Person):
         """
