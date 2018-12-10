@@ -277,7 +277,10 @@ class World:
                     sortedlist[0].append(pokemon)
                 else:
                     sortedlist[6].append(pokemon)  # could do like typelist[1:].index("fire") + 1 or something prolly.
-        return sortedlist
+        finallist = []
+        for i in range(len(sortedlist)):
+            finallist += sortedlist[i]
+        return finallist
 
     def get_most_experienced_pokemon(self):
         """
@@ -321,5 +324,4 @@ class Main:
         print(ago.pokemon.name)
         world.hike(peeter)
         print(peeter)
-        peeter.remove_pokemon()
-        print(peeter)
+        print(world.sort_by_type_experience())
