@@ -33,17 +33,17 @@ class Person:
         :param pokemon: Pokemon to add.
         :return:
         """
-        if self.pokemon is None:
-            if type(pokemon) is Pokemon:
-                if pokemon.owner is None or self:
+        if type(pokemon) is Pokemon:
+            if self.pokemon is None:
+                if pokemon.owner is None:  # or self:
                     self.pokemon = pokemon
                     pokemon.owner = self
                 else:
                     raise CannotAddPokemonException("Pokemon already has a person!")
             else:
-                raise CannotAddPokemonException("Must be instance of Pokemon!")
+                raise CannotAddPokemonException("Person already has a pokemon!")
         else:
-            raise CannotAddPokemonException("Person already has a pokemon!")
+            raise CannotAddPokemonException("Must be instance of Pokemon!")
 
     def get_pokemon(self):
         """
@@ -197,7 +197,6 @@ class World:
             raise NoAvailablePokemonsInWorldException("Could not find any pokemons.")
         else:
             pokemon = random.choice(self.available_pokemons)
-            pokemon.owner = person
             person.add_pokemon(pokemon)
             self.remove_available_pokemon(pokemon)
 
