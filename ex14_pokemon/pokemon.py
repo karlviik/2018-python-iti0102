@@ -37,6 +37,7 @@ class Person:
             if type(pokemon) is Pokemon:
                 if pokemon.owner is None or self:
                     self.pokemon = pokemon
+                    pokemon.owner = self
                 else:
                     raise CannotAddPokemonException("Pokemon already has a person!")
             else:
