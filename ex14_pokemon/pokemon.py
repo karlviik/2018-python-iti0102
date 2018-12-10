@@ -1,4 +1,5 @@
 import requests
+import random
 
 
 class CannotAddPokemonException(Exception):
@@ -167,7 +168,16 @@ class World:
 
         :return: Dict of Pokemons, grouped by types.
         """
-
+        lists = [self.available_pokemons, self.pokemons]
+        type_grouping = {}
+        for pokemons in lists:
+            for pokemon in pokemons:
+                for type in pokemon.types:
+                    if type not in type_grouping.keys:
+                        type_grouping[type] = [pokemon]
+                    else:
+                        type_grouping[type].append(pokemon)
+        return type_grouping
 
     def hike(self, person: Person):
         """
@@ -175,7 +185,13 @@ class World:
 
         :param person: Person who goes to hike.
         """
-        pass
+        if len(self.available_pokemons) == 0:
+            raise NoAvailablePokemonsInWorldException("Could not find any pokemons.")
+        else:
+            pokemon = random.choice(self.available_pokemons)
+            self.remove_available_pokemon(pokemon)
+            self.pokemons.append(pokemon)
+            person.add_pokemon(pokemon)
 
     def remove_available_pokemon(self, pokemon: Pokemon):
         """
@@ -183,7 +199,7 @@ class World:
 
         :param pokemon: Pokemon to be removed.
         """
-        pass
+        self.available_pokemons.remove(pokemon)
 
     def remove_pokemon_from_world(self, pokemon: Pokemon):
         """
@@ -191,7 +207,7 @@ class World:
 
         :param pokemon: Pokemon to be removed.
         """
-        pass
+        self.pokemons.remove(pokemon)
 
     def fight(self, person1: Person, person2: Person):
         """
@@ -201,7 +217,15 @@ class World:
         :param person2:
         :return: Pokemon which wins.
         """
-        pass
+        if person1.pokemon.get_power() > person2.pokemon.get_power():
+            winner = person1
+            self.remove_pokemon_from_world(person2.pokemon)
+            person2.remove_pokemon()
+        else:
+            winner = person2
+            self.remove_pokemon_from_world(person1.pokemon)
+            person1.remove_pokemon()
+        return f"There was a battle between {person1.pokemon.name} and {person2.pokemon.name} and the winner was {winner.name}"
 
     def group_pokemons(self):
         """
@@ -209,7 +233,19 @@ class World:
 
         :return: Dictionary of grouped Pokemons.
         """
-        pass
+        lists = [self.available_pokemons, self.pokemons]
+        types = {"EARTH": ["poison", "grass", "bug", "ground", "rock"], "FIRE": ["fire", "electric"], "WATER": ["water", "ice"], "AIR": ["flying", "fairy", "ghost"], "OTHER": ["normal", "fighting", "psychic", "steel"]}
+        grouped = {}
+        for pokemons in lists:
+            for pokemon in pokemons:
+                for mastertype, minortypes in types.items():
+                    if pokemon.types[0] in minortypes:
+                        if mastertype in grouped.keys():
+                            grouped[mastertype].append(pokemon)
+                        else:
+                            grouped[mastertype] = [pokemon]
+                        continue
+        return grouped
 
     def sort_by_type_experience(self):
         """
@@ -217,18 +253,40 @@ class World:
 
         :return: List of sorted Pokemons.
         """
+        lists = [self.available_pokemons, self.pokemons]
         pass
 
     def get_most_experienced_pokemon(self):
         """
         Get the Pokemon(s) which has the maximum experience level.
         """
-        pass
+        lists = [self.available_pokemons, self.pokemons]
+        maxexp = 0
+        maxpokes = []
+        for pokemons in lists:
+            for pokemon in pokemons:
+                if pokemon.experience > maxexp:
+                    maxexp = pokemon.experience
+                    maxpokes = [pokemon]
+                elif pokemon.experience == maxexp:
+                    maxpokes.append(pokemon)
+        return maxpokes
 
     def get_min_experience_pokemon(self):
         """
         Get the Pokemon(s) which has the minimum experience level.
         """
+        lists = [self.available_pokemons, self.pokemons]
+        minexp = float("inf")
+        minpokes = []
+        for pokemons in lists:
+            for pokemon in pokemons:
+                if pokemon.experience < minexp:
+                    minexp = pokemon.experience
+                    minpokes = [pokemon]
+                elif pokemon.experience == minexp:
+                    minpokes.append(pokemon)
+        return minpokes
 
 
 class Main:
