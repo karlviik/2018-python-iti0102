@@ -5,6 +5,7 @@ class Person:
     """Represent a person."""
 
     def __init__(self, first_name, last_name, email, gender, age):
+        """Construct object with given info."""
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
@@ -15,6 +16,7 @@ class Person:
 def get_oldest_person(person_list):
     """
     Return the person with the highest age.
+
     If multiple people are of the given age, return the first in the list.
 
     :param person_list: input list
@@ -26,6 +28,7 @@ def get_oldest_person(person_list):
 def get_person_with_shortest_name(person_list):
     """
     Return the person with the shortest name (first name + last name).
+
     If there are multiple, return the first in the list.
 
     :param person_list:
@@ -83,18 +86,3 @@ def get_list_of_all_names_in_uppercase(person_list):
     :return: a list of uppercase first names
     """
     return list(map(lambda x: x.first_name.upper(), person_list))
-
-
-if __name__ == "__main__":
-    jack = Person("Jack", "O'Neill", "jack@sgone.com", "Male", 50)
-    sam = Person("Samantha", "Carter", "sam@sgone.com", "Female", 41)
-    hammond = Person("George", "Hammond", "george.hammond@usaf.gov", "Male", 65)
-    ryac = Person("Rya'c", "Teal'cson", "ryac@chulak.sg", "Male", 12)
-    cassie = Person("Cassandra", "Fraiser", "cassandra@gmail.sg", "Female", 16)
-
-    person_list = [jack, sam, hammond, ryac, cassie]
-
-    print(get_all_underage_people(person_list))  # [ryac, cassie]
-    print(filter_list_by_gender(person_list, "Female"))  # [sam, cassie]
-    print(get_people_with_government_emails(person_list))  # [hammond]
-    print(get_list_of_all_names_in_uppercase(person_list))  # ["JACK", "SAMANTHA", ...]
