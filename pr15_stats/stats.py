@@ -11,6 +11,9 @@ class Person:
         self.gender = gender
         self.age = age
 
+    def __repr__(self):
+        return self.first_name
+
 
 def get_oldest_person(person_list):
     """
