@@ -14,6 +14,9 @@ class Person:
     def __repr__(self):
         return self.first_name
 
+    def __str__(self):
+        return self.first_name
+
 
 def get_oldest_person(person_list):
     """
@@ -44,7 +47,7 @@ def get_all_underage_people(person_list):
     :param person_list: input list of Person objects
     :return: list of all underage people
     """
-    return filter(lambda x: x.age < 18, person_list)
+    return list(filter(lambda x: x.age < 18, person_list))
 
 
 def filter_list_by_gender(person_list, gender):
@@ -55,7 +58,7 @@ def filter_list_by_gender(person_list, gender):
     :param gender: string 'Male' or 'Female'
     :return: a list of persons with the given gender
     """
-    return filter(lambda x: x.gender == gender, person_list)
+    return list(filter(lambda x: x.gender == gender, person_list))
 
 
 def get_people_with_government_emails(person_list):
@@ -65,7 +68,7 @@ def get_people_with_government_emails(person_list):
     :param person_list: input list
     :return: a list of Person objects with an government email.
     """
-    return filter(lambda x: x.email[-4::] == ".gov", person_list)
+    return list(filter(lambda x: x.email[-4::] == ".gov", person_list))
 
 
 def sort_list_by_email_length(person_list):
@@ -97,10 +100,7 @@ if __name__ == "__main__":
 
     person_list = [jack, sam, hammond, ryac, cassie]
 
-    print(get_oldest_person(person_list))  # hammond
-    print(get_person_with_shortest_name(person_list))  # jack
     print(get_all_underage_people(person_list))  # [ryac, cassie]
     print(filter_list_by_gender(person_list, "Female"))  # [sam, cassie]
     print(get_people_with_government_emails(person_list))  # [hammond]
-    print(sort_list_by_email_length(person_list))  # [sam, jack, ryac, cassie, hammond]
     print(get_list_of_all_names_in_uppercase(person_list))  # ["JACK", "SAMANTHA", ...]
