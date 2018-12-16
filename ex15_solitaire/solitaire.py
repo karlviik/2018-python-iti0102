@@ -56,7 +56,9 @@ class Solitaire:
         King is only adjacent to Queen.
         """
         if type(card) == Card and abs(card.rank - self.waste[-1].rank) == 1:
-            return True
+            for i in self.tableau:
+                if len(i) and i[-1] is card:
+                    return True
         return False
 
     def move_card(self, col: int):
