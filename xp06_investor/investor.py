@@ -64,6 +64,7 @@ def dict_to_list(exchange_rates):
 
 
 def badbottomscanner(top, do_i_have_profit, pricelist, newprice):
+    """Do scanning of cases where profitable bottom has not yet been discovered."""
     if not newprice[1]:  # if I've gotten a bottom
         if newprice[0][1] < 0.9801 * top[1]:  # if the bottom is profitable
             do_i_have_profit = True  # change the flag to true
@@ -76,6 +77,7 @@ def badbottomscanner(top, do_i_have_profit, pricelist, newprice):
 
 
 def profbottomscanner(index, dateprices, pricelist, newprice):
+    """Do scanning of cases where profitable bottom has been discovered."""
     if newprice[1]:  # if dealing with a top
         if newprice[0][1] > pricelist[-1][1] / 0.99:  # if scanned top has potential to be profitable:
             index, newprices = scanner(index, dateprices)
