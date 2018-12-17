@@ -63,6 +63,18 @@ def dict_to_list(exchange_rates):
     return dateprices, maxprice, minprice
 
 
+def badbottomscanner(top, do_i_have_profit, pricelist, newprice):
+    if not newprice[1]:  # if I've gotten a bottom
+        if newprice[0][1] < 0.9801 * top[1]:  # if the bottom is profitable
+            do_i_have_profit = True  # change the flag to true
+            pricelist = [top, newprice[0]]  # and add the top and profitable bottom pair to pricelist
+        elif not pricelist:  # if the list is empty and I got an unprofitable bottom
+            pricelist = [newprice[0]]  # add it to the list alone
+        elif pricelist[0][1] < newprice[0][1]:  # if current solo unprofitable bottom is higher than scanned unprofitable bottom
+            pricelist = [newprice[0]]  # overwrite the other one (could have combined, but clarity)
+    return pricelist, do_i_have_profit
+
+
 def profbottomscanner(index, dateprices, pricelist, newprice):
     if newprice[1]:  # if dealing with a top
         if newprice[0][1] > pricelist[-1][1] / 0.99:  # if scanned top has potential to be profitable:
@@ -81,11 +93,11 @@ def profbottomscanner(index, dateprices, pricelist, newprice):
 
 def scanner(index, dateprices):
     """Scan through the price list and save profitable trade date pairs to list."""
-    #while True:
-    #    if dateprices[index][1]:
-    top = dateprices[index][0]
-    #        break
-    index += 1
+    while True:
+        if dateprices[index][1]:
+            top = dateprices[index][0]
+            break
+        index += 1
     do_i_have_profit = False
     pricelist = []
     index += 1
@@ -95,14 +107,7 @@ def scanner(index, dateprices):
         if newprice[1] and newprice[0][1] > top[1]:  # if I've gotten a top that is higher than current top
             return index, pricelist  # return the index and pricelist
         if not do_i_have_profit:  # if  yet do not have a profitable bottom
-            if not newprice[1]:  # if I've gotten a bottom
-                if newprice[0][1] < 0.9801 * top[1]:  # if the bottom is profitable
-                    do_i_have_profit = True  # change the flag to true
-                    pricelist = [top, newprice[0]]  # and add the top and profitable bottom pair to pricelist
-                elif not pricelist:  # if the list is empty and I got an unprofitable bottom
-                    pricelist = [newprice[0]]  # add it to the list alone
-                elif pricelist[0][1] < newprice[0][1]:  # if current solo unprofitable bottom is higher than scanned unprofitable bottom
-                    pricelist = [newprice[0]]  # overwrite the other one (could have combined, but clarity)
+            pricelist, do_i_have_profit = badbottomscanner(top, do_i_have_profit, pricelist, newprice)
         else:  # if I do have a pair in pricelist
             index, pricelist = profbottomscanner(index, dateprices, pricelist, newprice)
         index += 1
