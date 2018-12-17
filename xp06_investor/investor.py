@@ -27,11 +27,10 @@ def get_currency_rates_from_file(filename: str) -> tuple:
 
         # Loops over each line in file.
         for row in csv_reader:
-            # Prints the list of strings in that line.
             if row[0] == "":
                 currency = row[1]
             elif row[1] != "":
-                rates[row[0]] = row[1]
+                rates[row[0]] = float(row[1])
     print(rates)
     return currency, rates
 
