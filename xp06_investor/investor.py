@@ -87,7 +87,8 @@ def exchange_money(exchange_rates: dict) -> list:
                         if len(newprices) == 1:  # if returned newprice list only has a bottom:
                             if newprices[0][1] < pricelist[-1][1]:  # if that bottom is lower than current bottom
                                 pricelist[1] = newprices[0]  # replace it
-                        pricelist += newprices
+                        else:
+                            pricelist += newprices
                 else:  # if dealing with a bottom
                     if pricelist[-1][1] > newprice[0][1]:  # if scanned bottom is lower than last bottom saved
                         pricelist[-1] = newprice[0]  # replace it
@@ -134,8 +135,17 @@ def exchange_money(exchange_rates: dict) -> list:
             break
 
     dates = []
+    tomato = False
+    potato = 1000
     for sublist in endlist:
         dates.append(sublist[0])
+        if not tomato:
+            tomato = True
+            potato = potato * sublist[1] * 0.99
+        else:
+            tomato = False
+            potato = potato / sublist[1] * 0.99
+            print(potato)
     return dates
 
 
