@@ -81,11 +81,11 @@ def profbottomscanner(index, dateprices, pricelist, newprice):
 
 def scanner(index, dateprices):
     """Scan through the price list and save profitable trade date pairs to list."""
-    while True:
-        if dateprices[index][1]:
-            top = dateprices[index][0]
-            break
-        index += 1
+    #while True:
+    #    if dateprices[index][1]:
+    top = dateprices[index][0]
+    #        break
+    index += 1
     do_i_have_profit = False
     pricelist = []
     index += 1
