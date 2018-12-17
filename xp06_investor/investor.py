@@ -62,7 +62,11 @@ def dict_to_list(exchange_rates):
 
     return dateprices, maxprice, minprice
 
-def profbottomscanner(index
+
+def profbottomscanner(index):
+    pass
+
+
 def scanner(index, dateprices):
     """Scan through the price list and save profitable trade date pairs to list."""
     while True:
