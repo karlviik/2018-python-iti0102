@@ -1,6 +1,7 @@
 """Get a decent investing plan based on math and stuff."""
 import csv
 import datetime
+import pandas
 
 
 def get_currency_rates_from_file(filename: str) -> tuple:
