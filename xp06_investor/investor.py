@@ -62,7 +62,7 @@ def dict_to_list(exchange_rates):
 
     return dateprices, maxprice, minprice
 
-
+def profbottomscanner(index
 def scanner(index, dateprices):
     """Scan through the price list and save profitable trade date pairs to list."""
     while True:
@@ -76,10 +76,11 @@ def scanner(index, dateprices):
     indexlimit = len(dateprices)
     while True:
         newprice = dateprices[index]
+        if newprice[1] and newprice[0][1] > top[1]:  # if I've gotten a top that is higher than current top
+            return index, pricelist  # return the index and pricelist
         if not do_i_have_profit:  # if  yet do not have a profitable bottom
-            if newprice[1] and newprice[0][1] > top[1]:  # if I've gotten a top that is higher than current top
-                return index, pricelist  # return the index and pricelist
-            elif not newprice[1]:  # if I've gotten a bottom
+
+            if not newprice[1]:  # if I've gotten a bottom
                 if newprice[0][1] < 0.9801 * top[1]:  # if the bottom is profitable
                     do_i_have_profit = True  # change the flag to true
                     pricelist = [top, newprice[0]]  # and add the top and profitable bottom pair to pricelist
@@ -90,9 +91,7 @@ def scanner(index, dateprices):
                     pricelist = [newprice[0]]  # overwrite the other one (could have combined, but clarity)
         else:  # if I do have a pair in pricelist
             if newprice[1]:  # if dealing with a top
-                if newprice[0][1] > top[1]:  # if scanned top higher than current top:
-                    return index, pricelist
-                elif newprice[0][1] > pricelist[-1][1] / 0.99:  # if scanned top has potential to be profitable:
+                if newprice[0][1] > pricelist[-1][1] / 0.99:  # if scanned top has potential to be profitable:
                     index, newprices = scanner(index, dateprices)
                     index -= 1  # to counteract the +1 at the end of loop
                     if len(newprices) == 1:  # if returned newprice list only has a bottom:
