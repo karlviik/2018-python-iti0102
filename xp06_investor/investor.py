@@ -1,12 +1,12 @@
 """Get a decent investing plan based on math and stuff."""
 import csv
 import datetime
-import pandas
 
 
 def get_currency_rates_from_file(filename: str) -> tuple:
     """
     Read and return the currency and exchange rate history from file.
+
     See web page:
     https://www.eestipank.ee/valuutakursside-ajalugu
 
@@ -81,7 +81,7 @@ def exchange_money(exchange_rates: dict) -> list:
                 if newprice[1]:  # if dealing with a top
                     if newprice[0][1] > top[1]:  # if scanned top higher than current top:
                         return index, pricelist
-                    elif  newprice[0][1] > pricelist[-1][1] / 0.99:  # if scanned top has potential to be profitable:
+                    elif newprice[0][1] > pricelist[-1][1] / 0.99:  # if scanned top has potential to be profitable:
                         index, newprices = actualscanner(index)
                         index -= 1  # to counteract the +1 at the end of loop
                         if len(newprices) == 1:  # if returned newprice list only has a bottom:
@@ -139,5 +139,6 @@ def exchange_money(exchange_rates: dict) -> list:
     return dates
 
 
-a, b = get_currency_rates_from_file("currency-rates.csv")
-print(exchange_money(b))
+if __name__ == '__main__':
+    a, b = get_currency_rates_from_file("currency-rates.csv")
+    print(exchange_money(b))
