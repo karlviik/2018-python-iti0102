@@ -60,11 +60,6 @@ class SentenceGenerator:
             sentence = []
             if type(syntax) is str:
                 syntax = re.split(" ", syntax)
-                for i in range(len(syntax)):
-                    if not syntax[i]:
-                        syntax[i] = ""
-                print(syntax)
-                #syntax = syntax.split()
             for word in syntax:
                 symbol = ""
                 if word == " ":
