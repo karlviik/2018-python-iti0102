@@ -1,6 +1,5 @@
 """Do generating."""
 
-
 class Generator:
     """Generator for just one list of outputs."""
 
@@ -60,8 +59,7 @@ class SentenceGenerator:
             if type(syntax) is str:
                 syntax = syntax.split(" ")
             for word in syntax:
-                symbol = ""
-
+                symbol = ""  # could regex into one line
                 for letter in word[::-1]:
                     if letter in ['.', ',', '!', '?']:
                         symbol = letter + symbol
@@ -83,3 +81,17 @@ class SentenceGenerator:
         while True:
             x = " ".join(next(self.generator(syntax)))
             yield x
+
+
+if __name__ == '__main__':
+    rules = """
+    noun = koer | porgand | madis | kurk | tomat
+    target = koera | porgandit | madist | kurki | tomatit
+    verb = sööb | lööb | jagab | tahab | ei taha
+    adjective = ilus | kole | pahane | magus | sinu
+    targetadjective = ilusat | koledat | pahast | magusat | sinu
+    sentence = noun verb target .
+    beautifulsentence = adjective noun verb targetadjective target .
+    twosentences = sentence sentence
+    """
+    g = SentenceGenerator(rules)
