@@ -62,7 +62,7 @@ class SentenceGenerator:
                 syntax = re.split(" ", syntax)
                 for i in range(len(syntax)):
                     if not syntax[i]:
-                        syntax[i] = " "
+                        syntax[i] = ""
                 print(syntax)
                 #syntax = syntax.split()
             for word in syntax:
@@ -105,7 +105,7 @@ if __name__ == '__main__':
     twosentences = sentence sentence
     """
     g = SentenceGenerator(rules)
-    gg = g.sentence_generator(" noun  ")
+    gg = g.sentence_generator(" noun  n")
     print(next(gg))
     print(next(gg))
     print(next(gg))
