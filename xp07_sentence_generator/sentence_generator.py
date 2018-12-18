@@ -3,23 +3,24 @@ class Generator:
         self.name = name
         self.yields = yields
 
-    def add(self, yields):
+    def addsome(self, yields):
         self.yields += yields
 
     def gen(self):
-        if self.yields == [self.name]:
-            return "???"
-        else:
-            while True:
-                for thing in self.yields:
-                    yield thing
+        while True:
+            if self.yields == [self.name]:
+                yield "???"
+            else:
+                while True:
+                    for thing in self.yields:
+                        yield thing
 
 
 class SentenceGenerator:
 
     def __init__(self, rules_string):
         self.gennames = []
-        self.gens = []
+        self.tempgens = []
         for line in rules_string.splitlines():
             if not len(line.strip()):
                 continue
@@ -31,8 +32,15 @@ class SentenceGenerator:
             for yi in yields:
                 yi = yi.strip().split()
                 newyields.append(yi)
-            gen = Generator(line[0], newyields)
-            self.gennames.append(line[0][0])
+
+            if line[0][0] in self.gennames:
+                self.tempgens[self.gennames.index(line[0][0])].addsome(newyields)
+            else:
+                gen = Generator(line[0], newyields)
+                self.gennames.append(line[0][0])
+                self.tempgens.append(gen)
+        self.gens = []
+        for gen in self.tempgens:
             self.gens.append(gen.gen())
 
     def generator(self, syntax):
@@ -56,37 +64,21 @@ class SentenceGenerator:
         while True:
             x = " ".join(next(self.generator(syntax)))
             yield x
-        """
-        while True:
-            sentence = []
-            if type(syntax) is str:
-                syntax = syntax.split()
-            for word in syntax:
-                while True:
-                    if word not in self.gennames:
-                        sentence.append(word)
-                        break
-                    else:
-                        index = self.gennames.index(word)
-                        x = next(self.gens[index])
-                        sentence += next(self.sentence_generator(x))
-                        break
-            yield sentence"""
 
 
 if __name__ == '__main__':
     rules = """
-    noun = koer | porgand | madis | kurk | tomat
-    target = koera | porgandit | madist | kurki | tomatit
-    verb = sööb | lööb | jagab | tahab | ei taha
-    adjective = ilus | kole | pahane | magus | sinu
-    targetadjective = ilusat | koledat | pahast | magusat | sinu
-    sentence = noun verb target .
-    beautifulsentence = adjective noun verb targetadjective target .
-    twosentences = sentence sentence
+    a = a | 2 | 3
     """
-
     g = SentenceGenerator(rules)
-    gg = g.sentence_generator("beautifulsentence noun")
-    print("wat")
+    gg = g.sentence_generator("a")
+    print(next(gg))
+    print(next(gg))
+    print(next(gg))
+    print(next(gg))
+    print(next(gg))
+    print(next(gg))
+    print(next(gg))
+    print(next(gg))
+    print(next(gg))
     print(next(gg))
