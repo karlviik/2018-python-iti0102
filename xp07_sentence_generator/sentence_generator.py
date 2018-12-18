@@ -1,5 +1,6 @@
 """Do generating."""
 
+
 class Generator:
     """Generator for just one list of outputs."""
 
@@ -78,6 +79,9 @@ class SentenceGenerator:
 
     def sentence_generator(self, syntax):
         """Run the generator and make returned list into proper sentence."""
+        if not len(syntax.strip()):
+            while True:
+                yield syntax
         while True:
             x = " ".join(next(self.generator(syntax)))
             yield x
@@ -85,14 +89,25 @@ class SentenceGenerator:
 
 if __name__ == '__main__':
     rules = """
-    a = tere | tulemast
-    b = a
-    c = b. b?
+    noun = koer | porgand | madis | kurk | tomat
+    target = koera | porgandit | madist | kurki | tomatit
+    verb = sööb | lööb | jagab | tahab | ei taha
+    adjective = ilus | kole | pahane | magus | sinu
+    targetadjective = ilusat | koledat | pahast | magusat | sinu
+    sentence = noun verb target .
+    beautifulsentence = adjective noun verb targetadjective target .
+    twosentences = sentence sentence
     """
     g = SentenceGenerator(rules)
-    gg = g.sentence_generator("a  g")
+    gg = g.sentence_generator("   ")
     print(next(gg))
     print(next(gg))
+    print(next(gg))
+    print(next(gg))
+    print(next(gg))
+    print(next(gg))
+    print(next(gg))
+    gg = g.sentence_generator("beautifulsentence noun")
     print(next(gg))
     print(next(gg))
     print(next(gg))
