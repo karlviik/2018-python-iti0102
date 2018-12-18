@@ -1,5 +1,4 @@
 """Do generating."""
-import re
 
 
 class Generator:
@@ -60,9 +59,6 @@ class SentenceGenerator:
             sentence = []
             if type(syntax) is str:
                 syntax = syntax.split(" ")
-                #syntax = re.split(" ", syntax)
-                print(syntax)
-
             for word in syntax:
                 symbol = ""
                 if word == " ":
