@@ -1,4 +1,5 @@
 """Do generating."""
+import re
 
 
 class Generator:
@@ -58,9 +59,17 @@ class SentenceGenerator:
         while True:
             sentence = []
             if type(syntax) is str:
-                syntax = syntax.split()
+                syntax = re.split(" ", syntax)
+                for i in range(len(syntax)):
+                    if not syntax[i]:
+                        syntax[i] = " "
+                print(syntax)
+                #syntax = syntax.split()
             for word in syntax:
                 symbol = ""
+                if word == " ":
+                    sentence.append(word)
+                    continue
                 for letter in word[::-1]:
                     if letter in ['.', ',', '!', '?']:
                         symbol = letter + symbol
@@ -79,9 +88,6 @@ class SentenceGenerator:
 
     def sentence_generator(self, syntax):
         """Run the generator and make returned list into proper sentence."""
-        if not len(syntax.strip()):
-            while True:
-                yield syntax
         while True:
             x = " ".join(next(self.generator(syntax)))
             yield x
@@ -99,7 +105,7 @@ if __name__ == '__main__':
     twosentences = sentence sentence
     """
     g = SentenceGenerator(rules)
-    gg = g.sentence_generator("   ")
+    gg = g.sentence_generator(" noun  ")
     print(next(gg))
     print(next(gg))
     print(next(gg))
