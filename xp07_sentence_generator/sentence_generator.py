@@ -1,3 +1,5 @@
+"""Do generating."""
+
 class Generator:
     """Generator for just one list of outputs."""
 
