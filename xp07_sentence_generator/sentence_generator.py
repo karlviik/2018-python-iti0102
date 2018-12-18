@@ -86,29 +86,3 @@ class SentenceGenerator:
         while True:
             x = " ".join(next(self.generator(syntax)))
             yield x
-
-
-if __name__ == '__main__':
-    rules = """
-    noun = koer | porgand | madis | kurk | tomat
-    target = koera | porgandit | madist | kurki | tomatit
-    verb = sööb | lööb | jagab | tahab | ei taha
-    adjective = ilus | kole | pahane | magus | sinu
-    targetadjective = ilusat | koledat | pahast | magusat | sinu
-    sentence = noun verb target .
-    beautifulsentence = adjective noun verb targetadjective target .
-    twosentences = sentence sentence
-    """
-    g = SentenceGenerator(rules)
-    gg = g.sentence_generator(" noun  n")
-    print(next(gg))
-    print(next(gg))
-    print(next(gg))
-    print(next(gg))
-    print(next(gg))
-    print(next(gg))
-    print(next(gg))
-    gg = g.sentence_generator("beautifulsentence noun")
-    print(next(gg))
-    print(next(gg))
-    print(next(gg))
