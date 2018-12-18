@@ -61,9 +61,7 @@ class SentenceGenerator:
                 syntax = syntax.split(" ")
             for word in syntax:
                 symbol = ""
-                if word == " ":
-                    sentence.append(word)
-                    continue
+
                 for letter in word[::-1]:
                     if letter in ['.', ',', '!', '?']:
                         symbol = letter + symbol
