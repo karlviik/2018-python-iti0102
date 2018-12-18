@@ -46,10 +46,10 @@ class SentenceGenerator:
     def generator(self, syntax):
         while True:
             sentence = []
-            symbol = ""
             if type(syntax) is str:
                 syntax = syntax.split()
             for word in syntax:
+                symbol = ""
                 for letter in word[::-1]:
                     if letter in ['.', ',', '!', '?']:
                         symbol = letter + symbol
@@ -75,10 +75,11 @@ class SentenceGenerator:
 if __name__ == '__main__':
     rules = """
     a = tere | tulemast
-    b = a?
+    b = a
+    c = b. b?
     """
     g = SentenceGenerator(rules)
-    gg = g.sentence_generator("a b b")
+    gg = g.sentence_generator("c")
     print(next(gg))
     print(next(gg))
     print(next(gg))
