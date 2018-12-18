@@ -31,7 +31,6 @@ def get_currency_rates_from_file(filename: str) -> tuple:
                 currency = row[1]
             elif row[1] != "":
                 rates[row[0]] = float(row[1])
-    print(rates)
     return currency, rates
 
 
@@ -146,7 +145,6 @@ def exchange_money(exchange_rates: dict) -> list:
         index, lists = scanner(index, dateprices)
         if len(lists) > 1:
             endlist += lists
-        print(endlist)
         if index >= len(dateprices):
             break
 
