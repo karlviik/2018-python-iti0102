@@ -50,11 +50,13 @@ class SentenceGenerator:
             if type(syntax) is str:
                 syntax = syntax.split()
             for word in syntax:
-                if word[-1] in ['.', ',', '!', '?']:
-                    symbol = word[-1]
-                    word = word[:-1]
+                for letter in word[::-1]:
+                    if letter in ['.', ',', '!', '?']:
+                        symbol = letter + symbol
+                        word = word[:-1]
+                    else:
+                        break
                 if word not in self.gennames:
-                    print(word)
                     sentence.append(word + symbol)
                 else:
                     index = self.gennames.index(word)
@@ -76,5 +78,9 @@ if __name__ == '__main__':
     b = a?
     """
     g = SentenceGenerator(rules)
-    gg = g.sentence_generator("a b")
+    gg = g.sentence_generator("a b b")
+    print(next(gg))
+    print(next(gg))
+    print(next(gg))
+    print(next(gg))
     print(next(gg))
