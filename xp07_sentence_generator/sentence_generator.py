@@ -46,18 +46,22 @@ class SentenceGenerator:
     def generator(self, syntax):
         while True:
             sentence = []
+            symbol = ""
             if type(syntax) is str:
                 syntax = syntax.split()
             for word in syntax:
-                while True:
-                    if word not in self.gennames:
-                        sentence.append(word)
-                        break
-                    else:
-                        index = self.gennames.index(word)
-                        x = next(self.gens[index])
-                        sentence += next(self.generator(x))
-                        break
+                if word[-1] in ['.', ',', '!', '?']:
+                    symbol = word[-1]
+                    word = word[:-1]
+                if word not in self.gennames:
+                    print(word)
+                    sentence.append(word + symbol)
+                else:
+                    index = self.gennames.index(word)
+                    x = next(self.gens[index])
+                    list = next(self.generator(x))
+                    list[-1] = list[-1] + symbol
+                    sentence += list
             yield sentence
 
     def sentence_generator(self, syntax):
@@ -68,17 +72,9 @@ class SentenceGenerator:
 
 if __name__ == '__main__':
     rules = """
-    a = a | 2 | 3
+    a = tere | tulemast
+    b = a?
     """
     g = SentenceGenerator(rules)
-    gg = g.sentence_generator("a")
-    print(next(gg))
-    print(next(gg))
-    print(next(gg))
-    print(next(gg))
-    print(next(gg))
-    print(next(gg))
-    print(next(gg))
-    print(next(gg))
-    print(next(gg))
+    gg = g.sentence_generator("a b")
     print(next(gg))
