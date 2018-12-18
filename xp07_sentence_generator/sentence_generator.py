@@ -1,12 +1,17 @@
 class Generator:
+    """Generator for just one list of outputs."""
+
     def __init__(self, name, yields):
+        """Save name and yields."""
         self.name = name
         self.yields = yields
 
     def addsome(self, yields):
+        """Add yields to yields."""
         self.yields += yields
 
     def gen(self):
+        """Yield an output."""
         while True:
             if self.yields == [self.name]:
                 yield "???"
@@ -17,8 +22,10 @@ class Generator:
 
 
 class SentenceGenerator:
+    """Generator for whole more complex thingsies."""
 
     def __init__(self, rules_string):
+        """Construct smaller generators based on rules and save them and their names."""
         self.gennames = []
         self.tempgens = []
         for line in rules_string.splitlines():
@@ -44,6 +51,7 @@ class SentenceGenerator:
             self.gens.append(gen.gen())
 
     def generator(self, syntax):
+        """Actual generator loop."""
         while True:
             sentence = []
             if type(syntax) is str:
@@ -67,6 +75,7 @@ class SentenceGenerator:
             yield sentence
 
     def sentence_generator(self, syntax):
+        """Run the generator and make returned list into proper sentence."""
         while True:
             x = " ".join(next(self.generator(syntax)))
             yield x
@@ -79,7 +88,7 @@ if __name__ == '__main__':
     c = b. b?
     """
     g = SentenceGenerator(rules)
-    gg = g.sentence_generator("c")
+    gg = g.sentence_generator("a  g")
     print(next(gg))
     print(next(gg))
     print(next(gg))
