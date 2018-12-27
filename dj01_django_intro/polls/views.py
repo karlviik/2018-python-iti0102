@@ -11,6 +11,7 @@ from .models import Choice, Question
 
 class IndexView(generic.ListView):
     """View to show last 5 published questions at /polls/."""
+
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
@@ -23,6 +24,7 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
     """Show question and choices."""
+
     model = Question
     template_name = 'polls/detail.html'
 
@@ -33,6 +35,7 @@ class DetailView(generic.DetailView):
 
 class ResultsView(generic.DetailView):
     """Show results."""
+
     model = Question
     template_name = 'polls/results.html'
 
