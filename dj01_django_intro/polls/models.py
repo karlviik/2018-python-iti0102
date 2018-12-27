@@ -16,7 +16,7 @@ class Question(models.Model):
         return self.question_text
 
     def was_published_recently(self):
-        """Is true if question was published in the past within 1 day."""
+        """Return true if question was published in the past within 1 day."""
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
